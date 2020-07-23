@@ -1,0 +1,76 @@
+
+images.png
+size: 4096,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+enemyRed4
+  rotate: false
+  xy: 3215, 1964
+  size: 82, 84
+  orig: 82, 84
+  offset: 0, 0
+  index: -1
+laserBlue02
+  rotate: false
+  xy: 2560, 879
+  size: 13, 37
+  orig: 13, 37
+  offset: 0, 0
+  index: -1
+laserRed02
+  rotate: false
+  xy: 2693, 987
+  size: 13, 37
+  orig: 13, 37
+  offset: 0, 0
+  index: -1
+playerShip1_blue
+  rotate: false
+  xy: 3072, 1854
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+shield1
+  rotate: false
+  xy: 2560, 916
+  size: 133, 108
+  orig: 133, 108
+  offset: 0, 0
+  index: -1
+shield2
+  rotate: false
+  xy: 3072, 1929
+  size: 143, 119
+  orig: 143, 119
+  offset: 0, 0
+  index: -1
+tex_Water
+  rotate: false
+  xy: 2048, 1024
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+water2
+  rotate: false
+  xy: 2048, 512
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+water3
+  rotate: false
+  xy: 0, 0
+  size: 2048, 2048
+  orig: 2048, 2048
+  offset: 0, 0
+  index: -1
+water4
+  rotate: false
+  xy: 2048, 0
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
