@@ -1,5 +1,7 @@
 package myers.test;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -72,7 +74,7 @@ public class GameScreen implements Screen {
         enemyLaserTextureRegion = textureAtlas.findRegion("laserRed02");
 
         //set up game objects
-        playerShip = new PlayerShip(2,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
+        playerShip = new PlayerShip(36,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
         enemyShip = new EnemyShip(2,1,(float)WORLD_WIDTH/2,(float)WORLD_HEIGHT*3/4,10,10,0.3f,5,50,0.8f,enemyShipTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion);
 
         playerLaserList = new LinkedList<>();
@@ -85,6 +87,8 @@ public class GameScreen implements Screen {
     @Override
     public void render(float deltaTime) {
         batch.begin();
+
+        detectInput(deltaTime);
 
         playerShip.update(deltaTime);
         enemyShip.update(deltaTime);
@@ -109,12 +113,41 @@ public class GameScreen implements Screen {
         batch.end();
     }
 
+    private void detectInput(float deltaTime){
+        //keyboard
+
+        //strategy: determine maximum distance the ship can move in each direction, check each possible keystroke that
+        // matters, then move accordingly
+
+        // not locations limits, change in location limits
+        float leftLimit,rightLimit,upLimit,downLimit;
+        leftLimit = -playerShip.boundingBox.x;
+        downLimit = -playerShip.boundingBox.y;
+        rightLimit = WORLD_WIDTH - playerShip.boundingBox.x - playerShip.boundingBox.width;
+        upLimit = WORLD_HEIGHT/2 - playerShip.boundingBox.y - playerShip.boundingBox.height;
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && rightLimit > 0){
+            playerShip.translate(Math.min(playerShip.movementSpeed*deltaTime,rightLimit),0f);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && leftLimit < 0){
+            playerShip.translate(Math.max(-playerShip.movementSpeed*deltaTime,leftLimit),0f);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP) && upLimit > 0){
+            playerShip.translate(0f,Math.min(playerShip.movementSpeed*deltaTime,upLimit));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && downLimit < 0){
+            playerShip.translate(0f,Math.max(-playerShip.movementSpeed*deltaTime,downLimit));
+        }
+
+        //touch (also mouse)
+    }
+
     private void detectCollisions(){
         //for each player laser, check whether it intersects an enemy ship
         ListIterator<Laser> iterator = playerLaserList.listIterator();
         while(iterator.hasNext()){
             Laser laser = iterator.next();
-            if (enemyShip.intersects(laser.getBoundingBox())){
+            if (enemyShip.intersects(laser.boundingBox)){
                 //contact with enemy ship
                 enemyShip.hit(laser);
                 iterator.remove();
@@ -125,7 +158,7 @@ public class GameScreen implements Screen {
         iterator = enemyLaserList.listIterator();
         while(iterator.hasNext()){
             Laser laser = iterator.next();
-            if (playerShip.intersects(laser.getBoundingBox())){
+            if (playerShip.intersects(laser.boundingBox)){
                 //contact with enemy ship
                 playerShip.hit(laser);
                 iterator.remove();
@@ -159,8 +192,8 @@ public class GameScreen implements Screen {
         while(iterator.hasNext()){
             Laser laser = iterator.next();
             laser.draw(batch);
-            laser.yPosition += laser.movementSpeed * deltaTime;
-            if(laser.yPosition > WORLD_HEIGHT){
+            laser.boundingBox.y += laser.movementSpeed * deltaTime;
+            if(laser.boundingBox.y > WORLD_HEIGHT){
                 iterator.remove();
             }
         }
@@ -168,8 +201,8 @@ public class GameScreen implements Screen {
         while(iterator.hasNext()){
             Laser laser = iterator.next();
             laser.draw(batch);
-            laser.yPosition -= laser.movementSpeed * deltaTime;
-            if(laser.yPosition + laser.height < 0){
+            laser.boundingBox.y -= laser.movementSpeed * deltaTime;
+            if(laser.boundingBox.y + laser.boundingBox.height < 0){
                 iterator.remove();
             }
         }

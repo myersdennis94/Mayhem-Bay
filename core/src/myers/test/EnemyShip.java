@@ -10,8 +10,8 @@ public class EnemyShip extends Ship {
     @Override
     public Laser[] fireLasers() {
         Laser[] laser = new Laser[2];
-        laser[0] = new Laser(xPosition + width*0.22f,yPosition + height * 0.23f,laserWidth,laserHeight,laserMovementSpeed,laserTextureRegion);
-        laser[1] = new Laser(xPosition + width*0.72f,yPosition+height*0.23f,laserWidth,laserHeight,laserMovementSpeed,laserTextureRegion);
+        laser[0] = new Laser(boundingBox.x + boundingBox.width*0.22f,boundingBox.y + boundingBox.height * 0.23f,laserWidth,laserHeight,laserMovementSpeed,laserTextureRegion);
+        laser[1] = new Laser(boundingBox.x + boundingBox.width*0.72f,boundingBox.y + boundingBox.height*0.23f,laserWidth,laserHeight,laserMovementSpeed,laserTextureRegion);
 
         timeSinceLastShot = 0;
 

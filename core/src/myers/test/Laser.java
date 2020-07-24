@@ -7,8 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Laser {
 
     //position & dimensions
-    float xPosition, yPosition; //bottom center of the laser
-    float width, height;
+    Rectangle boundingBox;
 
     //Laser physical characteristics
     float movementSpeed; //world units per second
@@ -17,19 +16,12 @@ public class Laser {
     TextureRegion textureRegion;
 
     public Laser(float xPosition, float yPosition, float width, float height, float movementSpeed, TextureRegion textureRegion) {
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        this.width = width;
-        this.height = height;
+        this.boundingBox = new Rectangle(xPosition - width / 2,yPosition,width,height);
         this.movementSpeed = movementSpeed;
         this.textureRegion = textureRegion;
     }
 
     public void draw(Batch batch){
-        batch.draw(textureRegion,xPosition - width/2,yPosition,width,height);
-    }
-
-    public Rectangle getBoundingBox(){
-        return new Rectangle(xPosition,yPosition,width,height);
+        batch.draw(textureRegion,boundingBox.x - boundingBox.width/2,boundingBox.y,boundingBox.width,boundingBox.height);
     }
 }
