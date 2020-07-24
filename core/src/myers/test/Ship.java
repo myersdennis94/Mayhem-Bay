@@ -2,6 +2,7 @@ package myers.test;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Ship {
 
@@ -12,6 +13,7 @@ public abstract class Ship {
     //position & dimension
     float xPosition, yPosition; //lower-left corner
     float width, height;
+    Rectangle boundingBox;
 
     //laser information
     float laserWidth, laserHeight;
@@ -29,6 +31,7 @@ public abstract class Ship {
         this.yPosition = yCenter - height/2;
         this.width = width;
         this.height = height;
+        this.boundingBox = new Rectangle(xPosition,yPosition,width,height);
         this.laserWidth = laserWidth;
         this.laserHeight = laserHeight;
         this.laserMovementSpeed = laserMovementSpeed;
@@ -39,6 +42,7 @@ public abstract class Ship {
     }
 
     public void update(float deltaTime){
+        boundingBox.set(xPosition,yPosition,width,height);
         timeSinceLastShot += deltaTime;
     }
 
@@ -47,6 +51,16 @@ public abstract class Ship {
     }
 
     public abstract Laser[] fireLasers();
+
+    public boolean intersects(Rectangle otherRectangle){
+        return boundingBox.overlaps(otherRectangle);
+    }
+
+    public void hit(Laser laser){
+        if(shield > 0){
+            shield--;
+        }
+    }
 
     public void draw(Batch batch){
         batch.draw(shipTextureRegion, xPosition, yPosition, width, height);
