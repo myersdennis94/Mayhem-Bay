@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,6 +35,8 @@ public class GameScreen implements Screen {
 //    private int backgroundOffset;
     private float[] backgroundOffsets = {0,0,0,0};
     private float backgroundMaxScrollingSpeed;
+    private float timeBetweenRockSpawns = 1f;
+    private float rockSpawnTimer = 0;
 
     //world parameters
     private final int WORLD_WIDTH = 72;
@@ -44,7 +45,7 @@ public class GameScreen implements Screen {
     //game objects
     private PlayerShip playerShip;
     //zprivate EnemyShip enemyShip;
-    private RockObstacle rockObstacle;
+    private LinkedList<RockObstacle> rockObstacleList;
     private LinkedList<Laser> playerLaserList;
     private LinkedList<Laser> enemyLaserList;
 
@@ -77,8 +78,7 @@ public class GameScreen implements Screen {
         //set up game objects
         playerShip = new PlayerShip(36,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
         //zenemyShip = new EnemyShip(2,1,(float)WORLD_WIDTH/2,(float)WORLD_HEIGHT*3/4,10,10,0.3f,5,50,0.8f,enemyShipTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion);
-        rockObstacle = new RockObstacle(backgroundMaxScrollingSpeed/2, TestGame.random.nextFloat() * (WORLD_WIDTH - 10), WORLD_HEIGHT - 10, 10, 10, enemyShipTextureRegion);
-
+        rockObstacleList = new LinkedList<>();
         playerLaserList = new LinkedList<>();
         enemyLaserList = new LinkedList<>();
 
@@ -91,7 +91,6 @@ public class GameScreen implements Screen {
         batch.begin();
 
         detectInput(deltaTime);
-        moveObstacles(deltaTime);
 
         playerShip.update(deltaTime);
         //zenemyShip.update(deltaTime);
@@ -106,7 +105,13 @@ public class GameScreen implements Screen {
         playerShip.draw(batch);
 
         //obstacles
-        rockObstacle.draw(batch);
+        spawnRockObstacles(deltaTime);
+
+        for (RockObstacle rockObstacle : rockObstacleList) {
+            moveObstacle(rockObstacle, deltaTime);
+            rockObstacle.draw(batch);
+        }
+
 
         //lasers
         //zrenderLasers(deltaTime);
@@ -117,6 +122,14 @@ public class GameScreen implements Screen {
         //explosions
 
         batch.end();
+    }
+
+    private void spawnRockObstacles(float deltaTime) {
+        rockSpawnTimer += deltaTime;
+        if (rockSpawnTimer > timeBetweenRockSpawns) {
+            rockObstacleList.add(new RockObstacle(backgroundMaxScrollingSpeed / 2, TestGame.random.nextFloat() * (WORLD_WIDTH - 10), WORLD_HEIGHT - 10, 10, 10, enemyShipTextureRegion));
+            rockSpawnTimer -= timeBetweenRockSpawns;
+        }
     }
 
     private void detectInput(float deltaTime){
@@ -148,7 +161,7 @@ public class GameScreen implements Screen {
         //touch (also mouse)
     }
 
-    private void moveObstacles(float deltaTime) {
+    private void moveObstacle(RockObstacle rockObstacle, float deltaTime) {
         // not locations limits, change in location limits
         float upLimit,downLimit;
         downLimit = WORLD_HEIGHT;
