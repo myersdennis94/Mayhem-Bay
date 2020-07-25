@@ -42,8 +42,9 @@ public class GameScreen implements Screen {
     private final int WORLD_HEIGHT = 128;
 
     //game objects
-    private Ship playerShip;
-    private Ship enemyShip;
+    private PlayerShip playerShip;
+    private EnemyShip enemyShip;
+    private RockObstacle rockObstacle;
     private LinkedList<Laser> playerLaserList;
     private LinkedList<Laser> enemyLaserList;
 
@@ -76,6 +77,7 @@ public class GameScreen implements Screen {
         //set up game objects
         playerShip = new PlayerShip(36,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
         enemyShip = new EnemyShip(2,1,(float)WORLD_WIDTH/2,(float)WORLD_HEIGHT*3/4,10,10,0.3f,5,50,0.8f,enemyShipTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion);
+        rockObstacle = new RockObstacle(backgroundMaxScrollingSpeed/2, TestGame.random.nextFloat() * (WORLD_WIDTH - 10), WORLD_HEIGHT - 10, 10, 10, enemyShipTextureRegion);
 
         playerLaserList = new LinkedList<>();
         enemyLaserList = new LinkedList<>();
@@ -89,6 +91,7 @@ public class GameScreen implements Screen {
         batch.begin();
 
         detectInput(deltaTime);
+        moveObstacles(deltaTime);
 
         playerShip.update(deltaTime);
         enemyShip.update(deltaTime);
@@ -101,6 +104,9 @@ public class GameScreen implements Screen {
 
         //player ship
         playerShip.draw(batch);
+
+        //obstacles
+        rockObstacle.draw(batch);
 
         //lasers
         renderLasers(deltaTime);
@@ -124,7 +130,7 @@ public class GameScreen implements Screen {
         leftLimit = -playerShip.boundingBox.x;
         downLimit = -playerShip.boundingBox.y;
         rightLimit = WORLD_WIDTH - playerShip.boundingBox.x - playerShip.boundingBox.width;
-        upLimit = WORLD_HEIGHT/2 - playerShip.boundingBox.y - playerShip.boundingBox.height;
+        upLimit = WORLD_HEIGHT - playerShip.boundingBox.y - playerShip.boundingBox.height;
 
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && rightLimit > 0){
             playerShip.translate(Math.min(playerShip.movementSpeed*deltaTime,rightLimit),0f);
@@ -140,6 +146,18 @@ public class GameScreen implements Screen {
         }
 
         //touch (also mouse)
+    }
+
+    private void moveObstacles(float deltaTime) {
+        // not locations limits, change in location limits
+        float upLimit,downLimit;
+        downLimit = WORLD_HEIGHT;
+        upLimit = 0;
+
+        float xMove = 0;
+        float yMove = rockObstacle.directionVector.y * rockObstacle.movementSpeed * deltaTime;
+
+        rockObstacle.translate(xMove, yMove);
     }
 
     private void detectCollisions(){
