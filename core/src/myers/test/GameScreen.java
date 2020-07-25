@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
 
     //game objects
     private PlayerShip playerShip;
-    private EnemyShip enemyShip;
+    //zprivate EnemyShip enemyShip;
     private RockObstacle rockObstacle;
     private LinkedList<Laser> playerLaserList;
     private LinkedList<Laser> enemyLaserList;
@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
 
         //set up game objects
         playerShip = new PlayerShip(36,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
-        enemyShip = new EnemyShip(2,1,(float)WORLD_WIDTH/2,(float)WORLD_HEIGHT*3/4,10,10,0.3f,5,50,0.8f,enemyShipTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion);
+        //zenemyShip = new EnemyShip(2,1,(float)WORLD_WIDTH/2,(float)WORLD_HEIGHT*3/4,10,10,0.3f,5,50,0.8f,enemyShipTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion);
         rockObstacle = new RockObstacle(backgroundMaxScrollingSpeed/2, TestGame.random.nextFloat() * (WORLD_WIDTH - 10), WORLD_HEIGHT - 10, 10, 10, enemyShipTextureRegion);
 
         playerLaserList = new LinkedList<>();
@@ -94,13 +94,13 @@ public class GameScreen implements Screen {
         moveObstacles(deltaTime);
 
         playerShip.update(deltaTime);
-        enemyShip.update(deltaTime);
+        //zenemyShip.update(deltaTime);
 
         //scrolling background
         renderBackground(deltaTime);
 
         //enemy ships
-        enemyShip.draw(batch);
+        //zenemyShip.draw(batch);
 
         //player ship
         playerShip.draw(batch);
@@ -109,7 +109,7 @@ public class GameScreen implements Screen {
         rockObstacle.draw(batch);
 
         //lasers
-        renderLasers(deltaTime);
+        //zrenderLasers(deltaTime);
 
         //detect collections between lasers and ships
         detectCollisions();
@@ -161,7 +161,7 @@ public class GameScreen implements Screen {
     }
 
     private void detectCollisions(){
-        //for each player laser, check whether it intersects an enemy ship
+        /*z//for each player laser, check whether it intersects an enemy ship
         ListIterator<Laser> iterator = playerLaserList.listIterator();
         while(iterator.hasNext()){
             Laser laser = iterator.next();
@@ -181,14 +181,14 @@ public class GameScreen implements Screen {
                 playerShip.hit(laser);
                 iterator.remove();
             }
-        }
+        }*/
     }
 
     private void renderExplosions(){
 
     }
 
-    private void renderLasers(float deltaTime){
+    /*zprivate void renderLasers(float deltaTime){
         //create new lasers
         //player lasers
         if(playerShip.canFireLaser()){
@@ -224,7 +224,7 @@ public class GameScreen implements Screen {
                 iterator.remove();
             }
         }
-    }
+    }*/
 
     private void renderBackground(float deltaTime){
 
