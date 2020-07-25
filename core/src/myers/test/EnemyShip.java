@@ -3,8 +3,8 @@ package myers.test;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class EnemyShip extends Ship {
-    public EnemyShip(float movementSpeed, int shield, float xCenter, float yCenter, float width, float height, float laserWidth, float laserHeight, float laserMovementSpeed, float timeBetweenShots, TextureRegion shipTextureRegion, TextureRegion shieldTextureRegion, TextureRegion laserTextureRegion) {
-        super(movementSpeed, shield, xCenter, yCenter, width, height, laserWidth, laserHeight, laserMovementSpeed, timeBetweenShots, shipTextureRegion, shieldTextureRegion, laserTextureRegion);
+    public EnemyShip(float movementSpeed, float knockbackAmount, int shield, float xCenter, float yCenter, float width, float height, float laserWidth, float laserHeight, float laserMovementSpeed, float timeBetweenShots, TextureRegion shipTextureRegion, TextureRegion shieldTextureRegion, TextureRegion laserTextureRegion) {
+        super(movementSpeed, knockbackAmount, shield, xCenter, yCenter, width, height, laserWidth, laserHeight, laserMovementSpeed, timeBetweenShots, shipTextureRegion, shieldTextureRegion, laserTextureRegion);
     }
 
     @Override

@@ -13,6 +13,7 @@ public abstract class Obstacle {
 
     //position & dimension
     Rectangle boundingBox;
+    Rectangle knockbackBox;
 
     //graphics
     TextureRegion obstacleTextureRegion;
@@ -21,6 +22,8 @@ public abstract class Obstacle {
         this.movementSpeed = movementSpeed;
         this.directionVector = new Vector2(0, -1);
         this.boundingBox = new Rectangle(xCenter - width/2,yCenter - height/2,width,height);
+        // needed to differentiate between bottom and rest of obstacle - unnecessary if player movement redone with velocity
+        this.knockbackBox = new Rectangle(xCenter - width/8, (yCenter - height/2)-0.1f, width/4, 0.1f);
         this.obstacleTextureRegion = obstacleTextureRegion;
     }
 
@@ -30,6 +33,7 @@ public abstract class Obstacle {
 
     public void translate(float xChange, float yChange){
         boundingBox.setPosition(boundingBox.x+xChange,boundingBox.y+yChange);
+        knockbackBox.setPosition(knockbackBox.x+xChange, knockbackBox.y+yChange);
     }
 
     public void draw(Batch batch){

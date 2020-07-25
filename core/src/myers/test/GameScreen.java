@@ -32,7 +32,6 @@ public class GameScreen implements Screen {
         enemyLaserTextureRegion;
 
     //timing
-//    private int backgroundOffset;
     private float[] backgroundOffsets = {0,0,0,0};
     private float backgroundMaxScrollingSpeed;
     private float timeBetweenRockSpawns = 1f;
@@ -55,9 +54,6 @@ public class GameScreen implements Screen {
 
         //set up texture atlas
         textureAtlas = new TextureAtlas("images.atlas");
-
-//        background = new Texture("tex_Water.jpg");
-//        backgroundOffset = 0;
         backgrounds = new TextureRegion[4];
         backgrounds[0] = textureAtlas.findRegion("tex_Water");
         backgrounds[1] = textureAtlas.findRegion("water2");
@@ -76,7 +72,7 @@ public class GameScreen implements Screen {
         enemyLaserTextureRegion = textureAtlas.findRegion("laserRed02");
 
         //set up game objects
-        playerShip = new PlayerShip(36,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
+        playerShip = new PlayerShip(36, 5,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
         //zenemyShip = new EnemyShip(2,1,(float)WORLD_WIDTH/2,(float)WORLD_HEIGHT*3/4,10,10,0.3f,5,50,0.8f,enemyShipTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion);
         rockObstacleList = new LinkedList<>();
         playerLaserList = new LinkedList<>();
@@ -117,7 +113,7 @@ public class GameScreen implements Screen {
         //zrenderLasers(deltaTime);
 
         //detect collections between lasers and ships
-        detectCollisions();
+        detectCollisions(deltaTime);
 
         //explosions
 
@@ -127,7 +123,7 @@ public class GameScreen implements Screen {
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
         if (rockSpawnTimer > timeBetweenRockSpawns) {
-            rockObstacleList.add(new RockObstacle(backgroundMaxScrollingSpeed / 2, TestGame.random.nextFloat() * (WORLD_WIDTH - 10), WORLD_HEIGHT - 10, 10, 10, enemyShipTextureRegion));
+            rockObstacleList.add(new RockObstacle(backgroundMaxScrollingSpeed / 2, TestGame.random.nextFloat() * (WORLD_WIDTH - 4), WORLD_HEIGHT, 8, 8, enemyShipTextureRegion));
             rockSpawnTimer -= timeBetweenRockSpawns;
         }
     }
@@ -173,7 +169,16 @@ public class GameScreen implements Screen {
         rockObstacle.translate(xMove, yMove);
     }
 
-    private void detectCollisions(){
+    private void detectCollisions(float deltaTime){
+        for (RockObstacle rockObstacle : rockObstacleList) {
+            if (playerShip.intersects(rockObstacle.knockbackBox)) {
+                playerShip.knockback();
+            }
+            if (playerShip.intersects(rockObstacle.boundingBox)) {
+                // unnecessary if player movement redone with velocity
+            }
+        }
+
         /*z//for each player laser, check whether it intersects an enemy ship
         ListIterator<Laser> iterator = playerLaserList.listIterator();
         while(iterator.hasNext()){
