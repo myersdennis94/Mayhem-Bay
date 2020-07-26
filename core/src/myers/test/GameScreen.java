@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,7 +31,8 @@ public class GameScreen implements Screen {
 
     private TextureRegion playerShipTextureRegion, playerShieldTextureRegion,
         enemyShipTextureRegion, enemyShieldTextureRegion, playerLaserTextureRegion,
-        enemyLaserTextureRegion;
+        enemyLaserTextureRegion, rockObstacleTextureRegion;
+    private Sprite playerShipSprite;
 
     //timing
     private float[] backgroundOffsets = {0,0,0,0};
@@ -67,11 +69,13 @@ public class GameScreen implements Screen {
         //initialize texture regions
         playerShipTextureRegion = textureAtlas.findRegion("tugboat");
         enemyShipTextureRegion = textureAtlas.findRegion("speedboat");
-        playerShieldTextureRegion = textureAtlas.findRegion("shield1");
-        enemyShieldTextureRegion = textureAtlas.findRegion("shield2");
-        enemyShieldTextureRegion.flip(false,true);
+        //playerShieldTextureRegion = textureAtlas.findRegion("shield1");
+        //enemyShieldTextureRegion = textureAtlas.findRegion("shield2");
+        //enemyShieldTextureRegion.flip(false,true);
         playerLaserTextureRegion = textureAtlas.findRegion("laserBlue02");
         enemyLaserTextureRegion = textureAtlas.findRegion("laserRed02");
+        rockObstacleTextureRegion = textureAtlas.findRegion("rock");
+        playerShipSprite = new Sprite(textureAtlas.findRegion("tugboat"));
 
         //set up game objects
         playerShip = new PlayerShip(36, 5,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
@@ -87,6 +91,8 @@ public class GameScreen implements Screen {
     @Override
     public void render(float deltaTime) {
         batch.begin();
+
+        shipCurrent(deltaTime);
 
         detectInput(deltaTime);
 
@@ -122,10 +128,14 @@ public class GameScreen implements Screen {
         batch.end();
     }
 
+    private void shipCurrent(float deltaTime){
+        playerShip.translate(0,-15f*deltaTime);
+    }
+
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
         if (rockSpawnTimer > timeBetweenRockSpawns) {
-            rockObstacleList.add(new RockObstacle(backgroundMaxScrollingSpeed / 2, TestGame.random.nextFloat() * (WORLD_WIDTH - 4), WORLD_HEIGHT, 8, 8, enemyShipTextureRegion));
+            rockObstacleList.add(new RockObstacle(backgroundMaxScrollingSpeed / 2, TestGame.random.nextFloat() * (WORLD_WIDTH - 4), WORLD_HEIGHT, 8, 8, rockObstacleTextureRegion));
             rockSpawnTimer -= timeBetweenRockSpawns;
         }
     }
