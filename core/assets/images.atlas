@@ -1,96 +1,75 @@
 
 images.png
-size: 4096,2048
+size: 4096,4096
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-enemyRed4
-  rotate: false
-  xy: 3281, 1964
-  size: 82, 84
-  orig: 82, 84
-  offset: 0, 0
-  index: -1
 laserBlue02
   rotate: false
-  xy: 3072, 1779
+  xy: 516, 543
   size: 13, 37
   orig: 13, 37
   offset: 0, 0
   index: -1
 laserRed02
   rotate: false
-  xy: 3138, 1892
+  xy: 1028, 1454
   size: 13, 37
   orig: 13, 37
   offset: 0, 0
   index: -1
-playerShip1_blue
+rock
   rotate: false
-  xy: 2693, 949
-  size: 99, 75
-  orig: 99, 75
-  offset: 0, 0
-  index: -1
-shield1
-  rotate: false
-  xy: 2560, 916
-  size: 133, 108
-  orig: 133, 108
-  offset: 0, 0
-  index: -1
-shield2
-  rotate: false
-  xy: 3072, 1929
-  size: 143, 119
-  orig: 143, 119
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 speedboat
   rotate: false
-  xy: 2560, 803
+  xy: 2566, 3543
   size: 66, 113
   orig: 66, 113
   offset: 0, 0
   index: -1
 submarine
   rotate: false
-  xy: 3072, 1816
+  xy: 1028, 1493
   size: 66, 113
   orig: 66, 113
   offset: 0, 0
   index: -1
 tex_Water
   rotate: false
-  xy: 2048, 1024
+  xy: 2, 582
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
   index: -1
 tugboat
   rotate: false
-  xy: 3215, 1935
+  xy: 2052, 3029
   size: 66, 113
   orig: 66, 113
   offset: 0, 0
   index: -1
 water2
   rotate: false
-  xy: 2048, 512
+  xy: 2052, 3144
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water3
   rotate: false
-  xy: 0, 0
+  xy: 2, 1608
   size: 2048, 2048
   orig: 2048, 2048
   offset: 0, 0
   index: -1
 water4
   rotate: false
-  xy: 2048, 0
+  xy: 2, 68
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
