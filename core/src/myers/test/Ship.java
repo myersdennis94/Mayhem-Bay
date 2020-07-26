@@ -62,8 +62,8 @@ public abstract class Ship {
 
     public void draw(Batch batch){
         batch.draw(shipTextureRegion, boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
-        if(shield > 0){
+        /*if(shield > 0){
             batch.draw(shieldTextureRegion, boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
-        }
+        }*/
     }
 }
