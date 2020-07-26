@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
         backgroundMaxScrollingSpeed = (float)WORLD_HEIGHT / 4;
 
         //initialize texture regions
-        playerShipTextureRegion = textureAtlas.findRegion("tugboat");
+        //playerShipTextureRegion = textureAtlas.findRegion("tugboat");
         enemyShipTextureRegion = textureAtlas.findRegion("speedboat");
         //playerShieldTextureRegion = textureAtlas.findRegion("shield1");
         //enemyShieldTextureRegion = textureAtlas.findRegion("shield2");
@@ -78,7 +78,7 @@ public class GameScreen implements Screen {
         playerShipSprite = new Sprite(textureAtlas.findRegion("tugboat"));
 
         //set up game objects
-        playerShip = new PlayerShip(36, 5,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipTextureRegion,playerShieldTextureRegion,playerLaserTextureRegion);
+        playerShip = new PlayerShip(36, 5,3, (float)WORLD_WIDTH/2, (float)WORLD_HEIGHT/4,10,10,0.4f,4,45,0.5f,playerShipSprite,playerShieldTextureRegion,playerLaserTextureRegion);
         //zenemyShip = new EnemyShip(2,1,(float)WORLD_WIDTH/2,(float)WORLD_HEIGHT*3/4,10,10,0.3f,5,50,0.8f,enemyShipTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion);
         rockObstacleList = new LinkedList<>();
         playerLaserList = new LinkedList<>();

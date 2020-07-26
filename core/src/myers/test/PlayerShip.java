@@ -1,12 +1,13 @@
 package myers.test;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class PlayerShip extends Ship {
 
 
-    public PlayerShip(float movementSpeed, float knockbackAmount, int shield, float xCenter, float yCenter, float width, float height, float laserWidth, float laserHeight, float laserMovementSpeed, float timeBetweenShots, TextureRegion shipTextureRegion, TextureRegion shieldTextureRegion, TextureRegion laserTextureRegion) {
-        super(movementSpeed, knockbackAmount, shield, xCenter, yCenter, width, height, laserWidth, laserHeight, laserMovementSpeed, timeBetweenShots, shipTextureRegion, shieldTextureRegion, laserTextureRegion);
+    public PlayerShip(float movementSpeed, float knockbackAmount, int shield, float xCenter, float yCenter, float width, float height, float laserWidth, float laserHeight, float laserMovementSpeed, float timeBetweenShots, Sprite shipTextureSprite, TextureRegion shieldTextureRegion, TextureRegion laserTextureRegion) {
+        super(movementSpeed, knockbackAmount, shield, xCenter, yCenter, width, height, laserWidth, laserHeight, laserMovementSpeed, timeBetweenShots, shipTextureSprite, shieldTextureRegion, laserTextureRegion);
     }
 
     @Override
