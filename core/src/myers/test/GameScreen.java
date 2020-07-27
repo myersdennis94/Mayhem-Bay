@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -21,6 +22,9 @@ public class GameScreen implements Screen {
     //screen
     private Camera camera;
     private Viewport viewport;
+
+    //box2d World - physics
+    private World world;
 
     //graphics
     private SpriteBatch batch;
@@ -55,6 +59,8 @@ public class GameScreen implements Screen {
     GameScreen(){
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH,WORLD_HEIGHT,camera);
+
+        world = new World(new Vector2(0, 0), true);
 
         //set up texture atlas
         textureAtlas = new TextureAtlas("images.atlas");
@@ -126,6 +132,10 @@ public class GameScreen implements Screen {
         //explosions
 
         batch.end();
+    }
+
+    private void update(float deltaTime) {
+        world.step(deltaTime, 6, 2);
     }
 
     private void shipCurrent(float deltaTime){
