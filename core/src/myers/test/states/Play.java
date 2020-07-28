@@ -26,6 +26,8 @@ public class Play extends GameState{
     private float rockSpawnTimer = 0;
     private float timeBetweenRockSpawns = 1f;
 
+    private final float FRICTION_COEF = 0.2f;
+
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -76,7 +78,9 @@ public class Play extends GameState{
 
         handleInput();
 
-        spawnRockObstacles(deltaTime);
+        applyFriction(deltaTime);
+
+        //spawnRockObstacles(deltaTime);
     }
 
     @Override
@@ -91,6 +95,28 @@ public class Play extends GameState{
     @Override
     public void dispose() {
 
+    }
+
+    private void applyFriction(float deltaTime){
+        Body body = playerShip.getBody();
+        if(body.getAngularVelocity() != 0f){
+            float change;
+            if(body.getAngularVelocity() > 0f){
+                change = FRICTION_COEF * deltaTime;
+                if(body.getAngularVelocity() - change < 0f){
+                    body.setAngularVelocity(0f);
+                }else{
+                    body.setAngularVelocity(body.getAngularVelocity()-change);
+                }
+            }else{
+                change = FRICTION_COEF * deltaTime;
+                if(body.getAngularVelocity() + change > 0f){
+                    body.setAngularVelocity(0f);
+                }else{
+                    body.setAngularVelocity(body.getAngularVelocity()+change);
+                }
+            }
+        }
     }
 
     private void createPlayer() {
