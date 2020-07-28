@@ -78,7 +78,9 @@ public class Play extends GameState{
 
         handleInput();
 
-        applyFriction(deltaTime);
+        applyRotationalFriction(deltaTime);
+
+        applyDirectionalFriction(deltaTime);
 
         //spawnRockObstacles(deltaTime);
     }
@@ -97,23 +99,59 @@ public class Play extends GameState{
 
     }
 
-    private void applyFriction(float deltaTime){
+    private void applyRotationalFriction(float deltaTime){
         Body body = playerShip.getBody();
         if(body.getAngularVelocity() != 0f){
-            float change;
+            float change = FRICTION_COEF * deltaTime;
             if(body.getAngularVelocity() > 0f){
-                change = FRICTION_COEF * deltaTime;
                 if(body.getAngularVelocity() - change < 0f){
                     body.setAngularVelocity(0f);
                 }else{
                     body.setAngularVelocity(body.getAngularVelocity()-change);
                 }
             }else{
-                change = FRICTION_COEF * deltaTime;
                 if(body.getAngularVelocity() + change > 0f){
                     body.setAngularVelocity(0f);
                 }else{
                     body.setAngularVelocity(body.getAngularVelocity()+change);
+                }
+            }
+        }
+    }
+
+    private void applyDirectionalFriction(float deltaTime){
+        Body body = playerShip.getBody();
+        Vector2 linearVelocity = body.getLinearVelocity();
+        if(linearVelocity.x != 0f){
+            float xChange = FRICTION_COEF * deltaTime;
+            if(linearVelocity.x > 0f){
+                if(linearVelocity.x - xChange < 0f){
+                    body.setLinearVelocity(0f,linearVelocity.y);
+                }else{
+                    body.setLinearVelocity(linearVelocity.x - xChange,linearVelocity.y);
+                }
+            }else{
+                if(linearVelocity.x + xChange > 0f){
+                    body.setLinearVelocity(0f,linearVelocity.y);
+                }else{
+                    body.setLinearVelocity(linearVelocity.x + xChange,linearVelocity.y);
+                }
+            }
+        }
+        linearVelocity = body.getLinearVelocity();
+        if(linearVelocity.y != 0f){
+            float yChange = FRICTION_COEF * deltaTime;
+            if(linearVelocity.y > 0f){
+                if(linearVelocity.y - yChange < 0f){
+                    body.setLinearVelocity(linearVelocity.x,0f);
+                }else{
+                    body.setLinearVelocity(linearVelocity.x,linearVelocity.y - yChange);
+                }
+            }else{
+                if(linearVelocity.y + yChange > 0f){
+                    body.setLinearVelocity(linearVelocity.x, 0f);
+                }else{
+                    body.setLinearVelocity(linearVelocity.x, linearVelocity.y + yChange);
                 }
             }
         }
