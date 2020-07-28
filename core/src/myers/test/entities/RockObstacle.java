@@ -1,4 +1,4 @@
-package myers.test;
+package myers.test.entities;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
