@@ -11,23 +11,18 @@ import java.util.Random;
 public class TestGame extends Game{
 
 	GameScreen gameScreen;
-	MainMenuScreen menuScreen;
-	public SpriteBatch batch;
 
 	public static Random random = new Random();
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
-		menuScreen = new MainMenuScreen(this);
-		this.setScreen(menuScreen);
-		/*gameScreen = new GameScreen();
-		setScreen(gameScreen);*/
+		gameScreen = new GameScreen();
+		setScreen(gameScreen);
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		//gameScreen.resize(width,height);
+		gameScreen.resize(width,height);
 	}
 
 	@Override
