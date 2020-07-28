@@ -59,14 +59,14 @@ public class Play extends GameState{
             body.setAngularVelocity(0.5f); // move literal to class attribute
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            velocityX = velocity * MathUtils.sin(angle);
-            velocityY = velocity * MathUtils.cos(angle);
+            velocityX = velocity * MathUtils.sin(-angle);
+            velocityY = velocity * MathUtils.cos(-angle);
 
             body.applyForceToCenter(velocityX, velocityY, true);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            velocityX = -velocity * MathUtils.sin(angle);
-            velocityY = -velocity * MathUtils.cos(angle);;
+            velocityX = -velocity * MathUtils.sin(-angle);
+            velocityY = -velocity * MathUtils.cos(-angle);;
 
             body.applyForceToCenter(velocityX, velocityY, true);
         }
@@ -82,7 +82,7 @@ public class Play extends GameState{
 
         applyDirectionalFriction(deltaTime);
 
-        //spawnRockObstacles(deltaTime);
+        spawnRockObstacles(deltaTime);
     }
 
     @Override
