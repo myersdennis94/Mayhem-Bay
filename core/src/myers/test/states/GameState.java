@@ -2,13 +2,13 @@ package myers.test.states;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import myers.test.TestGame;
+import myers.test.MayhemGame;
 import myers.test.handlers.GameStateManager;
 
 public abstract class GameState {
 
     protected GameStateManager gameStateManager;
-    protected TestGame game;
+    protected MayhemGame game;
 
     protected SpriteBatch spriteBatch;
     protected OrthographicCamera camera;

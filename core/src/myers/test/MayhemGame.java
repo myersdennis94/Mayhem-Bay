@@ -11,12 +11,12 @@ import myers.test.handlers.GameStateManager;
 
 import java.util.Random;
 
-public class TestGame implements ApplicationListener {
+public class MayhemGame implements ApplicationListener {
 
 	public static final String TITLE = "Mayhem Bay";
-	public static final int VIRTUAL_HEIGHT = 640;
-	public static final int VIRTUAL_WIDTH = 360;
-	public static final int SCALE = 1;
+	public static final int VIRTUAL_HEIGHT = 512;
+	public static final int VIRTUAL_WIDTH = 288;
+	public static final int SCALE = 2;
 
 	public static final float STEP = 1 / 60f;
 	private float accum;
