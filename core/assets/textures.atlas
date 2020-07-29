@@ -1,5 +1,5 @@
 
-images.png
+textures.png
 size: 4096,4096
 format: RGBA8888
 filter: Nearest,Nearest
