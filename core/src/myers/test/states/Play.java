@@ -127,14 +127,11 @@ public class Play extends GameState{
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-//        spriteBatch.begin();
-//        spriteBatch.draw(backgrounds[0],0,0,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-//        spriteBatch.end();
 
         renderBackground(deltaTime);
 
         // draw box2d world
-        b2dr.render(world, b2dCamera.combined);
+        //b2dr.render(world, b2dCamera.combined);
 
         renderRocks();
 
@@ -156,11 +153,7 @@ public class Play extends GameState{
                 if (rock.getBody().getPosition().y < 0) {
                     iterator.remove();
                 } else {
-                    spriteBatch.begin();
-                    spriteBatch.draw(rock.getTextureRegion(),rock.getBody().getPosition().x,rock.getBody().getPosition().y);
-                    spriteBatch.end();
-
-                    //rock.draw(spriteBatch);
+                    rock.draw(spriteBatch);
                 }
             }
         }

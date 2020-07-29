@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import myers.test.MayhemGame;
+import myers.test.handlers.B2DVars;
 
 public abstract class Obstacle {
 
@@ -48,7 +50,8 @@ public abstract class Obstacle {
 
     public void draw(Batch batch){
         batch.begin();
-        batch.draw(textureRegion,body.getLocalCenter().x,body.getLocalCenter().y);
+        batch.draw(textureRegion,body.getPosition().x* B2DVars.PPM*MayhemGame.SCALE-textureRegion.getRegionWidth()/2,
+                body.getPosition().y*B2DVars.PPM* MayhemGame.SCALE-textureRegion.getRegionHeight()/2);
         batch.end();
     }
 }
