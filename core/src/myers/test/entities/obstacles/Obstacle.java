@@ -42,6 +42,10 @@ public abstract class Obstacle {
         return body;
     }
 
+    public TextureRegion getTextureRegion(){
+        return textureRegion;
+    }
+
     public void draw(Batch batch){
         batch.begin();
         batch.draw(textureRegion,body.getLocalCenter().x,body.getLocalCenter().y);

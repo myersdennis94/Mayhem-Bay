@@ -156,7 +156,11 @@ public class Play extends GameState{
                 if (rock.getBody().getPosition().y < 0) {
                     iterator.remove();
                 } else {
-                    rock.draw(spriteBatch);
+                    spriteBatch.begin();
+                    spriteBatch.draw(rock.getTextureRegion(),rock.getBody().getPosition().x,rock.getBody().getPosition().y);
+                    spriteBatch.end();
+
+                    //rock.draw(spriteBatch);
                 }
             }
         }
