@@ -37,10 +37,6 @@ public abstract class Ship{
         this.world = world;
     }
 
-    public String getName() {
-        return name;
-    }
-
     protected void createSprite() {
         sprite = new Sprite(MayhemGame.textureAtlas.findRegion(name));
     }
@@ -60,14 +56,6 @@ public abstract class Ship{
         shape.dispose();
     }
 
-    public float getShapeHX() {
-        return shapeHX;
-    }
-
-    public float getShapeHY() {
-        return shapeHY;
-    }
-
     public float getLinearVelocity() {
         return linearVelocity;
     }
@@ -76,28 +64,8 @@ public abstract class Ship{
         return angularVelocity;
     }
 
-    public float getRestitution() {
-        return restitution;
-    }
-
-    public float getDensity() {
-        return density;
-    }
-
-    public Sprite getSprite() {
-        return sprite;
-    }
-
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-    }
-
     public Body getBody() {
         return body;
-    }
-
-    public void setBody(Body body) {
-        this.body = body;
     }
 
     public void render(SpriteBatch spriteBatch) {

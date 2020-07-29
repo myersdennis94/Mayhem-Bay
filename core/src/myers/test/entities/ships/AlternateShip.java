@@ -11,7 +11,7 @@ public class AlternateShip extends Ship {
         shapeHX = 12;
         shapeHY = 20;
         linearVelocity = 2.5f;
-        angularVelocity = 1.1f;
+        angularVelocity = 0.55f;
         restitution = 0.1f;
         density = 0;
 

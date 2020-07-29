@@ -37,19 +37,16 @@ public class Play extends GameState{
     // spawn stuff
     private float rockSpawnTimer = 0;
     private float timeBetweenRockSpawns = 1f;
+    private LinkedList<RockObstacle> rockManager;
 
     // play constants
     private final float FRICTION_COEF = 0.5f;
     private final float WATER_VELOCITY = -1.5f;
 
-    //private TextureAtlas textureAtlas;
+    // background
     private TextureRegion[] backgrounds;
     private float[] backgroundOffsets = {0,0,0,0};
     private float backgroundMaxScrollingSpeed;
-    //private Sprite playerShip;
-    //private PhysicsShapeCache physicsBodies;
-
-    private LinkedList<RockObstacle> rockManager;
 
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -57,8 +54,6 @@ public class Play extends GameState{
         // set up box2d stuff
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
-
-        //physicsBodies = new PhysicsShapeCache("shapes.xml");
 
         // create player
         loadPlayer();
@@ -90,10 +85,10 @@ public class Play extends GameState{
         float velocityX;
         float velocityY;
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            body.setAngularVelocity(-ship.getAngularVelocity()/2); // move literal to class attribute
+            body.setAngularVelocity(-ship.getAngularVelocity()); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            body.setAngularVelocity(ship.getAngularVelocity()/2); // move literal to class attribute
+            body.setAngularVelocity(ship.getAngularVelocity()); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             velocityX = velocity * MathUtils.sin(angle);
@@ -127,7 +122,6 @@ public class Play extends GameState{
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
         renderBackground(deltaTime);
 
         // draw box2d world
@@ -136,8 +130,6 @@ public class Play extends GameState{
         renderRocks();
 
         player.getShip().render(spriteBatch);
-
-
     }
 
     @Override
@@ -245,8 +237,6 @@ public class Play extends GameState{
         // ship - this will have logic to read the JSON database and load selected ship (Default/Alternate/etc.)
         // or the logic could also be moved to the player class, idk
         player.setShip(new DefaultShip(world));
-
-        //Body body = physicsBodies.createBody("tugboat",world,ship.getShapeHX(),ship.getShapeHY());
     }
 
     private void spawnRockObstacles(float deltaTime) {
