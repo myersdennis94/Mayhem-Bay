@@ -1,5 +1,6 @@
 package myers.test.handlers;
 
+import com.badlogic.gdx.Gdx;
 import myers.test.MayhemGame;
 import myers.test.states.GameState;
 import myers.test.states.Play;
@@ -29,7 +30,7 @@ public class GameStateManager {
     }
 
     public void render() {
-        gameStates.peek().render();
+        gameStates.peek().render(Gdx.graphics.getDeltaTime());
     }
 
     private GameState getState(int state) {

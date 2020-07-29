@@ -1,5 +1,6 @@
 package myers.test.states;
 
+import static myers.test.MayhemGame.textureAtlas;
 import static myers.test.handlers.B2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -7,16 +8,21 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
+import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
 import myers.test.entities.ships.Ship;
 import myers.test.handlers.GameStateManager;
+
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Play extends GameState{
 
@@ -37,8 +43,13 @@ public class Play extends GameState{
     private final float WATER_VELOCITY = -1.5f;
 
     //private TextureAtlas textureAtlas;
+    private TextureRegion[] backgrounds;
+    private float[] backgroundOffsets = {0,0,0,0};
+    private float backgroundMaxScrollingSpeed;
     //private Sprite playerShip;
     //private PhysicsShapeCache physicsBodies;
+
+    private LinkedList<RockObstacle> rockManager;
 
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -56,8 +67,15 @@ public class Play extends GameState{
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
 
-        //textureAtlas = new TextureAtlas("images.atlas");
         //playerShip = new Sprite(textureAtlas.findRegion("tugboat"));
+        backgrounds = new TextureRegion[4];
+        backgrounds[0] = textureAtlas.findRegion("tex_Water");
+        backgrounds[1] = textureAtlas.findRegion("water2");
+        backgrounds[2] = textureAtlas.findRegion("water3");
+        backgrounds[3] = textureAtlas.findRegion("water4");
+        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/4;
+
+        rockManager = new LinkedList<>();
     }
 
     @Override
@@ -72,10 +90,10 @@ public class Play extends GameState{
         float velocityX;
         float velocityY;
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            body.setAngularVelocity(-ship.getAngularVelocity()); // move literal to class attribute
+            body.setAngularVelocity(-ship.getAngularVelocity()/2); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            body.setAngularVelocity(ship.getAngularVelocity()); // move literal to class attribute
+            body.setAngularVelocity(ship.getAngularVelocity()/2); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             velocityX = velocity * MathUtils.sin(angle);
@@ -105,19 +123,58 @@ public class Play extends GameState{
     }
 
     @Override
-    public void render() {
+    public void render(float deltaTime) {
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+        renderBackground(deltaTime);
+
         // draw box2d world
-        b2dr.render(world, b2dCamera.combined);
+        //b2dr.render(world, b2dCamera.combined);
+
+        renderRocks();
 
         player.getShip().render(spriteBatch);
+
+
     }
 
     @Override
     public void dispose() {
 
+    }
+
+    private void renderRocks(){
+        if(rockManager.size() > 0) {
+            ListIterator<RockObstacle> iterator = rockManager.listIterator();
+            while (iterator.hasNext()) {
+                RockObstacle rock = iterator.next();
+                if (rock.getBody().getPosition().y < 0) {
+                    iterator.remove();
+                } else {
+                    rock.draw(spriteBatch);
+                }
+            }
+        }
+    }
+
+    private void renderBackground(float deltaTime){
+        spriteBatch.begin();
+        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
+        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
+        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
+        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
+        for(int layer = 0; layer < backgroundOffsets.length; layer++){
+            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
+                backgroundOffsets[layer] = 0;
+            }
+            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
+                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
+            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
+                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
+        }
+        spriteBatch.end();
     }
 
     private void applyRotationalFriction(float deltaTime){
@@ -207,6 +264,8 @@ public class Play extends GameState{
             fdef.shape = shape;
             body.createFixture(fdef);
             shape.dispose();
+
+            rockManager.push(new RockObstacle(body,shape));
 
             rockSpawnTimer -= timeBetweenRockSpawns;
         }

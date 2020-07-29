@@ -26,7 +26,7 @@ public abstract class GameState {
 
     public abstract void update(float deltaTime);
 
-    public abstract void render();
+    public abstract void render(float deltaTime);
 
     public abstract void dispose();
 }
