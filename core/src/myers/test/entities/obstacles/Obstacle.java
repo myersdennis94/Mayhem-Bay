@@ -44,7 +44,7 @@ public abstract class Obstacle {
 
     public void draw(Batch batch){
         batch.begin();
-        batch.draw(textureRegion,body.getPosition().x,body.getPosition().y,8/100,8/100);
+        batch.draw(textureRegion,body.getLocalCenter().x,body.getLocalCenter().y);
         batch.end();
     }
 }
