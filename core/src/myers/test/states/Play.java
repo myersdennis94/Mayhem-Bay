@@ -9,7 +9,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import myers.test.MayhemGame;
-import myers.test.entities.PlayerShip;
+import myers.test.entities.Player;
+import myers.test.entities.ships.AlternateShip;
+import myers.test.entities.ships.DefaultShip;
+import myers.test.entities.ships.Ship;
 import myers.test.handlers.GameStateManager;
 
 public class Play extends GameState{
@@ -19,14 +22,16 @@ public class Play extends GameState{
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2dCamera;
 
-    // playerShip
-    private PlayerShip playerShip;
+    // player
+    private Player player;
 
     // spawn stuff
     private float rockSpawnTimer = 0;
     private float timeBetweenRockSpawns = 1f;
 
-    private final float FRICTION_COEF = 0.2f;
+    // play constants
+    private final float FRICTION_COEF = 0.5f;
+    private final float WATER_VELOCITY = -1.5f;
 
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -36,7 +41,7 @@ public class Play extends GameState{
         b2dr = new Box2DDebugRenderer();
 
         // create player
-        createPlayer();
+        loadPlayer();
 
         // set up box2d camera
         b2dCamera = new OrthographicCamera();
@@ -45,28 +50,29 @@ public class Play extends GameState{
 
     @Override
     public void handleInput() {
-        Body body = playerShip.getBody();
-        float velocity = 0.5f; // move literal to class attribute
-        float angle = body.getAngle();
-        System.out.println(angle);
+        Body body = player.getBody();
+        Ship ship = player.getShip();
+
+        float velocity = ship.getLinearVelocity(); // move literal to class attribute
+        float angle = -body.getAngle();
 
         float velocityX;
         float velocityY;
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            body.setAngularVelocity(-0.5f); // move literal to class attribute
+            body.setAngularVelocity(-ship.getAngularVelocity()); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            body.setAngularVelocity(0.5f); // move literal to class attribute
+            body.setAngularVelocity(ship.getAngularVelocity()); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            velocityX = velocity * MathUtils.sin(-angle);
-            velocityY = velocity * MathUtils.cos(-angle);
+            velocityX = velocity * MathUtils.sin(angle);
+            velocityY = velocity * MathUtils.cos(angle);
 
             body.applyForceToCenter(velocityX, velocityY, true);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            velocityX = -velocity * MathUtils.sin(-angle);
-            velocityY = -velocity * MathUtils.cos(-angle);;
+            velocityX = -velocity * MathUtils.sin(angle);
+            velocityY = -velocity * MathUtils.cos(angle);;
 
             body.applyForceToCenter(velocityX, velocityY, true);
         }
@@ -78,8 +84,8 @@ public class Play extends GameState{
 
         handleInput();
 
+        applyCurrent();
         applyRotationalFriction(deltaTime);
-
         applyDirectionalFriction(deltaTime);
 
         spawnRockObstacles(deltaTime);
@@ -100,7 +106,7 @@ public class Play extends GameState{
     }
 
     private void applyRotationalFriction(float deltaTime){
-        Body body = playerShip.getBody();
+        Body body = player.getBody();
         if(body.getAngularVelocity() != 0f){
             float change = FRICTION_COEF * deltaTime;
             if(body.getAngularVelocity() > 0f){
@@ -120,7 +126,7 @@ public class Play extends GameState{
     }
 
     private void applyDirectionalFriction(float deltaTime){
-        Body body = playerShip.getBody();
+        Body body = player.getBody();
         Vector2 linearVelocity = body.getLinearVelocity();
         if(linearVelocity.x != 0f){
             float xChange = FRICTION_COEF * deltaTime;
@@ -157,21 +163,33 @@ public class Play extends GameState{
         }
     }
 
-    private void createPlayer() {
+    private void applyCurrent() {
+        player.getBody().applyForceToCenter(0, WATER_VELOCITY,false);
+    }
+
+    private void loadPlayer() {
+        player = new Player();
+
+        // ship - this will have logic to read JSON database and load selected ship
+        // the logic could also be moved to the player class, idk
+        player.setShip(new AlternateShip());
+        Ship ship = player.getShip();
+
+        // body
         BodyDef bdef = new BodyDef();
-        bdef.position.set(144 / PPM, 128 / PPM); // move literal to class attribute
+        bdef.position.set(player.getStartPosX() / PPM, player.getStartPosY() / PPM); // move literal to class attribute
         bdef.type = BodyDef.BodyType.DynamicBody;
         Body body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(8 / PPM,16 / PPM); // move literals to class attribute
+        shape.setAsBox(ship.getShapeHX() / PPM,ship.getShapeHY() / PPM); // move literals to class attribute
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
-        fdef.restitution = 0.1f; // move literal to class attribute
+        fdef.restitution = ship.getRestitution(); // move literal to class attribute
         body.createFixture(fdef);
         shape.dispose();
 
-        playerShip = new PlayerShip(body);
+        player.setBody(body);
     }
 
     private void spawnRockObstacles(float deltaTime) {
