@@ -36,11 +36,9 @@ public class Play extends GameState{
     private final float FRICTION_COEF = 0.5f;
     private final float WATER_VELOCITY = -1.5f;
 
-    private TextureAtlas textureAtlas;
-
-    private Sprite playerShip;
-
-    private PhysicsShapeCache physicsBodies;
+    //private TextureAtlas textureAtlas; ///////////////////////////////////////////////////////////////////////
+    //private Sprite playerShip; ///////////////////////////////////////////////////////////////////////
+    //private PhysicsShapeCache physicsBodies; ///////////////////////////////////////////////////////////////////////
 
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -49,7 +47,7 @@ public class Play extends GameState{
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
-        physicsBodies = new PhysicsShapeCache("physics.xml");
+        //physicsBodies = new PhysicsShapeCache("physics.xml"); ///////////////////////////////////////////////////////////////////////
 
         // create player
         loadPlayer();
@@ -58,14 +56,15 @@ public class Play extends GameState{
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
 
-        textureAtlas = new TextureAtlas("images.atlas");
-        playerShip = new Sprite(textureAtlas.findRegion("tugboat"));
+        //textureAtlas = new TextureAtlas("images.atlas"); ///////////////////////////////////////////////////////////////////////
+        //playerShip = new Sprite(textureAtlas.findRegion("tugboat")); ///////////////////////////////////////////////////////////////////////
     }
 
     @Override
     public void handleInput() {
-        Body body = player.getBody();
         Ship ship = player.getShip();
+        Body body = ship.getBody();
+
 
         float velocity = ship.getLinearVelocity(); // move literal to class attribute
         float angle = -body.getAngle();
@@ -113,16 +112,7 @@ public class Play extends GameState{
         // draw box2d world
         b2dr.render(world, b2dCamera.combined);
 
-        spriteBatch.begin();
-
-        Vector2 playerShipPosition = player.getBody().getPosition();
-        float degrees = (float)Math.toDegrees(player.getBody().getAngle());
-        playerShip.setPosition(playerShipPosition.x,playerShipPosition.y);
-        playerShip.setRotation(degrees);
-
-        playerShip.draw(spriteBatch);
-        
-        spriteBatch.end();
+        player.getShip().render(spriteBatch);
     }
 
     @Override
@@ -131,7 +121,7 @@ public class Play extends GameState{
     }
 
     private void applyRotationalFriction(float deltaTime){
-        Body body = player.getBody();
+        Body body = player.getShip().getBody();
         if(body.getAngularVelocity() != 0f){
             float change = FRICTION_COEF * deltaTime;
             if(body.getAngularVelocity() > 0f){
@@ -151,7 +141,7 @@ public class Play extends GameState{
     }
 
     private void applyDirectionalFriction(float deltaTime){
-        Body body = player.getBody();
+        Body body = player.getShip().getBody();
         Vector2 linearVelocity = body.getLinearVelocity();
         if(linearVelocity.x != 0f){
             float xChange = FRICTION_COEF * deltaTime;
@@ -189,15 +179,15 @@ public class Play extends GameState{
     }
 
     private void applyCurrent() {
-        player.getBody().applyForceToCenter(0, WATER_VELOCITY,false);
+        player.getShip().getBody().applyForceToCenter(0, WATER_VELOCITY,false);
     }
 
     private void loadPlayer() {
         player = new Player();
 
-        // ship - this will have logic to read JSON database and load selected ship
-        // the logic could also be moved to the player class, idk
-        player.setShip(new AlternateShip());
+        // ship - this will have logic to read the JSON database and load selected ship (Default/Alternate/etc.)
+        // or the logic could also be moved to the player class, idk
+        player.setShip(new DefaultShip());
         Ship ship = player.getShip();
 
 //        // body
@@ -213,10 +203,15 @@ public class Play extends GameState{
 //        fdef.restitution = ship.getRestitution(); // move literal to class attribute
 //        body.createFixture(fdef);
 //        shape.dispose();
+        // sprite
+        Sprite sprite = new Sprite(MayhemGame.textureAtlas.findRegion(ship.getName()));
+        Body body = MayhemGame.physicsShapeCache.createBody(ship.getName(), world, ship.getShapeHX(), ship.getShapeHY());
+        ship.setSprite(sprite);
+        ship.setBody(body);
 
-        Body body = physicsBodies.createBody("tugboat",world,ship.getScaleX(),ship.getScaleY());
+        //Body body = physicsBodies.createBody("tugboat",world,ship.getShapeHX(),ship.getShapeHY());
 
-        player.setBody(body);
+        //player.setBody(body);
     }
 
     private void spawnRockObstacles(float deltaTime) {

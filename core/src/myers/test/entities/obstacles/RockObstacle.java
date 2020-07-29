@@ -1,4 +1,4 @@
-package myers.test.entities;
+package myers.test.entities.obstacles;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
