@@ -24,7 +24,7 @@ public class MayhemGame implements ApplicationListener {
 	private float accum;
 
 	public static TextureAtlas textureAtlas;
-	public static PhysicsShapeCache physicsShapeCache;
+	//public static PhysicsShapeCache physicsShapeCache;
 	protected SpriteBatch spriteBatch;
 	private OrthographicCamera camera;
 	private OrthographicCamera hudCamera;
@@ -36,8 +36,8 @@ public class MayhemGame implements ApplicationListener {
 	@Override
 	public void create() {
 		GdxNativesLoader.load();
-		textureAtlas= new TextureAtlas();
-		physicsShapeCache = new PhysicsShapeCache("physics.xml");
+		textureAtlas= new TextureAtlas("textures.atlas");
+		//physicsShapeCache = new PhysicsShapeCache("shapes.xml");
 		spriteBatch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);

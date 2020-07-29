@@ -1,10 +1,11 @@
 package myers.test.entities.ships;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.*;
 
 public class DefaultShip extends Ship{
 
-    public DefaultShip() {
+    public DefaultShip(World world) {
+        super(world);
 
         name = "tugboat";
         shapeHX = 8;
@@ -13,5 +14,8 @@ public class DefaultShip extends Ship{
         angularVelocity = 1.5f;
         restitution = 0.15f;
         density = 0;
+
+        createSprite();
+        createBody();
     }
 }
