@@ -21,7 +21,7 @@ public class MayhemGame implements ApplicationListener {
 	public static final float STEP = 1 / 60f;
 	private float accum;
 
-	private SpriteBatch spriteBatch;
+	protected SpriteBatch spriteBatch;
 	private OrthographicCamera camera;
 	private OrthographicCamera hudCamera;
 
