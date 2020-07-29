@@ -5,9 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
 import myers.test.entities.ships.AlternateShip;
@@ -33,6 +36,12 @@ public class Play extends GameState{
     private final float FRICTION_COEF = 0.5f;
     private final float WATER_VELOCITY = -1.5f;
 
+    private TextureAtlas textureAtlas;
+
+    private Sprite playerShip;
+
+    private PhysicsShapeCache physicsBodies;
+
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -40,12 +49,17 @@ public class Play extends GameState{
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
+        physicsBodies = new PhysicsShapeCache("physics.xml");
+
         // create player
         loadPlayer();
 
         // set up box2d camera
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
+
+        textureAtlas = new TextureAtlas("images.atlas");
+        playerShip = new Sprite(textureAtlas.findRegion("tugboat"));
     }
 
     @Override
@@ -98,6 +112,17 @@ public class Play extends GameState{
 
         // draw box2d world
         b2dr.render(world, b2dCamera.combined);
+
+        spriteBatch.begin();
+
+        Vector2 playerShipPosition = player.getBody().getPosition();
+        float degrees = (float)Math.toDegrees(player.getBody().getAngle());
+        playerShip.setPosition(playerShipPosition.x,playerShipPosition.y);
+        playerShip.setRotation(degrees);
+
+        playerShip.draw(spriteBatch);
+        
+        spriteBatch.end();
     }
 
     @Override
@@ -175,19 +200,21 @@ public class Play extends GameState{
         player.setShip(new AlternateShip());
         Ship ship = player.getShip();
 
-        // body
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(player.getStartPosX() / PPM, player.getStartPosY() / PPM); // move literal to class attribute
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        Body body = world.createBody(bdef);
+//        // body
+//        BodyDef bdef = new BodyDef();
+//        bdef.position.set(player.getStartPosX() / PPM, player.getStartPosY() / PPM); // move literal to class attribute
+//        bdef.type = BodyDef.BodyType.DynamicBody;
+//        Body body = world.createBody(bdef);
+//
+//        PolygonShape shape = new PolygonShape();
+//        shape.setAsBox(ship.getShapeHX() / PPM,ship.getShapeHY() / PPM); // move literals to class attribute
+//        FixtureDef fdef = new FixtureDef();
+//        fdef.shape = shape;
+//        fdef.restitution = ship.getRestitution(); // move literal to class attribute
+//        body.createFixture(fdef);
+//        shape.dispose();
 
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(ship.getShapeHX() / PPM,ship.getShapeHY() / PPM); // move literals to class attribute
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape = shape;
-        fdef.restitution = ship.getRestitution(); // move literal to class attribute
-        body.createFixture(fdef);
-        shape.dispose();
+        Body body = physicsBodies.createBody("tugboat",world,ship.getScaleX(),ship.getScaleY());
 
         player.setBody(body);
     }
