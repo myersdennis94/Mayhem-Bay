@@ -145,7 +145,7 @@ public class Play extends GameState{
                 if (rock.getBody().getPosition().y < 0) {
                     iterator.remove();
                 } else {
-                    rock.draw(spriteBatch);
+                    rock.render(spriteBatch);
                 }
             }
         }
@@ -242,20 +242,8 @@ public class Play extends GameState{
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
         if (rockSpawnTimer > timeBetweenRockSpawns) {
-            BodyDef bdef = new BodyDef();
-            bdef.position.set((MayhemGame.random.nextFloat() * MayhemGame.VIRTUAL_WIDTH + 8) / PPM, (MayhemGame.VIRTUAL_HEIGHT + 8) / PPM); // move literals to class attribute
-            bdef.type = BodyDef.BodyType.KinematicBody;
-            bdef.linearVelocity.set(0, -1.5f); // move literals to class attribute
-            Body body = world.createBody(bdef);
 
-            PolygonShape shape = new PolygonShape();
-            shape.setAsBox(8 / PPM,8 / PPM); // move literals to class attribute
-            FixtureDef fdef = new FixtureDef();
-            fdef.shape = shape;
-            body.createFixture(fdef);
-            shape.dispose();
-
-            rockManager.push(new RockObstacle(body,shape));
+            rockManager.push(new RockObstacle(world));
 
             rockSpawnTimer -= timeBetweenRockSpawns;
         }
