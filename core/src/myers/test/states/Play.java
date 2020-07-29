@@ -1,5 +1,6 @@
 package myers.test.states;
 
+import static myers.test.MayhemGame.textureAtlas;
 import static myers.test.handlers.B2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -37,6 +39,9 @@ public class Play extends GameState{
     private final float WATER_VELOCITY = -1.5f;
 
     //private TextureAtlas textureAtlas;
+    private TextureRegion[] backgrounds;
+    private float[] backgroundOffsets = {0,0,0,0};
+    private float backgroundMaxScrollingSpeed;
     //private Sprite playerShip;
     //private PhysicsShapeCache physicsBodies;
 
@@ -56,8 +61,14 @@ public class Play extends GameState{
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
 
-        //textureAtlas = new TextureAtlas("images.atlas");
         //playerShip = new Sprite(textureAtlas.findRegion("tugboat"));
+        backgrounds = new TextureRegion[4];
+        backgrounds[0] = textureAtlas.findRegion("tex_Water");
+        backgrounds[1] = textureAtlas.findRegion("water2");
+        backgrounds[2] = textureAtlas.findRegion("water3");
+        backgrounds[3] = textureAtlas.findRegion("water4");
+        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/4;
+
     }
 
     @Override
@@ -72,10 +83,10 @@ public class Play extends GameState{
         float velocityX;
         float velocityY;
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            body.setAngularVelocity(-ship.getAngularVelocity()); // move literal to class attribute
+            body.setAngularVelocity(-ship.getAngularVelocity()/2); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            body.setAngularVelocity(ship.getAngularVelocity()); // move literal to class attribute
+            body.setAngularVelocity(ship.getAngularVelocity()/2); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             velocityX = velocity * MathUtils.sin(angle);
@@ -105,19 +116,45 @@ public class Play extends GameState{
     }
 
     @Override
-    public void render() {
+    public void render(float deltaTime) {
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+//        spriteBatch.begin();
+//        spriteBatch.draw(backgrounds[0],0,0,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
+//        spriteBatch.end();
+
+        renderBackground(deltaTime);
 
         // draw box2d world
         b2dr.render(world, b2dCamera.combined);
 
         player.getShip().render(spriteBatch);
+
+
     }
 
     @Override
     public void dispose() {
 
+    }
+
+    private void renderBackground(float deltaTime){
+        spriteBatch.begin();
+        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
+        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
+        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
+        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
+        for(int layer = 0; layer < backgroundOffsets.length; layer++){
+            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
+                backgroundOffsets[layer] = 0;
+            }
+            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
+                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
+            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
+                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
+        }
+        spriteBatch.end();
     }
 
     private void applyRotationalFriction(float deltaTime){
