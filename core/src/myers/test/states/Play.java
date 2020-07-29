@@ -4,14 +4,18 @@ import static myers.test.MayhemGame.textureAtlas;
 import static myers.test.handlers.B2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Align;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
@@ -23,6 +27,7 @@ import myers.test.handlers.GameStateManager;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Locale;
 
 public class Play extends GameState{
 
@@ -48,6 +53,10 @@ public class Play extends GameState{
     private float[] backgroundOffsets = {0,0,0,0};
     private float backgroundMaxScrollingSpeed;
 
+    // HUD
+    BitmapFont font;
+    float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudSectionWidth;
+
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -71,6 +80,8 @@ public class Play extends GameState{
         backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/4;
 
         rockManager = new LinkedList<>();
+
+        prepareHUD();
     }
 
     @Override
@@ -115,6 +126,8 @@ public class Play extends GameState{
         applyDirectionalFriction(deltaTime);
 
         spawnRockObstacles(deltaTime);
+
+        updateScore(deltaTime);
     }
 
     @Override
@@ -130,11 +143,56 @@ public class Play extends GameState{
         renderRocks();
 
         player.getShip().render(spriteBatch);
+
+        updateAndRenderHUD(deltaTime);
     }
 
     @Override
     public void dispose() {
 
+    }
+
+    private void updateScore(float deltaTime){
+        if(player.getShip().getBody().getLinearVelocity().y > 0){
+            player.updateScore(deltaTime*20*player.getShip().getBody().getLinearVelocity().len());
+        }
+    }
+
+    private void updateAndRenderHUD(float deltaTime){
+        spriteBatch.begin();
+        //first row
+        font.draw(spriteBatch, "Score", hudLeftX, hudRow1Y, hudSectionWidth, Align.left, false);
+        //font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
+
+        //second row
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06.0f",player.getScore()),hudLeftX,hudRow2Y,hudSectionWidth,Align.left,false);
+
+        spriteBatch.end();
+    }
+
+    private void prepareHUD(){
+        // create a BitmapFont from font file
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Kalmansk-51WVB.otf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        fontParameter.size = 48;
+        fontParameter.borderWidth = 3.6f;
+        fontParameter.color = new Color(1,1,1,0.3f);
+        fontParameter.borderColor = new Color(0,0,0,0.3f);
+
+        font = fontGenerator.generateFont(fontParameter);
+
+        // scale font to fit world
+        font.getData().setScale(MayhemGame.SCALE);
+
+        // calculate hud margins
+        hudVerticalMargin = font.getCapHeight()/2;
+        hudLeftX = hudVerticalMargin;
+        hudRightX = MayhemGame.VIRTUAL_WIDTH*2/3 - hudLeftX;
+        hudCenterX = MayhemGame.VIRTUAL_WIDTH/3;
+        hudRow1Y = MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE - hudVerticalMargin;
+        hudRow2Y = hudRow1Y - hudVerticalMargin - font.getCapHeight();
+        hudSectionWidth = MayhemGame.VIRTUAL_WIDTH/3;
     }
 
     private void renderRocks(){
