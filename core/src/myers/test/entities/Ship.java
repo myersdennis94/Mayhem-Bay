@@ -1,4 +1,4 @@
-package myers.test;
+package myers.test.entities;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -46,8 +46,6 @@ public abstract class Ship {
     public boolean canFireLaser(){
         return (timeSinceLastShot - timeBetweenShots >= 0);
     }
-
-    public abstract Laser[] fireLasers();
 
     public boolean intersects(Rectangle otherRectangle){
         return boundingBox.overlaps(otherRectangle);

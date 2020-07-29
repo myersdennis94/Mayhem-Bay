@@ -1,3 +1,4 @@
+/*
 package myers.test;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 public class GameScreen implements Screen {
 
@@ -128,6 +128,9 @@ public class GameScreen implements Screen {
         batch.end();
     }
 
+    private void update(float deltaTime) {
+    }
+
     private void shipCurrent(float deltaTime){
         playerShip.translate(0,-15f*deltaTime);
     }
@@ -135,7 +138,7 @@ public class GameScreen implements Screen {
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
         if (rockSpawnTimer > timeBetweenRockSpawns) {
-            rockObstacleList.add(new RockObstacle(backgroundMaxScrollingSpeed / 2, TestGame.random.nextFloat() * (WORLD_WIDTH - 4), WORLD_HEIGHT, 8, 8, rockObstacleTextureRegion));
+            rockObstacleList.add(new RockObstacle(backgroundMaxScrollingSpeed / 2, MayhemGame.random.nextFloat() * (WORLD_WIDTH - 4), WORLD_HEIGHT, 8, 8, rockObstacleTextureRegion));
             rockSpawnTimer -= timeBetweenRockSpawns;
         }
     }
@@ -228,7 +231,8 @@ public class GameScreen implements Screen {
             }
         }
 
-        /*z//for each player laser, check whether it intersects an enemy ship
+        */
+/*z//for each player laser, check whether it intersects an enemy ship
         ListIterator<Laser> iterator = playerLaserList.listIterator();
         while(iterator.hasNext()){
             Laser laser = iterator.next();
@@ -248,14 +252,16 @@ public class GameScreen implements Screen {
                 playerShip.hit(laser);
                 iterator.remove();
             }
-        }*/
+        }*//*
+
     }
 
     private void renderExplosions(){
 
     }
 
-    /*zprivate void renderLasers(float deltaTime){
+    */
+/*zprivate void renderLasers(float deltaTime){
         //create new lasers
         //player lasers
         if(playerShip.canFireLaser()){
@@ -291,7 +297,8 @@ public class GameScreen implements Screen {
                 iterator.remove();
             }
         }
-    }*/
+    }*//*
+
 
     private void renderBackground(float deltaTime){
 
@@ -342,3 +349,4 @@ public class GameScreen implements Screen {
 
     }
 }
+*/
