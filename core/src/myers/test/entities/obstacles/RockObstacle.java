@@ -19,8 +19,5 @@ public class RockObstacle extends Obstacle{
         velocityY = -1.5f;
         shapeHX = 8;
         shapeHY = 8;
-
-        createSprite();
-        createBody();
     }
 }

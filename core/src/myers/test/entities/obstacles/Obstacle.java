@@ -13,7 +13,7 @@ public abstract class Obstacle {
 
     // spawn location
     protected final float SPAWNPOSX = MayhemGame.random.nextFloat() * MayhemGame.VIRTUAL_WIDTH;
-    protected final float SPAWNPOSY = MayhemGame.random.nextFloat() * MayhemGame.VIRTUAL_WIDTH;
+    protected final float SPAWNPOSY = MayhemGame.VIRTUAL_HEIGHT;
 
     // obstacle attributes
     protected String name;
@@ -33,16 +33,16 @@ public abstract class Obstacle {
         this.world = world;
     }
 
-    protected void createSprite() {
+    public void createSprite() {
         sprite = new Sprite(MayhemGame.textureAtlas.findRegion(name));
     }
 
-    protected void createBody() {
+    public void createBody() {
         BodyDef bdef = new BodyDef();
         bdef.position.set((SPAWNPOSX + shapeHX) / PPM, (SPAWNPOSY + shapeHY) / PPM);
         bdef.type = BodyDef.BodyType.KinematicBody;
         bdef.linearVelocity.set(velocityX, velocityY);
-        Body body = world.createBody(bdef);
+        body = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(shapeHX / PPM,shapeHY / PPM);

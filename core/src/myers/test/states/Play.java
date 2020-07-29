@@ -36,17 +36,17 @@ public class Play extends GameState{
 
     // spawn stuff
     private float rockSpawnTimer = 0;
-    private float timeBetweenRockSpawns = 1f;
+    RockObstacle rockAttributes;
     private LinkedList<RockObstacle> rockManager;
-
-    // play constants
-    private final float FRICTION_COEF = 0.5f;
-    private final float WATER_VELOCITY = -1.5f;
 
     // background
     private TextureRegion[] backgrounds;
     private float[] backgroundOffsets = {0,0,0,0};
     private float backgroundMaxScrollingSpeed;
+
+    // play constants
+    private final float FRICTION_COEF = 0.5f;
+    private final float WATER_VELOCITY = -1.5f;
 
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -55,22 +55,24 @@ public class Play extends GameState{
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
-        // create player
+        // load player
         loadPlayer();
 
-        // set up box2d camera
-        b2dCamera = new OrthographicCamera();
-        b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
+        // spawn stuff
+        rockAttributes = new RockObstacle(null);
+        rockManager = new LinkedList<>();
 
-        //playerShip = new Sprite(textureAtlas.findRegion("tugboat"));
+        // background
         backgrounds = new TextureRegion[4];
         backgrounds[0] = textureAtlas.findRegion("tex_Water");
         backgrounds[1] = textureAtlas.findRegion("water2");
         backgrounds[2] = textureAtlas.findRegion("water3");
         backgrounds[3] = textureAtlas.findRegion("water4");
-        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/4;
+        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
 
-        rockManager = new LinkedList<>();
+        // set up box2d camera
+        b2dCamera = new OrthographicCamera();
+        b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
     }
 
     @Override
@@ -138,7 +140,15 @@ public class Play extends GameState{
     }
 
     private void renderRocks(){
-        if(rockManager.size() > 0) {
+        for (RockObstacle rock : rockManager) {
+            if (rock.getBody().getPosition().y < 0) {
+                rockManager.remove(rock);
+            } else {
+                rock.render(spriteBatch);
+            }
+        }
+
+        /*if(rockManager.size() > 0) {
             ListIterator<RockObstacle> iterator = rockManager.listIterator();
             while (iterator.hasNext()) {
                 RockObstacle rock = iterator.next();
@@ -148,7 +158,7 @@ public class Play extends GameState{
                     rock.render(spriteBatch);
                 }
             }
-        }
+        }*/
     }
 
     private void renderBackground(float deltaTime){
@@ -241,11 +251,15 @@ public class Play extends GameState{
 
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
-        if (rockSpawnTimer > timeBetweenRockSpawns) {
 
-            rockManager.push(new RockObstacle(world));
+        if (rockSpawnTimer > rockAttributes.getSpawnFreq()) {
 
-            rockSpawnTimer -= timeBetweenRockSpawns;
+            RockObstacle newRock = new RockObstacle(world);
+            newRock.createSprite();
+            newRock.createBody();
+            rockManager.push(newRock);
+
+            rockSpawnTimer -= rockAttributes.getSpawnFreq();
         }
     }
 }
