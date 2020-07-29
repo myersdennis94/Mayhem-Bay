@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.GdxNativesLoader;
+import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.handlers.GameStateManager;
 
 import java.util.Random;
@@ -19,15 +20,14 @@ public class MayhemGame implements ApplicationListener {
 	public static final int VIRTUAL_HEIGHT = 512;
 	public static final int VIRTUAL_WIDTH = 288;
 	public static final int SCALE = 2;
-
 	public static final float STEP = 1 / 60f;
 	private float accum;
 
-	private SpriteBatch spriteBatch;
+	public static TextureAtlas textureAtlas;
+	//public static PhysicsShapeCache physicsShapeCache;
+	protected SpriteBatch spriteBatch;
 	private OrthographicCamera camera;
 	private OrthographicCamera hudCamera;
-	private Viewport viewport;
-
 
 	private GameStateManager gameStateManager;
 
@@ -35,11 +35,12 @@ public class MayhemGame implements ApplicationListener {
 
 	@Override
 	public void create() {
+		GdxNativesLoader.load();
+		textureAtlas= new TextureAtlas("textures.atlas");
+		//physicsShapeCache = new PhysicsShapeCache("shapes.xml");
 		spriteBatch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-		viewport = new StretchViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT,camera);
-
 		hudCamera = new OrthographicCamera();
 		hudCamera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
@@ -85,6 +86,4 @@ public class MayhemGame implements ApplicationListener {
 	public OrthographicCamera getHudCamera() {
 		return hudCamera;
 	}
-
-	public Viewport getViewport(){return viewport;}
 }

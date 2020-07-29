@@ -58,10 +58,9 @@ public class MainMenuScreen extends GameState {
 
 
     @Override
-    public void render() {
+    public void render(float deltaTime) {
         Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        viewport = new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
 
