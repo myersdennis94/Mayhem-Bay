@@ -1,9 +1,14 @@
 package myers.test.entities.obstacles;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+
+import static myers.test.MayhemGame.textureAtlas;
 
 public class RockObstacle extends Obstacle{
-    public RockObstacle(float movementSpeed, float xCenter, float yCenter, float width, float height, TextureRegion obstacleTextureRegion) {
-        super(movementSpeed, xCenter, yCenter, width, height, obstacleTextureRegion);
+
+    public RockObstacle(Body body, PolygonShape polygonShape) {
+        super(body, polygonShape);
+        textureRegion = textureAtlas.findRegion("rock");
     }
 }

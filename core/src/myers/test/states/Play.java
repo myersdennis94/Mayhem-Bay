@@ -15,10 +15,14 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
+import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
 import myers.test.entities.ships.Ship;
 import myers.test.handlers.GameStateManager;
+
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Play extends GameState{
 
@@ -45,6 +49,8 @@ public class Play extends GameState{
     //private Sprite playerShip;
     //private PhysicsShapeCache physicsBodies;
 
+    private LinkedList<RockObstacle> rockManager;
+
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -69,6 +75,7 @@ public class Play extends GameState{
         backgrounds[3] = textureAtlas.findRegion("water4");
         backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/4;
 
+        rockManager = new LinkedList<>();
     }
 
     @Override
@@ -120,14 +127,13 @@ public class Play extends GameState{
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-//        spriteBatch.begin();
-//        spriteBatch.draw(backgrounds[0],0,0,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-//        spriteBatch.end();
 
         renderBackground(deltaTime);
 
         // draw box2d world
-        b2dr.render(world, b2dCamera.combined);
+        //b2dr.render(world, b2dCamera.combined);
+
+        renderRocks();
 
         player.getShip().render(spriteBatch);
 
@@ -137,6 +143,20 @@ public class Play extends GameState{
     @Override
     public void dispose() {
 
+    }
+
+    private void renderRocks(){
+        if(rockManager.size() > 0) {
+            ListIterator<RockObstacle> iterator = rockManager.listIterator();
+            while (iterator.hasNext()) {
+                RockObstacle rock = iterator.next();
+                if (rock.getBody().getPosition().y < 0) {
+                    iterator.remove();
+                } else {
+                    rock.draw(spriteBatch);
+                }
+            }
+        }
     }
 
     private void renderBackground(float deltaTime){
@@ -244,6 +264,8 @@ public class Play extends GameState{
             fdef.shape = shape;
             body.createFixture(fdef);
             shape.dispose();
+
+            rockManager.push(new RockObstacle(body,shape));
 
             rockSpawnTimer -= timeBetweenRockSpawns;
         }
