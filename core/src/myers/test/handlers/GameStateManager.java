@@ -5,6 +5,7 @@ import myers.test.MayhemGame;
 import myers.test.states.GameState;
 import myers.test.states.Play;
 import myers.test.states.MainMenuScreen;
+import myers.test.states.Score;
 
 import java.util.Stack;
 
@@ -16,6 +17,8 @@ public class GameStateManager {
 
     public static final int PLAY = 512370;
     public static final int MENU = 512322;
+    public static final int SCORE = 512480;
+
 
     public GameStateManager(MayhemGame game) {
         this.game = game;
@@ -41,6 +44,9 @@ public class GameStateManager {
         }
         else if (state == MENU){
             return  new MainMenuScreen(this);
+        }
+        else if(state == SCORE){
+            return new Score(this);
         }
         return null;
     }
