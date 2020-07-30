@@ -6,8 +6,18 @@ import myers.test.entities.ships.Ship;
 public class Player {
 
     protected Ship ship;
+    private float score;
 
     public Player() {
+        score = 0;
+    }
+
+    public float getScore(){
+        return score;
+    }
+
+    public void updateScore(float change){
+        score += change;
     }
 
     public Ship getShip() {

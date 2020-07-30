@@ -11,7 +11,7 @@ public class DefaultShip extends Ship{
         shapeHX = 8;
         shapeHY = 16;
         linearVelocity = 3;
-        angularVelocity = 1.5f;
+        angularVelocity = 0.75f;
         restitution = 0.15f;
         density = 0;
 

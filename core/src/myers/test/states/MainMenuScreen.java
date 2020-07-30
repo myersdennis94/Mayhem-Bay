@@ -24,9 +24,9 @@ public class MainMenuScreen extends GameState {
 
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
-    private  final int BUTTON_WIDTH = MayhemGame.VIRTUAL_WIDTH / 2;
+    private final int BUTTON_WIDTH = MayhemGame.VIRTUAL_WIDTH / 2;
     private final int BUTTON_HEIGHT = MayhemGame.VIRTUAL_HEIGHT / 10;
-    private  final float TITLE_BUTTON_WIDTH = (float) (MayhemGame.VIRTUAL_WIDTH / 2);
+    private final float TITLE_BUTTON_WIDTH = (float) (MayhemGame.VIRTUAL_WIDTH / 2);
     private final int TITLE_BUTTON_HEIGHT = MayhemGame.VIRTUAL_HEIGHT / 7;
 
 
@@ -43,9 +43,6 @@ public class MainMenuScreen extends GameState {
 
     }
 
-
-
-
     @Override
     public void handleInput() {
 
@@ -55,8 +52,6 @@ public class MainMenuScreen extends GameState {
     public void update(float deltaTime) {
 
     }
-
-
 
     @Override
     public void render(float deltaTime) {
@@ -114,7 +109,6 @@ public class MainMenuScreen extends GameState {
 
         spriteBatch.end();
     }
-
 
     @Override
     public void dispose() {

@@ -4,14 +4,18 @@ import static myers.test.MayhemGame.textureAtlas;
 import static myers.test.handlers.B2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Align;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
@@ -23,6 +27,7 @@ import myers.test.handlers.GameStateManager;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Locale;
 
 public class Play extends GameState{
 
@@ -36,20 +41,25 @@ public class Play extends GameState{
 
     // spawn stuff
     private float rockSpawnTimer = 0;
-    private float timeBetweenRockSpawns = 1f;
+    RockObstacle rockAttributes;
+    private LinkedList<RockObstacle> rockManager;
+
+    // background
+    private TextureRegion[] backgrounds;
+    private float[] backgroundOffsets = {0,0,0,0};
+    private float backgroundMaxScrollingSpeed;
 
     // play constants
     private final float FRICTION_COEF = 0.5f;
     private final float WATER_VELOCITY = -1.5f;
 
-    //private TextureAtlas textureAtlas;
-    private TextureRegion[] backgrounds;
-    private float[] backgroundOffsets = {0,0,0,0};
-    private float backgroundMaxScrollingSpeed;
-    //private Sprite playerShip;
-    //private PhysicsShapeCache physicsBodies;
+    // HUD
+    BitmapFont font;
+    float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudSectionWidth;
 
-    private LinkedList<RockObstacle> rockManager;
+    // boundary settings
+    private boolean lockTop = true;
+    private boolean lockSides = true;
 
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -58,24 +68,29 @@ public class Play extends GameState{
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
-        //physicsBodies = new PhysicsShapeCache("shapes.xml");
-
-        // create player
+        // load player
         loadPlayer();
 
-        // set up box2d camera
-        b2dCamera = new OrthographicCamera();
-        b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
+        // spawn stuff
+        rockAttributes = new RockObstacle(null);
+        rockManager = new LinkedList<>();
 
-        //playerShip = new Sprite(textureAtlas.findRegion("tugboat"));
+        // background
         backgrounds = new TextureRegion[4];
         backgrounds[0] = textureAtlas.findRegion("tex_Water");
         backgrounds[1] = textureAtlas.findRegion("water2");
         backgrounds[2] = textureAtlas.findRegion("water3");
         backgrounds[3] = textureAtlas.findRegion("water4");
-        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/4;
+        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
 
         rockManager = new LinkedList<>();
+
+        prepareHUD();
+        // set up box2d camera
+        b2dCamera = new OrthographicCamera();
+        b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
+
+        setUpBorders();
     }
 
     @Override
@@ -90,10 +105,10 @@ public class Play extends GameState{
         float velocityX;
         float velocityY;
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            body.setAngularVelocity(-ship.getAngularVelocity()/2); // move literal to class attribute
+            body.setAngularVelocity(-ship.getAngularVelocity()); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            body.setAngularVelocity(ship.getAngularVelocity()/2); // move literal to class attribute
+            body.setAngularVelocity(ship.getAngularVelocity()); // move literal to class attribute
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             velocityX = velocity * MathUtils.sin(angle);
@@ -120,13 +135,14 @@ public class Play extends GameState{
         applyDirectionalFriction(deltaTime);
 
         spawnRockObstacles(deltaTime);
+
+        updateScore(deltaTime);
     }
 
     @Override
     public void render(float deltaTime) {
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 
         renderBackground(deltaTime);
 
@@ -137,7 +153,7 @@ public class Play extends GameState{
 
         player.getShip().render(spriteBatch);
 
-
+        updateAndRenderHUD(deltaTime);
     }
 
     @Override
@@ -145,18 +161,113 @@ public class Play extends GameState{
 
     }
 
+    private void setUpBorders(){
+        Body body;
+        BodyDef bodyDef;
+        PolygonShape polygonShape;
+        if(lockTop){
+            bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(0,MayhemGame.VIRTUAL_HEIGHT/PPM);
+            body = world.createBody(bodyDef);
+
+            polygonShape = new PolygonShape();
+            polygonShape.set(new float[]{0f,0f,MayhemGame.VIRTUAL_WIDTH/PPM,0f,MayhemGame.VIRTUAL_WIDTH/PPM,1f,0f,1f});
+
+            body.createFixture(polygonShape,0f);
+            polygonShape.dispose();
+        }
+        if(lockSides){
+            // left invisible wall
+            bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(0f,0f);
+            body = world.createBody(bodyDef);
+
+            polygonShape = new PolygonShape();
+            polygonShape.set(new float[]{-1f,0f,-1f,MayhemGame.VIRTUAL_HEIGHT/PPM,0f,MayhemGame.VIRTUAL_HEIGHT/PPM,0f,0f});
+
+            body.createFixture(polygonShape,0f);
+            polygonShape.dispose();
+
+            // right invisible wall
+            bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(MayhemGame.VIRTUAL_WIDTH/PPM,0f);
+            body = world.createBody(bodyDef);
+
+            polygonShape = new PolygonShape();
+            polygonShape.set(new float[]{0f,0f,0f,MayhemGame.VIRTUAL_HEIGHT/PPM,1f,MayhemGame.VIRTUAL_HEIGHT/PPM,1f,0f});
+
+            body.createFixture(polygonShape,0f);
+            polygonShape.dispose();
+        }
+    }
+
+    private void updateScore(float deltaTime){
+        if(player.getShip().getBody().getLinearVelocity().y > 0){
+            player.updateScore(deltaTime*20*player.getShip().getBody().getLinearVelocity().len());
+        }
+        player.updateScore(deltaTime*2);
+    }
+
+    private void updateAndRenderHUD(float deltaTime){
+        spriteBatch.begin();
+        //first row
+        font.draw(spriteBatch, "Score", hudLeftX, hudRow1Y, hudSectionWidth, Align.left, false);
+        //font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
+
+        //second row
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06.0f",player.getScore()),hudLeftX,hudRow2Y,hudSectionWidth,Align.left,false);
+
+        spriteBatch.end();
+    }
+
+    private void prepareHUD(){
+        // create a BitmapFont from font file
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Kalmansk-51WVB.otf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        fontParameter.size = 48;
+        fontParameter.borderWidth = 3.6f;
+        fontParameter.color = new Color(1,1,1,0.3f);
+        fontParameter.borderColor = new Color(0,0,0,0.3f);
+
+        font = fontGenerator.generateFont(fontParameter);
+
+        // scale font to fit world
+        font.getData().setScale(MayhemGame.SCALE);
+
+        // calculate hud margins
+        hudVerticalMargin = font.getCapHeight()/2;
+        hudLeftX = hudVerticalMargin;
+        hudRightX = MayhemGame.VIRTUAL_WIDTH*2/3 - hudLeftX;
+        hudCenterX = MayhemGame.VIRTUAL_WIDTH/3;
+        hudRow1Y = MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE - hudVerticalMargin;
+        hudRow2Y = hudRow1Y - hudVerticalMargin - font.getCapHeight();
+        hudSectionWidth = MayhemGame.VIRTUAL_WIDTH/3;
+    }
+
     private void renderRocks(){
-        if(rockManager.size() > 0) {
+        for (RockObstacle rock : rockManager) {
+            if (rock.getBody().getPosition().y < 0) {
+                rockManager.remove(rock);
+            } else {
+                rock.render(spriteBatch);
+            }
+        }
+
+        /*if(rockManager.size() > 0) {
             ListIterator<RockObstacle> iterator = rockManager.listIterator();
             while (iterator.hasNext()) {
                 RockObstacle rock = iterator.next();
                 if (rock.getBody().getPosition().y < 0) {
                     iterator.remove();
                 } else {
-                    rock.draw(spriteBatch);
+                    rock.render(spriteBatch);
                 }
             }
-        }
+        }*/
     }
 
     private void renderBackground(float deltaTime){
@@ -245,29 +356,19 @@ public class Play extends GameState{
         // ship - this will have logic to read the JSON database and load selected ship (Default/Alternate/etc.)
         // or the logic could also be moved to the player class, idk
         player.setShip(new DefaultShip(world));
-
-        //Body body = physicsBodies.createBody("tugboat",world,ship.getShapeHX(),ship.getShapeHY());
     }
 
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
-        if (rockSpawnTimer > timeBetweenRockSpawns) {
-            BodyDef bdef = new BodyDef();
-            bdef.position.set((MayhemGame.random.nextFloat() * MayhemGame.VIRTUAL_WIDTH + 8) / PPM, (MayhemGame.VIRTUAL_HEIGHT + 8) / PPM); // move literals to class attribute
-            bdef.type = BodyDef.BodyType.KinematicBody;
-            bdef.linearVelocity.set(0, -1.5f); // move literals to class attribute
-            Body body = world.createBody(bdef);
 
-            PolygonShape shape = new PolygonShape();
-            shape.setAsBox(8 / PPM,8 / PPM); // move literals to class attribute
-            FixtureDef fdef = new FixtureDef();
-            fdef.shape = shape;
-            body.createFixture(fdef);
-            shape.dispose();
+        if (rockSpawnTimer > rockAttributes.getSpawnFreq()) {
 
-            rockManager.push(new RockObstacle(body,shape));
+            RockObstacle newRock = new RockObstacle(world);
+            newRock.createSprite();
+            newRock.createBody();
+            rockManager.push(newRock);
 
-            rockSpawnTimer -= timeBetweenRockSpawns;
+            rockSpawnTimer -= rockAttributes.getSpawnFreq();
         }
     }
 }

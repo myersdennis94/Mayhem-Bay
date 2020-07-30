@@ -1,57 +1,79 @@
 package myers.test.entities.obstacles;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import static myers.test.handlers.B2DVars.PPM;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.*;
 import myers.test.MayhemGame;
 import myers.test.handlers.B2DVars;
 
 public abstract class Obstacle {
 
-//    // obstacle characteristics
-//    float movementSpeed; // world units per second
-//    Vector2 directionVector;
-//
-//    //position & dimension
-//    Rectangle boundingBox;
-//    Rectangle knockbackBox;
-//
-//    //graphics
-//    TextureRegion obstacleTextureRegion;
+    World world;
 
-//    public Obstacle(float movementSpeed, float xCenter, float yCenter, float width, float height, TextureRegion obstacleTextureRegion) {
-//        this.movementSpeed = movementSpeed;
-//        this.directionVector = new Vector2(0, -1);
-//        this.boundingBox = new Rectangle(xCenter - width/2,yCenter - height/2,width,height);
-//        // needed to differentiate between bottom and rest of obstacle - unnecessary if player movement redone with velocity
-//        this.knockbackBox = new Rectangle(xCenter - width/8, (yCenter - height/2)-0.1f, width/4, 0.1f);
-//        this.obstacleTextureRegion = obstacleTextureRegion;
-//    }
+    // spawn location
+    protected final float SPAWNPOSX = MayhemGame.random.nextFloat() * MayhemGame.VIRTUAL_WIDTH;
+    protected final float SPAWNPOSY = MayhemGame.VIRTUAL_HEIGHT;
 
-    private Body body;
-    protected TextureRegion textureRegion;
-    private PolygonShape polygonShape;
+    // obstacle attributes
+    protected String name;
+    protected float spawnFreq;
+    protected float spawnPeriod;
+    protected float spawnMax;
+    protected float velocityX;
+    protected float velocityY;
+    protected float shapeHX;
+    protected float shapeHY;
 
-    public Obstacle(Body body, PolygonShape polygonShape){
-        this.body = body;
-        this.polygonShape = polygonShape;
+    // graphics & physics
+    protected Sprite sprite;
+    protected Body body;
+
+    public Obstacle(World world){
+        this.world = world;
     }
 
-    public Body getBody(){
+    public void createSprite() {
+        sprite = new Sprite(MayhemGame.textureAtlas.findRegion(name));
+    }
+
+    public void createBody() {
+        BodyDef bdef = new BodyDef();
+        bdef.position.set((SPAWNPOSX + shapeHX) / PPM, (SPAWNPOSY + shapeHY) / PPM);
+        bdef.type = BodyDef.BodyType.KinematicBody;
+        bdef.linearVelocity.set(velocityX, velocityY);
+        body = world.createBody(bdef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(shapeHX / PPM,shapeHY / PPM);
+        FixtureDef fdef = new FixtureDef();
+        fdef.shape = shape;
+        body.createFixture(fdef);
+        shape.dispose();
+    }
+
+    public Body getBody() {
         return body;
     }
 
-    public TextureRegion getTextureRegion(){
-        return textureRegion;
+    public float getSpawnFreq() {
+        return spawnFreq;
     }
 
-    public void draw(Batch batch){
-        batch.begin();
-        batch.draw(textureRegion,body.getPosition().x* B2DVars.PPM*MayhemGame.SCALE-textureRegion.getRegionWidth()/2,
-                body.getPosition().y*B2DVars.PPM* MayhemGame.SCALE-textureRegion.getRegionHeight()/2);
-        batch.end();
+    public float getSpawnPeriod() {
+        return spawnPeriod;
+    }
+
+    public float getSpawnMax() {
+        return spawnMax;
+    }
+
+    public void render(SpriteBatch spriteBatch){
+        spriteBatch.begin();
+
+        spriteBatch.draw(sprite,body.getPosition().x * B2DVars.PPM*MayhemGame.SCALE - sprite.getWidth() / 2,
+                body.getPosition().y * B2DVars.PPM * MayhemGame.SCALE - sprite.getWidth() / 2);
+
+        spriteBatch.end();
     }
 }
