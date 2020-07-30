@@ -57,6 +57,10 @@ public class Play extends GameState{
     BitmapFont font;
     float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudSectionWidth;
 
+    // boundary settings
+    private boolean lockTop = true;
+    private boolean lockSides = true;
+
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -85,6 +89,8 @@ public class Play extends GameState{
         // set up box2d camera
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
+
+        setUpBorders();
     }
 
     @Override
@@ -153,6 +159,49 @@ public class Play extends GameState{
     @Override
     public void dispose() {
 
+    }
+
+    private void setUpBorders(){
+        Body body;
+        BodyDef bodyDef;
+        PolygonShape polygonShape;
+        if(lockTop){
+            bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(0,MayhemGame.VIRTUAL_HEIGHT/PPM);
+            body = world.createBody(bodyDef);
+
+            polygonShape = new PolygonShape();
+            polygonShape.set(new float[]{0f,0f,MayhemGame.VIRTUAL_WIDTH/PPM,0f,MayhemGame.VIRTUAL_WIDTH/PPM,1f,0f,1f});
+
+            body.createFixture(polygonShape,0f);
+            polygonShape.dispose();
+        }
+        if(lockSides){
+            // left invisible wall
+            bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(0f,0f);
+            body = world.createBody(bodyDef);
+
+            polygonShape = new PolygonShape();
+            polygonShape.set(new float[]{-1f,0f,-1f,MayhemGame.VIRTUAL_HEIGHT/PPM,0f,MayhemGame.VIRTUAL_HEIGHT/PPM,0f,0f});
+
+            body.createFixture(polygonShape,0f);
+            polygonShape.dispose();
+
+            // right invisible wall
+            bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.position.set(MayhemGame.VIRTUAL_WIDTH/PPM,0f);
+            body = world.createBody(bodyDef);
+
+            polygonShape = new PolygonShape();
+            polygonShape.set(new float[]{0f,0f,0f,MayhemGame.VIRTUAL_HEIGHT/PPM,1f,MayhemGame.VIRTUAL_HEIGHT/PPM,1f,0f});
+
+            body.createFixture(polygonShape,0f);
+            polygonShape.dispose();
+        }
     }
 
     private void updateScore(float deltaTime){
