@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
+import myers.test.handlers.GameManager;
 import myers.test.handlers.GameStateManager;
 
 import java.util.Random;
@@ -30,11 +31,13 @@ public class MayhemGame implements ApplicationListener {
 	private OrthographicCamera hudCamera;
 
 	private GameStateManager gameStateManager;
+	private GameManager gameManager;
 
 	public static Random random = new Random();
 
 	@Override
 	public void create() {
+
 		GdxNativesLoader.load();
 		textureAtlas= new TextureAtlas("textures.atlas");
 		//physicsShapeCache = new PhysicsShapeCache("shapes.xml");
@@ -45,6 +48,10 @@ public class MayhemGame implements ApplicationListener {
 		hudCamera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
 		gameStateManager = new GameStateManager(this);
+		gameManager = new GameManager();
+		gameManager.getInstance().initializeGameData();
+
+
 	}
 
 	@Override

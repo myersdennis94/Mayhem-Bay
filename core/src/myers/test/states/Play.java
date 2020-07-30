@@ -165,7 +165,7 @@ public class Play extends GameState{
 
     private void checkLoss(){
         if(player.getShip().isBodyOutOfBounds()){
-            gameStateManager.setState(512480);
+            gameStateManager.setState(GameStateManager.SCORE);
         }
     }
 
