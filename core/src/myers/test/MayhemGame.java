@@ -93,4 +93,6 @@ public class MayhemGame implements ApplicationListener {
 	public OrthographicCamera getHudCamera() {
 		return hudCamera;
 	}
+
+	public GameManager getGameManager(){return gameManager;}
 }
