@@ -165,7 +165,8 @@ public class Play extends GameState{
 
     private void checkLoss(){
         if(player.getShip().getBody().getPosition().y+player.getShip().getShapeHY()/PPM < 0f){
-            gameStateManager.setState(512480);
+            this.dispose();
+            gameStateManager.setState(GameStateManager.SCORE);
         }
     }
 
