@@ -208,6 +208,7 @@ public class Play extends GameState{
         if(player.getShip().getBody().getLinearVelocity().y > 0){
             player.updateScore(deltaTime*20*player.getShip().getBody().getLinearVelocity().len());
         }
+        player.updateScore(deltaTime*2);
     }
 
     private void updateAndRenderHUD(float deltaTime){
