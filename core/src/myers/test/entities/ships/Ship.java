@@ -68,6 +68,10 @@ public abstract class Ship{
         return body;
     }
 
+    public float getShapeHY(){
+        return shapeHY;
+    }
+
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
 
