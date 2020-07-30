@@ -137,6 +137,8 @@ public class Play extends GameState{
         spawnRockObstacles(deltaTime);
 
         updateScore(deltaTime);
+
+        checkLoss();
     }
 
     @Override
@@ -159,6 +161,12 @@ public class Play extends GameState{
     @Override
     public void dispose() {
 
+    }
+
+    private void checkLoss(){
+        if(player.getShip().getBody().getPosition().y+player.getShip().getShapeHY()/PPM < 0f){
+            gameStateManager.setState(512480);
+        }
     }
 
     private void setUpBorders(){
