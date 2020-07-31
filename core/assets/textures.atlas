@@ -6,182 +6,140 @@ filter: Nearest,Nearest
 repeat: none
 exit_yellow_button00
   rotate: false
-  xy: 1026, 1536
+  xy: 2307, 3272
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 exit_yellow_button05
   rotate: false
-  xy: 1, 180
+  xy: 1426, 1736
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 game_title
   rotate: false
-  xy: 1026, 1582
+  xy: 1026, 1600
   size: 399, 181
   orig: 399, 181
   offset: 0, 0
   index: -1
+land22
+  rotate: false
+  xy: 1, 115
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+land33
+  rotate: false
+  xy: 2563, 3638
+  size: 192, 192
+  orig: 192, 192
+  offset: 0, 0
+  index: -1
+land44
+  rotate: false
+  xy: 2050, 3061
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 main_menu_yellow_button00
   rotate: false
-  xy: 2050, 3250
+  xy: 514, 707
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 main_menu_yellow_button05
   rotate: false
-  xy: 514, 693
+  xy: 2050, 3015
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
-mapGreyBL
-  rotate: false
-  xy: 1, 1
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyBM
-  rotate: false
-  xy: 514, 514
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyBR
-  rotate: false
-  xy: 581, 628
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyML
-  rotate: false
-  xy: 1026, 1406
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyMM
-  rotate: false
-  xy: 1026, 1471
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyMR
-  rotate: false
-  xy: 2630, 3698
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyTL
-  rotate: false
-  xy: 1426, 1653
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyTM
-  rotate: false
-  xy: 2050, 3139
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-mapGreyTR
-  rotate: false
-  xy: 2563, 3584
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 rock
   rotate: false
-  xy: 68, 115
+  xy: 1426, 1671
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 score_yellow_button00
   rotate: false
-  xy: 2050, 3204
+  xy: 2756, 3785
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 score_yellow_button05
   rotate: false
-  xy: 2241, 3254
+  xy: 130, 198
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 speedboat
   rotate: false
-  xy: 514, 579
+  xy: 1026, 1436
   size: 66, 113
   orig: 66, 113
   offset: 0, 0
   index: -1
 submarine
   rotate: false
-  xy: 2563, 3649
+  xy: 1, 1
   size: 66, 113
   orig: 66, 113
   offset: 0, 0
   index: -1
 tex_Water
   rotate: false
-  xy: 1, 739
+  xy: 1, 757
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
   index: -1
 tugboat
   rotate: false
-  xy: 1, 66
+  xy: 514, 593
   size: 66, 113
   orig: 66, 113
   offset: 0, 0
   index: -1
 water2
   rotate: false
-  xy: 2050, 3300
+  xy: 2050, 3318
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water3
   rotate: false
-  xy: 1, 1764
+  xy: 1, 1782
   size: 2048, 2048
   orig: 2048, 2048
   offset: 0, 0
   index: -1
 water4
   rotate: false
-  xy: 1, 226
+  xy: 1, 244
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 yellow_button00
   rotate: false
-  xy: 2563, 3763
+  xy: 1026, 1550
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 yellow_button05
   rotate: false
-  xy: 1426, 1718
+  xy: 2563, 3592
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
