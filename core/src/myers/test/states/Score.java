@@ -11,8 +11,8 @@ public class Score extends GameState{
     private Texture mainMenuActive, mainMenuInactive;
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
-    private  final int BUTTON_WIDTH = MayhemGame.VIRTUAL_WIDTH / 2;
-    private final int BUTTON_HEIGHT = MayhemGame.VIRTUAL_HEIGHT / 10;
+    private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
+    private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 10;
 
     public Score(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -35,11 +35,11 @@ public class Score extends GameState{
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //spriteBatch.setProjectionMatrix(camera.combined);
+
         spriteBatch.begin();
 
-        int mainMenu_x = (MayhemGame.VIRTUAL_WIDTH/2) - (BUTTON_WIDTH/2);
-        float mainMenu_y = (float) (MayhemGame.VIRTUAL_HEIGHT /5);
+        int mainMenu_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
+        float mainMenu_y = (float) (SCREEN_HEIGHT /5);
 
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 5) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 5)){
             spriteBatch.draw(mainMenuInactive, mainMenu_x,  mainMenu_y, BUTTON_WIDTH, BUTTON_HEIGHT);

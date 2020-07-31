@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import myers.test.GameData;
+import myers.test.handlers.GameManager;
 import myers.test.handlers.GameStateManager;
 import myers.test.MayhemGame;
 
@@ -24,10 +26,12 @@ public class MainMenuScreen extends GameState {
 
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
-    private final int BUTTON_WIDTH = MayhemGame.VIRTUAL_WIDTH / 2;
-    private final int BUTTON_HEIGHT = MayhemGame.VIRTUAL_HEIGHT / 10;
-    private final float TITLE_BUTTON_WIDTH = (float) (MayhemGame.VIRTUAL_WIDTH / 2);
-    private final int TITLE_BUTTON_HEIGHT = MayhemGame.VIRTUAL_HEIGHT / 7;
+    private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
+    private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 10;
+    private final float TITLE_BUTTON_WIDTH = (float) (SCREEN_WIDTH / 2);
+    private final int TITLE_BUTTON_HEIGHT = SCREEN_HEIGHT / 7;
+
+    private GameManager gameManager;
 
 
     public MainMenuScreen(GameStateManager gameStateManager){
@@ -40,6 +44,7 @@ public class MainMenuScreen extends GameState {
         scoreButtonActive = new Texture("score_yellow_button05.png");
         scoreButtonInactive = new Texture("score_yellow_button00.png");
         gameTitle = new Texture("game_title.png");
+        gameManager = gameStateManager.game().getGameManager();
 
     }
 
@@ -55,18 +60,19 @@ public class MainMenuScreen extends GameState {
 
     @Override
     public void render(float deltaTime) {
+
         Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //spriteBatch.setProjectionMatrix(camera.combined);
+
         spriteBatch.begin();
 
-        int title_x = (MayhemGame.VIRTUAL_WIDTH/2) - (int)(TITLE_BUTTON_WIDTH/2);
-        float title_y = (float) (MayhemGame.VIRTUAL_HEIGHT/ 1.2);
+        int title_x = (SCREEN_WIDTH/2) - (int)(TITLE_BUTTON_WIDTH/2);
+        float title_y = (float) (SCREEN_HEIGHT/ 1.2);
 
         spriteBatch.draw(gameTitle, title_x,  title_y, TITLE_BUTTON_WIDTH, TITLE_BUTTON_HEIGHT);
 
-        int start_x = (MayhemGame.VIRTUAL_WIDTH/2) - (BUTTON_WIDTH/2);
-        float start_y = (float) (MayhemGame.VIRTUAL_HEIGHT / 1.5);
+        int start_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
+        float start_y = (float) (SCREEN_HEIGHT / 1.5);
 
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 1.5) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 1.5)){
             spriteBatch.draw(startButtonActive, start_x,  start_y, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -80,8 +86,8 @@ public class MainMenuScreen extends GameState {
         }
 
 
-        int score_x = (MayhemGame.VIRTUAL_WIDTH/2) - (BUTTON_WIDTH/2);
-        float score_y = (float) (MayhemGame.VIRTUAL_HEIGHT / 2);
+        int score_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
+        float score_y = (float) (SCREEN_HEIGHT / 2);
 
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 2) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 2)){
             spriteBatch.draw(scoreButtonInactive, score_x,  score_y, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -94,8 +100,8 @@ public class MainMenuScreen extends GameState {
             spriteBatch.draw(scoreButtonActive, score_x,  score_y, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
 
-        int end_x = (MayhemGame.VIRTUAL_WIDTH/2) - (BUTTON_WIDTH/2);
-        float end_y = (float) (MayhemGame.VIRTUAL_HEIGHT /3);
+        int end_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
+        float end_y = (float) (SCREEN_HEIGHT /3);
 
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 3) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 3)){
             spriteBatch.draw(exitButtonInactive, end_x,  end_y, BUTTON_WIDTH, BUTTON_HEIGHT);

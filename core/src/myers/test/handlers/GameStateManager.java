@@ -23,7 +23,7 @@ public class GameStateManager {
     public GameStateManager(MayhemGame game) {
         this.game = game;
         gameStates = new Stack<GameState>();
-        pushState(PLAY);
+        pushState(MENU);
     }
 
     public MayhemGame game() {
