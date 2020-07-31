@@ -17,8 +17,8 @@ public class LandObstacle extends Obstacle {
         spawnMax = 2;
         velocityX = 0;
         velocityY = -1.5f/sideLength;
-        shapeHX = 8*sideLength;
-        shapeHY = 8*sideLength;
+        shapeHX = 8*sideLength*1.7f;
+        shapeHY = 8*sideLength*1.7f;
         switch (sideLength){
             case 2:
                 name = "land22";
