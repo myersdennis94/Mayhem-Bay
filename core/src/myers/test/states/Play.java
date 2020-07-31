@@ -173,6 +173,7 @@ public class Play extends GameState{
 
     private void checkLoss(){
         if(player.getShip().isBodyOutOfBounds()){
+            this.dispose();
             gameStateManager.setState(GameStateManager.SCORE);
         }
     }
