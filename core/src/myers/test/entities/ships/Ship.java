@@ -72,6 +72,10 @@ public abstract class Ship{
         return shapeHY;
     }
 
+    public boolean isBodyOutOfBounds() {
+        return body.getPosition().y + shapeHY / PPM < 0;
+    }
+
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
 
