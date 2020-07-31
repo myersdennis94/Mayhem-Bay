@@ -13,33 +13,38 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import myers.test.GameData;
+import myers.test.handlers.GameManager;
 import myers.test.handlers.GameStateManager;
 import myers.test.MayhemGame;
 
 
 public class MainMenuScreen extends GameState {
 
-    private Texture gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
+    private TextureRegion gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
     scoreButtonActive, scoreButtonInactive;
 
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
-    private final int BUTTON_HEIGHT = MayhemGame.VIRTUAL_HEIGHT / 10;
+    private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 10;
     private final float TITLE_BUTTON_WIDTH = (float) (SCREEN_WIDTH / 2);
     private final int TITLE_BUTTON_HEIGHT = SCREEN_HEIGHT / 7;
+
+    private GameManager gameManager;
 
 
     public MainMenuScreen(GameStateManager gameStateManager){
 
         super(gameStateManager);
-        startButtonInactive = new Texture("yellow_button00.png");
-        startButtonActive = new Texture("yellow_button05.png");
-        exitButtonActive = new Texture("exit_yellow_button00.png");
-        exitButtonInactive = new Texture("exit_yellow_button05.png");
-        scoreButtonActive = new Texture("score_yellow_button05.png");
-        scoreButtonInactive = new Texture("score_yellow_button00.png");
-        gameTitle = new Texture("game_title.png");
+        startButtonInactive = MayhemGame.textureAtlas.findRegion("yellow_button00");
+        startButtonActive = MayhemGame.textureAtlas.findRegion("yellow_button05");
+        exitButtonActive = MayhemGame.textureAtlas.findRegion("exit_yellow_button00");
+        exitButtonInactive = MayhemGame.textureAtlas.findRegion("exit_yellow_button05");
+        scoreButtonActive = MayhemGame.textureAtlas.findRegion("score_yellow_button05");
+        scoreButtonInactive = MayhemGame.textureAtlas.findRegion("score_yellow_button00");
+        gameTitle = MayhemGame.textureAtlas.findRegion("game_title");
+        gameManager = gameStateManager.game().getGameManager();
 
     }
 
@@ -55,16 +60,18 @@ public class MainMenuScreen extends GameState {
 
     @Override
     public void render(float deltaTime) {
+
         Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         spriteBatch.begin();
 
-        int title_x = (SCREEN_WIDTH / 2) - (int)(TITLE_BUTTON_WIDTH/2);
+        int title_x = (SCREEN_WIDTH/2) - (int)(TITLE_BUTTON_WIDTH/2);
         float title_y = (float) (SCREEN_HEIGHT/ 1.2);
 
         spriteBatch.draw(gameTitle, title_x,  title_y, TITLE_BUTTON_WIDTH, TITLE_BUTTON_HEIGHT);
 
-        int start_x = (SCREEN_WIDTH /2) - (BUTTON_WIDTH/2);
+        int start_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
         float start_y = (float) (SCREEN_HEIGHT / 1.5);
 
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 1.5) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 1.5)){
@@ -77,6 +84,7 @@ public class MainMenuScreen extends GameState {
         else{
            spriteBatch.draw(startButtonInactive, start_x,  start_y, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
+
 
         int score_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
         float score_y = (float) (SCREEN_HEIGHT / 2);
