@@ -276,7 +276,7 @@ public class Play extends GameState{
 
     private void renderLand(){
         for (LandObstacle land : landManager){
-            if (land.getBody().getPosition().y < 0){
+            if (land.getBody().getPosition().y + land.getShapeHY()/PPM < 0){
                 landManager.remove(land);
             }else{
                 land.render(spriteBatch);
