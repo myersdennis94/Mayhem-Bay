@@ -3,12 +3,13 @@ package myers.test.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import myers.test.MayhemGame;
 import myers.test.handlers.GameStateManager;
 
 public class Score extends GameState{
 
-    private Texture mainMenuActive, mainMenuInactive;
+    private TextureRegion mainMenuActive, mainMenuInactive;
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
@@ -16,8 +17,8 @@ public class Score extends GameState{
 
     public Score(GameStateManager gameStateManager) {
         super(gameStateManager);
-        mainMenuActive  = new Texture("main_menu_yellow_button00.png");
-        mainMenuInactive = new Texture("main_menu_yellow_button05.png");
+        mainMenuActive  = MayhemGame.textureAtlas.findRegion("main_menu_yellow_button00");
+        mainMenuInactive = MayhemGame.textureAtlas.findRegion("main_menu_yellow_button05");
 
     }
 

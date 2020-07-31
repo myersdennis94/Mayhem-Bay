@@ -21,7 +21,7 @@ import myers.test.MayhemGame;
 
 public class MainMenuScreen extends GameState {
 
-    private Texture gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
+    private TextureRegion gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
     scoreButtonActive, scoreButtonInactive;
 
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
@@ -37,13 +37,13 @@ public class MainMenuScreen extends GameState {
     public MainMenuScreen(GameStateManager gameStateManager){
 
         super(gameStateManager);
-        startButtonInactive = new Texture("yellow_button00.png");
-        startButtonActive = new Texture("yellow_button05.png");
-        exitButtonActive = new Texture("exit_yellow_button00.png");
-        exitButtonInactive = new Texture("exit_yellow_button05.png");
-        scoreButtonActive = new Texture("score_yellow_button05.png");
-        scoreButtonInactive = new Texture("score_yellow_button00.png");
-        gameTitle = new Texture("game_title.png");
+        startButtonInactive = MayhemGame.textureAtlas.findRegion("yellow_button00");
+        startButtonActive = MayhemGame.textureAtlas.findRegion("yellow_button05");
+        exitButtonActive = MayhemGame.textureAtlas.findRegion("exit_yellow_button00");
+        exitButtonInactive = MayhemGame.textureAtlas.findRegion("exit_yellow_button05");
+        scoreButtonActive = MayhemGame.textureAtlas.findRegion("score_yellow_button05");
+        scoreButtonInactive = MayhemGame.textureAtlas.findRegion("score_yellow_button00");
+        gameTitle = MayhemGame.textureAtlas.findRegion("game_title");
         gameManager = gameStateManager.game().getGameManager();
 
     }
