@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
+import myers.test.entities.obstacles.LandObstacle;
 import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
@@ -41,8 +42,12 @@ public class Play extends GameState{
 
     // spawn stuff
     private float rockSpawnTimer = 0;
+    private float landSpawnTimer = 0;
     RockObstacle rockAttributes;
+    LandObstacle landAttributes;
+
     private LinkedList<RockObstacle> rockManager;
+    private LinkedList<LandObstacle> landManager;
 
     // background
     private TextureRegion[] backgrounds;
@@ -75,6 +80,9 @@ public class Play extends GameState{
         rockAttributes = new RockObstacle(null);
         rockManager = new LinkedList<>();
 
+        landAttributes = new LandObstacle(null);
+        landManager = new LinkedList<>();
+
         // background
         backgrounds = new TextureRegion[4];
         backgrounds[0] = textureAtlas.findRegion("tex_Water");
@@ -82,8 +90,6 @@ public class Play extends GameState{
         backgrounds[2] = textureAtlas.findRegion("water3");
         backgrounds[3] = textureAtlas.findRegion("water4");
         backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
-
-        rockManager = new LinkedList<>();
 
         prepareHUD();
         // set up box2d camera
@@ -135,6 +141,7 @@ public class Play extends GameState{
         applyDirectionalFriction(deltaTime);
 
         spawnRockObstacles(deltaTime);
+        spawnLandObstacles(deltaTime);
 
         updateScore(deltaTime);
 
@@ -152,6 +159,7 @@ public class Play extends GameState{
         //b2dr.render(world, b2dCamera.combined);
 
         renderRocks();
+        renderLand();
 
         player.getShip().render(spriteBatch);
 
@@ -264,18 +272,16 @@ public class Play extends GameState{
                 rock.render(spriteBatch);
             }
         }
+    }
 
-        /*if(rockManager.size() > 0) {
-            ListIterator<RockObstacle> iterator = rockManager.listIterator();
-            while (iterator.hasNext()) {
-                RockObstacle rock = iterator.next();
-                if (rock.getBody().getPosition().y < 0) {
-                    iterator.remove();
-                } else {
-                    rock.render(spriteBatch);
-                }
+    private void renderLand(){
+        for (LandObstacle land : landManager){
+            if (land.getBody().getPosition().y < 0){
+                landManager.remove(land);
+            }else{
+                land.render(spriteBatch);
             }
-        }*/
+        }
     }
 
     private void renderBackground(float deltaTime){
@@ -377,6 +383,20 @@ public class Play extends GameState{
             rockManager.push(newRock);
 
             rockSpawnTimer -= rockAttributes.getSpawnFreq();
+        }
+    }
+
+    private void spawnLandObstacles(float deltaTime){
+        landSpawnTimer += deltaTime;
+
+        if(landSpawnTimer > landAttributes.getSpawnFreq()) {
+
+            LandObstacle newLand = new LandObstacle(world);
+            newLand.createSprite();
+            newLand.createBody();
+            landManager.push(newLand);
+
+            landSpawnTimer -= landAttributes.getSpawnFreq();
         }
     }
 }
