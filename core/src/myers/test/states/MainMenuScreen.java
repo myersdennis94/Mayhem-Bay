@@ -57,7 +57,7 @@ public class MainMenuScreen extends GameState {
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        spriteBatch.setProjectionMatrix(camera.combined);
+        //spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
 
         int title_x = (MayhemGame.VIRTUAL_WIDTH/2) - (int)(TITLE_BUTTON_WIDTH/2);
