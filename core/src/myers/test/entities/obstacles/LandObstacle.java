@@ -31,8 +31,4 @@ public class LandObstacle extends Obstacle {
                 break;
         }
     }
-
-    public float getShapeHY(){
-        return shapeHY;
-    }
 }

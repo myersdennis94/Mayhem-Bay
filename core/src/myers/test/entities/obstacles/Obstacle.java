@@ -56,6 +56,10 @@ public abstract class Obstacle {
         return body;
     }
 
+    public float getShapeHY() {
+        return shapeHY;
+    }
+
     public float getSpawnFreq() {
         return spawnFreq;
     }
