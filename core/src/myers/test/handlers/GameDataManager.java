@@ -12,9 +12,11 @@ public class GameManager {
     public GameData gameData;
     private Json json = new Json();
     private FileHandle fileHandle = Gdx.files.local("bin/GameData.json");
-    public GameManager() {}
+    public GameManager() {
+        initializeGameData();
+    }
 
-    public void initializeGameData() {
+    private void initializeGameData() {
         if (!fileHandle.exists()) {
             gameData = new GameData();
 
@@ -32,11 +34,15 @@ public class GameManager {
             fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(gameData)),
                     false);
         }
+        gameData.printInfo();
+
     }
 
     public void loadData() {
         gameData = json.fromJson(GameData.class,
                 Base64Coder.decodeString(fileHandle.readString()));
+        gameData.printInfo();
+
     }
     public static GameManager getInstance() {
         return ourInstance;
