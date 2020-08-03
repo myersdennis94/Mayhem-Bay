@@ -86,6 +86,7 @@ public class MainMenuScreen extends GameState {
 
         Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         spriteBatch.begin();
 
         int title_x = (SCREEN_WIDTH/2) - (int)(TITLE_BUTTON_WIDTH/2);
