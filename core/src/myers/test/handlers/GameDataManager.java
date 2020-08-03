@@ -22,6 +22,9 @@ public class GameDataManager {
 
             gameData.setHighscore(0);
             gameData.setMusicOn(false);
+            gameData.setLastScore(0);
+            gameData.setLastTime(0);
+            gameData.setBestTime(0);
 
             saveData();
         } else {

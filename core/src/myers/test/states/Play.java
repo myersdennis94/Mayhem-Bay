@@ -26,6 +26,7 @@ import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
 import myers.test.entities.ships.Ship;
+import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 
 import java.util.LinkedList;
@@ -181,6 +182,8 @@ public class Play extends GameState{
 
     private void checkLoss(){
         if(player.getShip().isBodyOutOfBounds()){
+            GameDataManager.getInstance().gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
+            GameDataManager.getInstance().gameData.setLastScore((int)player.getScore());
             gameStateManager.setState(GameStateManager.SCORE);
         }
     }
