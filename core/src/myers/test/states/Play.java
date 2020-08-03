@@ -18,7 +18,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
-import myers.test.GameData;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
 import myers.test.entities.obstacles.LandObstacle;
@@ -26,6 +25,7 @@ import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
 import myers.test.entities.ships.Ship;
+import myers.test.handlers.GameData;
 import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 
