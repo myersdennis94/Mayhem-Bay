@@ -25,8 +25,6 @@ public abstract class GameState {
         spriteBatch = game.getSpriteBatch();
         camera = game.getCamera();
         hudCamera = game.getHudCamera();
-        GameDataManager.getInstance().initializeGameData();
-
     }
 
     public abstract void handleInput();

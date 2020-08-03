@@ -182,8 +182,10 @@ public class Play extends GameState{
 
     private void checkLoss(){
         if(player.getShip().isBodyOutOfBounds()){
-            GameDataManager.getInstance().gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
-            GameDataManager.getInstance().gameData.setLastScore((int)player.getScore());
+            //GameDataManager.getInstance().gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
+            //GameDataManager.getInstance().gameData.setLastScore((int)player.getScore());
+            MayhemGame.gameDataManager.gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
+            MayhemGame.gameDataManager.gameData.setLastScore((int)player.getScore());
             gameStateManager.setState(GameStateManager.SCORE);
         }
     }

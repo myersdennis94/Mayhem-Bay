@@ -108,12 +108,13 @@ public class Score extends GameState{
         //font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
 
         //second row - score value
-        font.draw(spriteBatch,"5000",hudCenterX,hudRow2Y,hudSectionWidth,Align.left,false);
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getLastScore()),hudCenterX,hudRow2Y,hudSectionWidth,Align.left,false);
 
         // third row - time title
         font.draw(spriteBatch,"Time",hudCenterX,hudRow3Y,hudSectionWidth,Align.left,false);
 
         // fourth row - time value
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",MayhemGame.gameDataManager.gameData.getLastTime())+" s",hudCenterX,hudRow4Y,hudSectionWidth,Align.left,false);
 
         spriteBatch.end();
     }

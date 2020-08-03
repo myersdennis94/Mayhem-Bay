@@ -7,13 +7,13 @@ import com.badlogic.gdx.utils.Json;
 import myers.test.GameData;
 
 public class GameDataManager {
-    private static GameDataManager ourInstance = new GameDataManager();
 
     public GameData gameData;
     private Json json = new Json();
     private FileHandle fileHandle = Gdx.files.local("bin/GameData.json");
 
-    private GameDataManager() {
+    public GameDataManager() {
+        initializeGameData();
     }
 
     public void initializeGameData() {
@@ -42,9 +42,5 @@ public class GameDataManager {
     public void loadData() {
         gameData = json.fromJson(GameData.class,
                 Base64Coder.decodeString(fileHandle.readString()));
-    }
-
-    public static GameDataManager getInstance() {
-        return ourInstance;
     }
 }

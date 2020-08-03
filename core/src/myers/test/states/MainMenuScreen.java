@@ -63,7 +63,7 @@ public class MainMenuScreen extends GameState {
                 this.dispose();
 
                 //Game data is access using GameDataManager and getting the instance
-                GameDataManager.getInstance().gameData.printInfo();
+                MayhemGame.gameDataManager.gameData.printInfo();
                 gameStateManager.setState(GameStateManager.SCORE);
             }
         }
