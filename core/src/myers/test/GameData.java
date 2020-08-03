@@ -20,4 +20,8 @@ public class GameData {
     public void setMusicOn(boolean musicOn) {
         this.musicOn = musicOn;
     }
+
+    public void printInfo(){
+        System.out.printf("%2d. %-10s\n",highscore, musicOn);
+    }
 }
