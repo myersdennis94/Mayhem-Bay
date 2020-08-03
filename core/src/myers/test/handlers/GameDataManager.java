@@ -6,17 +6,17 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import myers.test.GameData;
 
-public class GameManager {
-    private static GameManager ourInstance = new GameManager();
+public class GameDataManager {
+    private static GameDataManager ourInstance = new GameDataManager();
 
     public GameData gameData;
     private Json json = new Json();
     private FileHandle fileHandle = Gdx.files.local("bin/GameData.json");
-    public GameManager() {
-        initializeGameData();
+
+    private GameDataManager() {
     }
 
-    private void initializeGameData() {
+    public void initializeGameData() {
         if (!fileHandle.exists()) {
             gameData = new GameData();
 
@@ -34,21 +34,14 @@ public class GameManager {
             fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(gameData)),
                     false);
         }
-        gameData.printInfo();
-
     }
 
     public void loadData() {
         gameData = json.fromJson(GameData.class,
                 Base64Coder.decodeString(fileHandle.readString()));
-        gameData.printInfo();
-
     }
-    public static GameManager getInstance() {
+
+    public static GameDataManager getInstance() {
         return ourInstance;
-    }
-
-    public GameData getGameData(){
-        return gameData;
     }
 }
