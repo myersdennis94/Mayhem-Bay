@@ -18,7 +18,7 @@ public class Score extends GameState{
 
 
     BitmapFont font;
-    float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudSectionWidth;
+    float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudRow3Y, hudRow4Y, hudSectionWidth;
 
 
     private TextureRegion mainMenuActive, mainMenuInactive;
@@ -48,7 +48,7 @@ public class Score extends GameState{
 
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(0, 255 , 255, 1);
+        Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         updateAndRenderHUD(deltaTime);
 
@@ -92,21 +92,28 @@ public class Score extends GameState{
 
         // calculate hud margins
         hudVerticalMargin = font.getCapHeight()/2;
-        hudLeftX = 200;
+        hudLeftX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/3;
         hudRightX = 0;
-        hudCenterX = MayhemGame.VIRTUAL_WIDTH/3;
-        hudRow1Y = 900;
-        hudRow2Y = 800;
-        hudSectionWidth = MayhemGame.VIRTUAL_WIDTH/2;
+        hudCenterX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/3;
+        hudRow1Y = 7*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/8;
+        hudRow2Y = 25*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/32;
+        hudRow3Y = 5*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/8;
+        hudRow4Y = 17*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/32;
+        hudSectionWidth = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/2;
     }
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
-        //first row
-        font.draw(spriteBatch, "Score", 185, hudRow1Y, hudSectionWidth, Align.left, false);
+        //first row - score title
+        font.draw(spriteBatch, "Score", hudCenterX, hudRow1Y, hudSectionWidth, Align.left, false);
         //font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
 
-        //second row
-        font.draw(spriteBatch,"5000",hudLeftX,hudRow2Y,hudSectionWidth,Align.left,false);
+        //second row - score value
+        font.draw(spriteBatch,"5000",hudCenterX,hudRow2Y,hudSectionWidth,Align.left,false);
+
+        // third row - time title
+        font.draw(spriteBatch,"Time",hudCenterX,hudRow3Y,hudSectionWidth,Align.left,false);
+
+        // fourth row - time value
 
         spriteBatch.end();
     }
