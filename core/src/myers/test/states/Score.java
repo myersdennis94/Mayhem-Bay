@@ -26,8 +26,8 @@ public class Score extends GameState{
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
     private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 10;
-    private float number = 500;
-    private Player player;
+
+
 
     public Score(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -48,7 +48,7 @@ public class Score extends GameState{
 
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(0, 255 , 255, 1);
+        Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         updateAndRenderHUD(deltaTime);
 
@@ -82,8 +82,8 @@ public class Score extends GameState{
 
         fontParameter.size = 48;
         fontParameter.borderWidth = 3.6f;
-        fontParameter.color = new Color(1,1,1,1.0f);
-        fontParameter.borderColor = new Color(0,0,0,0.3f);
+        fontParameter.color = new Color(1,1,0,1.0f);
+        fontParameter.borderColor = new Color(0,0,0,1.0f);
 
         font = fontGenerator.generateFont(fontParameter);
 
@@ -102,7 +102,7 @@ public class Score extends GameState{
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
         //first row
-        font.draw(spriteBatch, "Score", 185, hudRow1Y, hudSectionWidth, Align.left, false);
+        font.draw(spriteBatch, "SCORE", 185, hudRow1Y, hudSectionWidth, Align.left, false);
         //font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
 
         //second row
