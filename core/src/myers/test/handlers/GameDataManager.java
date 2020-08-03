@@ -5,16 +5,25 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 
+/**
+ *
+ */
 public class GameDataManager {
 
     public GameData gameData;
     private Json json = new Json();
     private FileHandle fileHandle = Gdx.files.local("bin/GameData.json");
 
+    /**
+     *
+     */
     public GameDataManager() {
         initializeGameData();
     }
 
+    /**
+     *
+     */
     public void initializeGameData() {
         if (!fileHandle.exists()) {
             gameData = new GameData();
@@ -31,6 +40,9 @@ public class GameDataManager {
         }
     }
 
+    /**
+     *
+     */
     public void saveData() {
         if (gameData != null) {
             fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(gameData)),
@@ -38,6 +50,9 @@ public class GameDataManager {
         }
     }
 
+    /**
+     *
+     */
     public void loadData() {
         gameData = json.fromJson(GameData.class,
                 Base64Coder.decodeString(fileHandle.readString()));

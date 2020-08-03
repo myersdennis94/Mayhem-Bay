@@ -16,6 +16,9 @@ import myers.test.handlers.GameStateManager;
 
 import java.util.Random;
 
+/**
+ *
+ */
 public class MayhemGame implements ApplicationListener {
 
 	public static final String TITLE = "Mayhem Bay";
@@ -36,6 +39,9 @@ public class MayhemGame implements ApplicationListener {
 
 	public static GameDataManager gameDataManager;
 
+	/**
+	 *
+	 */
 	@Override
 	public void create() {
 
@@ -51,6 +57,9 @@ public class MayhemGame implements ApplicationListener {
 
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void render() {
 		accum += Gdx.graphics.getDeltaTime();
@@ -61,32 +70,58 @@ public class MayhemGame implements ApplicationListener {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void dispose() {
 	}
 
+	/**
+	 *
+	 * @param width
+	 * @param height
+	 */
 	@Override
 	public void resize(int width, int height) {
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void pause() {
 
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void resume() {
 
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public SpriteBatch getSpriteBatch() {
 		return spriteBatch;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public OrthographicCamera getCamera() {
 		return camera;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public OrthographicCamera getHudCamera() {
 		return hudCamera;
 	}

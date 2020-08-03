@@ -6,8 +6,15 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import static myers.test.MayhemGame.textureAtlas;
 
+/**
+ *
+ */
 public class RockObstacle extends Obstacle{
 
+    /**
+     *
+     * @param world
+     */
     public RockObstacle(World world) {
         super(world);
 

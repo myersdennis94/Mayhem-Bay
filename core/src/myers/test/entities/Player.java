@@ -3,6 +3,9 @@ package myers.test.entities;
 import com.badlogic.gdx.physics.box2d.Body;
 import myers.test.entities.ships.Ship;
 
+/**
+ *
+ */
 public class Player {
 
     protected Ship ship;

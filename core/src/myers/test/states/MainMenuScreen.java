@@ -22,7 +22,9 @@ import myers.test.MayhemGame;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ *
+ */
 public class MainMenuScreen extends GameState {
 
     private TextureRegion gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
@@ -35,6 +37,10 @@ public class MainMenuScreen extends GameState {
     private final float TITLE_BUTTON_WIDTH = (float) (SCREEN_WIDTH / 2);
     private final int TITLE_BUTTON_HEIGHT = SCREEN_HEIGHT / 7;
 
+    /**
+     *
+     * @param gameStateManager
+     */
     public MainMenuScreen(GameStateManager gameStateManager){
 
         super(gameStateManager);
@@ -47,6 +53,9 @@ public class MainMenuScreen extends GameState {
         gameTitle = MayhemGame.textureAtlas.findRegion("game_title");
     }
 
+    /**
+     *
+     */
     @Override
     public void handleInput() {
         // Start button is clicked
@@ -76,11 +85,19 @@ public class MainMenuScreen extends GameState {
         }
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     @Override
     public void update(float deltaTime) {
         handleInput();
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     @Override
     public void render(float deltaTime) {
 
@@ -131,6 +148,9 @@ public class MainMenuScreen extends GameState {
         spriteBatch.end();
     }
 
+    /**
+     *
+     */
     @Override
     public void dispose() {
 

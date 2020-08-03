@@ -7,6 +7,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import myers.test.MayhemGame;
 import myers.test.handlers.B2DVars;
 
+/**
+ *
+ */
 public abstract class Obstacle {
 
     World world;
@@ -29,14 +32,24 @@ public abstract class Obstacle {
     protected Sprite sprite;
     protected Body body;
 
+    /**
+     *
+     * @param world
+     */
     public Obstacle(World world){
         this.world = world;
     }
 
+    /**
+     *
+     */
     public void createSprite() {
         sprite = new Sprite(MayhemGame.textureAtlas.findRegion(name));
     }
 
+    /**
+     *
+     */
     public void createBody() {
         BodyDef bdef = new BodyDef();
         bdef.position.set((SPAWNPOSX + shapeHX) / PPM, (SPAWNPOSY + shapeHY) / PPM);
@@ -52,26 +65,50 @@ public abstract class Obstacle {
         shape.dispose();
     }
 
+    /**
+     *
+     * @return
+     */
     public Body getBody() {
         return body;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getShapeHY() {
         return shapeHY;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getSpawnFreq() {
         return spawnFreq;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getSpawnPeriod() {
         return spawnPeriod;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getSpawnMax() {
         return spawnMax;
     }
 
+    /**
+     *
+     * @param spriteBatch
+     */
     public void render(SpriteBatch spriteBatch){
         spriteBatch.begin();
 

@@ -4,6 +4,10 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class DefaultShip extends Ship{
 
+    /**
+     *
+     * @param world
+     */
     public DefaultShip(World world) {
         super(world);
 

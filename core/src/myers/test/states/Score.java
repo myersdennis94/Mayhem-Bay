@@ -14,12 +14,13 @@ import myers.test.handlers.GameStateManager;
 
 import java.util.Locale;
 
+/**
+ *
+ */
 public class Score extends GameState{
-
 
     BitmapFont font;
     float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudRow3Y, hudRow4Y, hudSectionWidth;
-
 
     private TextureRegion mainMenuActive, mainMenuInactive;
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
@@ -29,6 +30,10 @@ public class Score extends GameState{
     private float number = 500;
     private Player player;
 
+    /**
+     *
+     * @param gameStateManager
+     */
     public Score(GameStateManager gameStateManager) {
         super(gameStateManager);
         mainMenuActive  = MayhemGame.textureAtlas.findRegion("main_menu_yellow_button00");
@@ -36,16 +41,27 @@ public class Score extends GameState{
         prepareHUD();
     }
 
+    /**
+     *
+     */
     @Override
     public void handleInput() {
 
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     @Override
     public void update(float deltaTime) {
 
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(255, 255 , 255, 1);
@@ -71,10 +87,17 @@ public class Score extends GameState{
         spriteBatch.end();
     }
 
+    /**
+     *
+     */
     @Override
     public void dispose() {
 
     }
+
+    /**
+     *
+     */
     private void prepareHUD(){
         // create a BitmapFont from font file
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Kalmansk-51WVB.otf"));
@@ -101,6 +124,11 @@ public class Score extends GameState{
         hudRow4Y = 17*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/32;
         hudSectionWidth = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/2;
     }
+
+    /**
+     *
+     * @param deltaTime
+     */
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
         //first row - score title
