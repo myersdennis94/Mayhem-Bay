@@ -16,7 +16,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
+import myers.test.GameData;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
 import myers.test.entities.obstacles.LandObstacle;
@@ -24,6 +26,7 @@ import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
 import myers.test.entities.ships.Ship;
+import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 
 import java.util.LinkedList;
@@ -66,6 +69,10 @@ public class Play extends GameState{
     private boolean lockTop = true;
     private boolean lockSides = true;
 
+    // timing
+    private long startTime;
+
+
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -97,6 +104,8 @@ public class Play extends GameState{
         b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
 
         setUpBorders();
+
+        startTime = TimeUtils.millis();
     }
 
     @Override
@@ -173,6 +182,10 @@ public class Play extends GameState{
 
     private void checkLoss(){
         if(player.getShip().isBodyOutOfBounds()){
+            //GameDataManager.getInstance().gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
+            //GameDataManager.getInstance().gameData.setLastScore((int)player.getScore());
+            MayhemGame.gameDataManager.gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
+            MayhemGame.gameDataManager.gameData.setLastScore((int)player.getScore());
             gameStateManager.setState(GameStateManager.SCORE);
         }
     }
@@ -231,10 +244,11 @@ public class Play extends GameState{
         spriteBatch.begin();
         //first row
         font.draw(spriteBatch, "Score", hudLeftX, hudRow1Y, hudSectionWidth, Align.left, false);
-        //font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
+        font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
 
         //second row
         font.draw(spriteBatch,String.format(Locale.getDefault(),"%06.0f",player.getScore()),hudLeftX,hudRow2Y,hudSectionWidth,Align.left,false);
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",TimeUtils.timeSinceMillis(startTime)/1000f)+" s",hudCenterX,hudRow2Y,hudSectionWidth,Align.left,false);
 
         spriteBatch.end();
     }
@@ -257,8 +271,8 @@ public class Play extends GameState{
         // calculate hud margins
         hudVerticalMargin = font.getCapHeight()/2;
         hudLeftX = hudVerticalMargin;
-        hudRightX = MayhemGame.VIRTUAL_WIDTH*2/3 - hudLeftX;
-        hudCenterX = MayhemGame.VIRTUAL_WIDTH/3;
+        hudRightX = MayhemGame.VIRTUAL_WIDTH/3 - hudLeftX;
+        hudCenterX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/2+hudVerticalMargin;
         hudRow1Y = MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE - hudVerticalMargin;
         hudRow2Y = hudRow1Y - hudVerticalMargin - font.getCapHeight();
         hudSectionWidth = MayhemGame.VIRTUAL_WIDTH/3;
