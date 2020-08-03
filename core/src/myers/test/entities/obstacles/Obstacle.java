@@ -8,7 +8,7 @@ import myers.test.MayhemGame;
 import myers.test.handlers.B2DVars;
 
 /**
- *
+ * This abstract class is a representation of an obstacle.
  */
 public abstract class Obstacle {
 
@@ -33,22 +33,23 @@ public abstract class Obstacle {
     protected Body body;
 
     /**
+     * This constructor initializes the Obstacle object.
      *
-     * @param world
+     * @param world a <b><CODE>World</CODE></b> that will contain the obstacle.
      */
     public Obstacle(World world){
         this.world = world;
     }
 
     /**
-     *
+     * This method creates and sets the obstacle's <b><CODE>Sprite</CODE></b>.
      */
     public void createSprite() {
         sprite = new Sprite(MayhemGame.textureAtlas.findRegion(name));
     }
 
     /**
-     *
+     * This method creates and sets the obstacle's <b><CODE>Body</CODE></b>.
      */
     public void createBody() {
         BodyDef bdef = new BodyDef();
@@ -66,48 +67,54 @@ public abstract class Obstacle {
     }
 
     /**
+     * This method returns the obstacle's <b><CODE>Body</CODE></b>.
      *
-     * @return
+     * @return a <b><CODE>Body</CODE></b> that is the obstacle's physical/box2d component.
      */
     public Body getBody() {
         return body;
     }
 
     /**
+     * This method return the obstacles <b><CODE>shapeHY</CODE></b>.
      *
-     * @return
+     * @return a <b><CODE>float</CODE></b> that is the obstacle's height.
      */
     public float getShapeHY() {
         return shapeHY;
     }
 
     /**
+     * This method returns the obstacle's <b><CODE>spawnFreq</CODE></b>.
      *
-     * @return
+     * @return a <b><CODE>float</CODE></b> that is how often the obstacle spawns in seconds.
      */
     public float getSpawnFreq() {
         return spawnFreq;
     }
 
     /**
+     * This method returns the obstacle's <b><CODE>spawnPeriod</CODE></b>
      *
-     * @return
+     * @return a <b><CODE>float</CODE></b> that is the period(s) of time the obstacle can spawn.
      */
     public float getSpawnPeriod() {
         return spawnPeriod;
     }
 
     /**
+     * This method returns the obstacle's <b><CODE>spawnMax</CODE></b>
      *
-     * @return
+     * @return a <b><CODE>float</CODE></b> that is the maximum amount of obstacle's that can spawn at a time.
      */
     public float getSpawnMax() {
         return spawnMax;
     }
 
     /**
+     * This method renders the obstacle's <b><CODE>sprite</CODE></b>.
      *
-     * @param spriteBatch
+     * @param spriteBatch a <b><CODE>SpriteBatch</CODE></b> that will draw the obstacle's <b><CODE>sprite</CODE></b>.
      */
     public void render(SpriteBatch spriteBatch){
         spriteBatch.begin();
