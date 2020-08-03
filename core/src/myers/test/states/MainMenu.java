@@ -8,7 +8,7 @@ import myers.test.handlers.GameStateManager;
 import myers.test.MayhemGame;
 
 
-public class MainMenuScreen extends GameState {
+public class MainMenu extends GameState {
 
     private TextureRegion gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
     scoreButtonActive, scoreButtonInactive;
@@ -23,7 +23,7 @@ public class MainMenuScreen extends GameState {
     private GameManager gameManager;
 
 
-    public MainMenuScreen(GameStateManager gameStateManager){
+    public MainMenu(GameStateManager gameStateManager){
 
         super(gameStateManager);
         startButtonInactive = MayhemGame.textureAtlas.findRegion("yellow_button00");
