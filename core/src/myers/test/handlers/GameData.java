@@ -1,4 +1,4 @@
-package myers.test;
+package myers.test.handlers;
 
 public class GameData {
 

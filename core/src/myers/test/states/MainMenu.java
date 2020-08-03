@@ -1,25 +1,14 @@
 package myers.test.states;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import myers.test.GameData;
 import myers.test.handlers.GameManager;
 import myers.test.handlers.GameStateManager;
 import myers.test.MayhemGame;
 
 
-public class MainMenuScreen extends GameState {
+public class MainMenu extends GameState {
 
     private TextureRegion gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
     scoreButtonActive, scoreButtonInactive;
@@ -34,7 +23,7 @@ public class MainMenuScreen extends GameState {
     private GameManager gameManager;
 
 
-    public MainMenuScreen(GameStateManager gameStateManager){
+    public MainMenu(GameStateManager gameStateManager){
 
         super(gameStateManager);
         startButtonInactive = MayhemGame.textureAtlas.findRegion("yellow_button00");
