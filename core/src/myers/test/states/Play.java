@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
@@ -24,12 +25,17 @@ import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
 import myers.test.entities.ships.Ship;
+import myers.test.handlers.GameData;
+import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Locale;
 
+/**
+ *
+ */
 public class Play extends GameState{
 
     // box2d stuff
@@ -66,6 +72,14 @@ public class Play extends GameState{
     private boolean lockTop = true;
     private boolean lockSides = true;
 
+    // timing
+    private long startTime;
+
+
+    /**
+     *
+     * @param gameStateManager
+     */
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -97,8 +111,13 @@ public class Play extends GameState{
         b2dCamera.setToOrtho(false, MayhemGame.VIRTUAL_WIDTH / PPM, MayhemGame.VIRTUAL_HEIGHT / PPM);
 
         setUpBorders();
+
+        startTime = TimeUtils.millis();
     }
 
+    /**
+     *
+     */
     @Override
     public void handleInput() {
         Ship ship = player.getShip();
@@ -130,6 +149,10 @@ public class Play extends GameState{
         }
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     @Override
     public void update(float deltaTime) {
         world.step(deltaTime, 6, 6);
@@ -148,6 +171,10 @@ public class Play extends GameState{
         checkLoss();
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     @Override
     public void render(float deltaTime) {
         // clear screen
@@ -166,17 +193,30 @@ public class Play extends GameState{
         updateAndRenderHUD(deltaTime);
     }
 
+    /**
+     *
+     */
     @Override
     public void dispose() {
 
     }
 
+    /**
+     *
+     */
     private void checkLoss(){
         if(player.getShip().isBodyOutOfBounds()){
+            //GameDataManager.getInstance().gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
+            //GameDataManager.getInstance().gameData.setLastScore((int)player.getScore());
+            MayhemGame.gameDataManager.gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
+            MayhemGame.gameDataManager.gameData.setLastScore((int)player.getScore());
             gameStateManager.setState(GameStateManager.SCORE);
         }
     }
 
+    /**
+     *
+     */
     private void setUpBorders(){
         Body body;
         BodyDef bodyDef;
@@ -220,6 +260,10 @@ public class Play extends GameState{
         }
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     private void updateScore(float deltaTime){
         if(player.getShip().getBody().getLinearVelocity().y > 0){
             player.updateScore(deltaTime*20*player.getShip().getBody().getLinearVelocity().len());
@@ -227,18 +271,26 @@ public class Play extends GameState{
         player.updateScore(deltaTime*2);
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
         //first row
         font.draw(spriteBatch, "Score", hudLeftX, hudRow1Y, hudSectionWidth, Align.left, false);
-        //font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
+        font.draw(spriteBatch,"Time",hudCenterX,hudRow1Y,hudSectionWidth,Align.center,false);
 
         //second row
         font.draw(spriteBatch,String.format(Locale.getDefault(),"%06.0f",player.getScore()),hudLeftX,hudRow2Y,hudSectionWidth,Align.left,false);
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",TimeUtils.timeSinceMillis(startTime)/1000f)+" s",hudCenterX,hudRow2Y,hudSectionWidth,Align.left,false);
 
         spriteBatch.end();
     }
 
+    /**
+     *
+     */
     private void prepareHUD(){
         // create a BitmapFont from font file
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Kalmansk-51WVB.otf"));
@@ -257,13 +309,16 @@ public class Play extends GameState{
         // calculate hud margins
         hudVerticalMargin = font.getCapHeight()/2;
         hudLeftX = hudVerticalMargin;
-        hudRightX = MayhemGame.VIRTUAL_WIDTH*2/3 - hudLeftX;
-        hudCenterX = MayhemGame.VIRTUAL_WIDTH/3;
+        hudRightX = MayhemGame.VIRTUAL_WIDTH/3 - hudLeftX;
+        hudCenterX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/2+hudVerticalMargin;
         hudRow1Y = MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE - hudVerticalMargin;
         hudRow2Y = hudRow1Y - hudVerticalMargin - font.getCapHeight();
         hudSectionWidth = MayhemGame.VIRTUAL_WIDTH/3;
     }
 
+    /**
+     *
+     */
     private void renderRocks(){
         for (RockObstacle rock : rockManager) {
             if (rock.getBody().getPosition().y < 0) {
@@ -274,6 +329,9 @@ public class Play extends GameState{
         }
     }
 
+    /**
+     *
+     */
     private void renderLand(){
         for (LandObstacle land : landManager){
             if (land.getBody().getPosition().y + land.getShapeHY()/PPM < 0){
@@ -284,6 +342,10 @@ public class Play extends GameState{
         }
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     private void renderBackground(float deltaTime){
         spriteBatch.begin();
         backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
@@ -302,6 +364,10 @@ public class Play extends GameState{
         spriteBatch.end();
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     private void applyRotationalFriction(float deltaTime){
         Body body = player.getShip().getBody();
         if(body.getAngularVelocity() != 0f){
@@ -322,6 +388,10 @@ public class Play extends GameState{
         }
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     private void applyDirectionalFriction(float deltaTime){
         Body body = player.getShip().getBody();
         Vector2 linearVelocity = body.getLinearVelocity();
@@ -360,10 +430,16 @@ public class Play extends GameState{
         }
     }
 
+    /**
+     *
+     */
     private void applyCurrent() {
         player.getShip().getBody().applyForceToCenter(0, WATER_VELOCITY,false);
     }
 
+    /**
+     *
+     */
     private void loadPlayer() {
         player = new Player();
 
@@ -372,6 +448,10 @@ public class Play extends GameState{
         player.setShip(new DefaultShip(world));
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
 
@@ -386,6 +466,10 @@ public class Play extends GameState{
         }
     }
 
+    /**
+     *
+     * @param deltaTime
+     */
     private void spawnLandObstacles(float deltaTime){
         landSpawnTimer += deltaTime;
 

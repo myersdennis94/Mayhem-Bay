@@ -12,6 +12,9 @@ import myers.test.handlers.B2DVars;
 
 import static myers.test.handlers.B2DVars.PPM;
 
+/**
+ *
+ */
 public abstract class Ship{
 
     World world;
@@ -33,14 +36,24 @@ public abstract class Ship{
     protected Sprite sprite;
     protected Body body;
 
+    /**
+     *
+     * @param world
+     */
     public Ship(World world) {
         this.world = world;
     }
 
+    /**
+     *
+     */
     protected void createSprite() {
         sprite = new Sprite(MayhemGame.textureAtlas.findRegion(name));
     }
 
+    /**
+     *
+     */
     protected void createBody() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(SPAWNPOSX / PPM, SPAWNPOSY / PPM);
@@ -56,26 +69,50 @@ public abstract class Ship{
         shape.dispose();
     }
 
+    /**
+     *
+     * @return
+     */
     public float getLinearVelocity() {
         return linearVelocity;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getAngularVelocity() {
         return angularVelocity;
     }
 
+    /**
+     *
+     * @return
+     */
     public Body getBody() {
         return body;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getShapeHY(){
         return shapeHY;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isBodyOutOfBounds() {
         return body.getPosition().y + shapeHY / PPM < 0;
     }
 
+    /**
+     *
+     * @param spriteBatch
+     */
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
 

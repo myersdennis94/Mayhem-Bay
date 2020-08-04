@@ -5,10 +5,17 @@ import com.badlogic.gdx.physics.box2d.*;
 
 import static myers.test.handlers.B2DVars.PPM;
 
+/**
+ *
+ */
 public class LandObstacle extends Obstacle {
 
     private int sideLength;
 
+    /**
+     *
+     * @param world
+     */
     public LandObstacle(World world) {
         super(world);
         sideLength = MathUtils.random(2,3);
@@ -30,9 +37,5 @@ public class LandObstacle extends Obstacle {
                 name = "land44";
                 break;
         }
-    }
-
-    public float getShapeHY(){
-        return shapeHY;
     }
 }

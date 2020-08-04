@@ -1,10 +1,17 @@
 package myers.test.states;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import myers.test.MayhemGame;
+import myers.test.handlers.GameData;
+import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 
+/**
+ *
+ */
 public abstract class GameState {
 
     protected GameStateManager gameStateManager;
@@ -14,6 +21,10 @@ public abstract class GameState {
     protected OrthographicCamera camera;
     protected OrthographicCamera hudCamera;
 
+    /**
+     *
+     * @param gameStateManager
+     */
     protected GameState(GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
         game = gameStateManager.game();
@@ -22,13 +33,25 @@ public abstract class GameState {
         hudCamera = game.getHudCamera();
     }
 
+    /**
+     *
+     */
     public abstract void handleInput();
 
+    /**
+     *
+     * @param deltaTime
+     */
     public abstract void update(float deltaTime);
 
+    /**
+     *
+     * @param deltaTime
+     */
     public abstract void render(float deltaTime);
 
-
-
+    /**
+     *
+     */
     public abstract void dispose();
 }

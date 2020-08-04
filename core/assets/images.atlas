@@ -1,0 +1,76 @@
+
+images.png
+size: 4096,4096
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+laserBlue02
+  rotate: false
+  xy: 516, 543
+  size: 13, 37
+  orig: 13, 37
+  offset: 0, 0
+  index: -1
+laserRed02
+  rotate: false
+  xy: 1028, 1454
+  size: 13, 37
+  orig: 13, 37
+  offset: 0, 0
+  index: -1
+rock
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+speedboat
+  rotate: false
+  xy: 2566, 3543
+  size: 66, 113
+  orig: 66, 113
+  offset: 0, 0
+  index: -1
+submarine
+  rotate: false
+  xy: 1028, 1493
+  size: 66, 113
+  orig: 66, 113
+  offset: 0, 0
+  index: -1
+tex_Water
+  rotate: false
+  xy: 2, 582
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+tugboat
+  rotate: false
+  xy: 2052, 3029
+  size: 66, 113
+  orig: 66, 113
+  offset: 0, 0
+  index: -1
+water2
+  rotate: false
+  xy: 2052, 3144
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+water3
+  rotate: false
+  xy: 2, 1608
+  size: 2048, 2048
+  orig: 2048, 2048
+  offset: 0, 0
+  index: -1
+water4
+  rotate: false
+  xy: 2, 68
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1

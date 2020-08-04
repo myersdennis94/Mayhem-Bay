@@ -3,6 +3,7 @@ package myers.test;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,11 +11,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.codeandweb.physicseditor.PhysicsShapeCache;
-import myers.test.handlers.GameManager;
+import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 
 import java.util.Random;
 
+/**
+ *
+ */
 public class MayhemGame implements ApplicationListener {
 
 	public static final String TITLE = "Mayhem Bay";
@@ -25,35 +29,37 @@ public class MayhemGame implements ApplicationListener {
 	private float accum;
 
 	public static TextureAtlas textureAtlas;
-	//public static PhysicsShapeCache physicsShapeCache;
 	protected SpriteBatch spriteBatch;
 	private OrthographicCamera camera;
 	private OrthographicCamera hudCamera;
 
 	private GameStateManager gameStateManager;
-	private GameManager gameManager;
-
+	private Preferences preferences;
 	public static Random random = new Random();
 
+	public static GameDataManager gameDataManager;
+
+	/**
+	 *
+	 */
 	@Override
 	public void create() {
 
 		GdxNativesLoader.load();
 		textureAtlas= new TextureAtlas("textures.atlas");
-		//physicsShapeCache = new PhysicsShapeCache("shapes.xml");
 		spriteBatch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		hudCamera = new OrthographicCamera();
 		hudCamera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-
 		gameStateManager = new GameStateManager(this);
-		gameManager = new GameManager();
-		gameManager.getInstance().initializeGameData();
-
+		gameDataManager = new GameDataManager();
 
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void render() {
 		accum += Gdx.graphics.getDeltaTime();
@@ -64,35 +70,60 @@ public class MayhemGame implements ApplicationListener {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void dispose() {
 	}
 
+	/**
+	 *
+	 * @param width
+	 * @param height
+	 */
 	@Override
 	public void resize(int width, int height) {
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void pause() {
 
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void resume() {
 
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public SpriteBatch getSpriteBatch() {
 		return spriteBatch;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public OrthographicCamera getCamera() {
 		return camera;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public OrthographicCamera getHudCamera() {
 		return hudCamera;
 	}
 
-	public GameManager getGameManager(){return gameManager;}
 }
