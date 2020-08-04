@@ -176,10 +176,12 @@ public class Score extends GameState{
      */
     private void renderBackground(float deltaTime){
         spriteBatch.begin();
+
         backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
         backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
         backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
+
         for(int layer = 0; layer < backgroundOffsets.length; layer++){
             if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
                 backgroundOffsets[layer] = 0;
