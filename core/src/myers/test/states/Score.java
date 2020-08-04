@@ -64,7 +64,7 @@ public class Score extends GameState{
      */
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(0, 255 , 255, 1);
+        Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         updateAndRenderHUD(deltaTime);
 
