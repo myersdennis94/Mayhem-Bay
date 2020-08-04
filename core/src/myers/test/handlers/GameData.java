@@ -5,6 +5,7 @@ package myers.test.handlers;
  */
 public class GameData {
 
+    private int totalScore;
     private int highscore;
     private int lastScore;
     private boolean musicOn;
@@ -87,5 +88,10 @@ public class GameData {
     public void printInfo() {
         System.out.printf("%2d. %-10s\n", highscore, musicOn);
         System.out.printf("%06d %5.1f\n", lastScore, lastTime);
+    }
+
+    public int getTotalScoreScore(){
+        totalScore = (int) (getLastScore() * getLastTime());
+        return totalScore;
     }
 }

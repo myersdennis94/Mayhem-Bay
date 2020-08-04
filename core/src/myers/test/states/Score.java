@@ -1,5 +1,6 @@
 package myers.test.states;
 
+import static myers.test.MayhemGame.textureAtlas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,15 +21,20 @@ import java.util.Locale;
 public class Score extends GameState{
 
     BitmapFont font;
-    float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudRow3Y, hudRow4Y, hudSectionWidth;
+    float hudVerticalMargin, hudLeftX, hudRightX, hudCenterX, hudRow1Y, hudRow2Y, hudRow3Y, hudRow4Y, hudRow5Y, hudRow6Y, hudSectionWidth;
 
     private TextureRegion mainMenuActive, mainMenuInactive;
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
     private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 10;
-    private float number = 500;
-    private Player player;
+
+    // background
+    private TextureRegion[] backgrounds;
+    private float[] backgroundOffsets = {0,0,0,0};
+    private float backgroundMaxScrollingSpeed;
+
+
 
     /**
      *
@@ -36,6 +42,15 @@ public class Score extends GameState{
      */
     public Score(GameStateManager gameStateManager) {
         super(gameStateManager);
+
+        // background
+        backgrounds = new TextureRegion[4];
+        backgrounds[0] = textureAtlas.findRegion("tex_Water");
+        backgrounds[1] = textureAtlas.findRegion("water2");
+        backgrounds[2] = textureAtlas.findRegion("water3");
+        backgrounds[3] = textureAtlas.findRegion("water4");
+        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
+
         mainMenuActive  = MayhemGame.textureAtlas.findRegion("main_menu_yellow_button00");
         mainMenuInactive = MayhemGame.textureAtlas.findRegion("main_menu_yellow_button05");
         prepareHUD();
@@ -64,12 +79,12 @@ public class Score extends GameState{
      */
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        renderBackground(deltaTime);
         updateAndRenderHUD(deltaTime);
 
         spriteBatch.begin();
-
 
         int mainMenu_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
         float mainMenu_y = (float) (SCREEN_HEIGHT /8);
@@ -115,13 +130,15 @@ public class Score extends GameState{
 
         // calculate hud margins
         hudVerticalMargin = font.getCapHeight()/2;
-        hudLeftX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/3;
+        hudLeftX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/4;
         hudRightX = 0;
         hudCenterX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/3;
         hudRow1Y = 7*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/8;
         hudRow2Y = 25*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/32;
         hudRow3Y = 5*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/8;
         hudRow4Y = 17*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/32;
+        hudRow5Y = 25*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/60;
+        hudRow6Y = 17*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/60;
         hudSectionWidth = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/2;
     }
 
@@ -132,18 +149,45 @@ public class Score extends GameState{
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
         //first row - score title
-        font.draw(spriteBatch, "DISTANCE", hudCenterX, hudRow1Y, hudSectionWidth, Align.left, false);
-
+        font.draw(spriteBatch, "DISTANCE", hudCenterX, hudRow1Y, hudSectionWidth, Align.center, false);
 
         //second row - score value
-        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getLastScore()),hudCenterX,hudRow2Y,hudSectionWidth,Align.left,false);
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getLastScore()),hudCenterX,hudRow2Y,hudSectionWidth,Align.center,false);
 
         // third row - time title
         font.draw(spriteBatch,"TIME",hudCenterX,hudRow3Y,hudSectionWidth,Align.left,false);
 
         // fourth row - time value
-        font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",MayhemGame.gameDataManager.gameData.getLastTime())+" s",hudCenterX,hudRow4Y,hudSectionWidth,Align.left,false);
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",MayhemGame.gameDataManager.gameData.getLastTime())+" s",hudCenterX,hudRow4Y,hudSectionWidth,Align.center,false);
 
+        font.draw(spriteBatch,"SCORE",hudCenterX,hudRow5Y,hudSectionWidth,Align.left,false);
+
+
+
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getTotalScoreScore()),hudCenterX,hudRow6Y,hudSectionWidth,Align.center,false);
+
+        spriteBatch.end();
+    }
+
+    /**
+     *
+     * @param deltaTime
+     */
+    private void renderBackground(float deltaTime){
+        spriteBatch.begin();
+        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
+        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
+        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
+        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
+        for(int layer = 0; layer < backgroundOffsets.length; layer++){
+            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
+                backgroundOffsets[layer] = 0;
+            }
+            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
+                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
+            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
+                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
+        }
         spriteBatch.end();
     }
 
