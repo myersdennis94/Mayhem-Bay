@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import myers.test.MayhemGame;
 import myers.test.states.GameState;
 import myers.test.states.Play;
-import myers.test.states.MainMenu;
+import myers.test.states.MainMenuScreen;
 import myers.test.states.Score;
 
 import java.util.Stack;
@@ -66,7 +66,7 @@ public class GameStateManager {
             return new Play(this);
         }
         else if (state == MENU){
-            return  new MainMenu(this);
+            return  new MainMenuScreen(this);
         }
         else if(state == SCORE){
             return new Score(this);
