@@ -1,6 +1,7 @@
 package myers.test.states;
 
 import static myers.test.MayhemGame.textureAtlas;
+import myers.test.states.Play;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -133,12 +134,12 @@ public class Score extends GameState{
         hudLeftX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/4;
         hudRightX = 0;
         hudCenterX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/3;
-        hudRow1Y = 7*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/8;
-        hudRow2Y = 25*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/32;
-        hudRow3Y = 5*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/8;
-        hudRow4Y = 17*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/32;
-        hudRow5Y = 25*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/60;
-        hudRow6Y = 17*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/60;
+        hudRow1Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/12;
+        hudRow2Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/13;
+        hudRow3Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/15;
+        hudRow4Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/17;
+        hudRow5Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/21;
+        hudRow6Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/25;
         hudSectionWidth = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/2;
     }
 
@@ -149,22 +150,22 @@ public class Score extends GameState{
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
         //first row - score title
-        font.draw(spriteBatch, "DISTANCE", hudCenterX, hudRow1Y, hudSectionWidth, Align.center, false);
+        font.draw(spriteBatch, "DISTANCE", hudLeftX, hudRow1Y, hudSectionWidth, Align.center, false);
 
         //second row - score value
-        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getLastScore()),hudCenterX,hudRow2Y,hudSectionWidth,Align.center,false);
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getLastScore()),hudLeftX,hudRow2Y,hudSectionWidth,Align.center,false);
 
         // third row - time title
-        font.draw(spriteBatch,"TIME",hudCenterX,hudRow3Y,hudSectionWidth,Align.left,false);
+        font.draw(spriteBatch,"TIME",hudLeftX,hudRow3Y,hudSectionWidth,Align.center,false);
 
         // fourth row - time value
-        font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",MayhemGame.gameDataManager.gameData.getLastTime())+" s",hudCenterX,hudRow4Y,hudSectionWidth,Align.center,false);
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",MayhemGame.gameDataManager.gameData.getLastTime())+"s ",hudLeftX,hudRow4Y,hudSectionWidth,Align.center,false);
 
-        font.draw(spriteBatch,"SCORE",hudCenterX,hudRow5Y,hudSectionWidth,Align.left,false);
+        // fifth row - total title
+        font.draw(spriteBatch,"SCORE",hudLeftX,hudRow5Y,hudSectionWidth,Align.center,false);
 
-
-
-        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getTotalScoreScore()),hudCenterX,hudRow6Y,hudSectionWidth,Align.center,false);
+        // sixth row - total score value
+        font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getTotalScoreScore()),hudLeftX,hudRow6Y,hudSectionWidth,Align.center,false);
 
         spriteBatch.end();
     }
