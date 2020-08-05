@@ -11,6 +11,7 @@ public class GameData {
     private boolean musicOn;
     private float lastTime;
     private float bestTime;
+    private String ship;
 
     /**
      * @return
@@ -67,6 +68,10 @@ public class GameData {
     public void setBestTime(float bestTime) {
         this.bestTime = bestTime;
     }
+
+    public String getShip(){ return ship; }
+
+    public void setShip(String ship){ this.ship = ship; }
 
     /**
      * @return

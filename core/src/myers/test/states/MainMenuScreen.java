@@ -30,7 +30,7 @@ import static myers.test.MayhemGame.textureAtlas;
 public class MainMenuScreen extends GameState {
 
     private TextureRegion gameTitle, startButtonActive, startButtonInactive, exitButtonActive, exitButtonInactive,
-            scoreButtonActive, scoreButtonInactive;
+            scoreButtonActive, scoreButtonInactive, selectionButtonInactive, selectionButtonActive;
 
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
@@ -39,12 +39,6 @@ public class MainMenuScreen extends GameState {
     private final float TITLE_BUTTON_WIDTH = (float) (SCREEN_WIDTH / 2);
     private final int TITLE_BUTTON_HEIGHT = SCREEN_HEIGHT / 7;
 
-
-    // background
-    private TextureRegion[] backgrounds;
-    private float[] backgroundOffsets = {0,0,0,0};
-    private float backgroundMaxScrollingSpeed;
-
     /**
      *
      * @param gameStateManager
@@ -52,21 +46,15 @@ public class MainMenuScreen extends GameState {
     public MainMenuScreen(GameStateManager gameStateManager){
 
         super(gameStateManager);
-        startButtonInactive = MayhemGame.textureAtlas.findRegion("yellow_button00");
-        startButtonActive = MayhemGame.textureAtlas.findRegion("yellow_button05");
-        exitButtonActive = MayhemGame.textureAtlas.findRegion("exit_yellow_button00");
-        exitButtonInactive = MayhemGame.textureAtlas.findRegion("exit_yellow_button05");
-        scoreButtonActive = MayhemGame.textureAtlas.findRegion("score_yellow_button05");
-        scoreButtonInactive = MayhemGame.textureAtlas.findRegion("score_yellow_button00");
+        startButtonInactive = textureAtlas.findRegion("yellow_button00");
+        startButtonActive = textureAtlas.findRegion("yellow_button05");
+        exitButtonActive = textureAtlas.findRegion("exit_yellow_button00");
+        exitButtonInactive = textureAtlas.findRegion("exit_yellow_button05");
+        scoreButtonActive = textureAtlas.findRegion("score_yellow_button05");
+        scoreButtonInactive = textureAtlas.findRegion("score_yellow_button00");
+        selectionButtonActive = textureAtlas.findRegion("ship_selection_button05");
+        selectionButtonInactive = textureAtlas.findRegion("ship_selection_button00");
         gameTitle = MayhemGame.textureAtlas.findRegion("game_title");
-
-        // background
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("tex_Water");
-        backgrounds[1] = textureAtlas.findRegion("water2");
-        backgrounds[2] = textureAtlas.findRegion("water3");
-        backgrounds[3] = textureAtlas.findRegion("water4");
-        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
     }
 
     /**
@@ -77,7 +65,6 @@ public class MainMenuScreen extends GameState {
         // Start button is clicked
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 1.5) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 1.5)){
             if(Gdx.input.isTouched()){
-                this.dispose();
                 gameStateManager.setState(GameStateManager.PLAY);
             }
         }
@@ -85,17 +72,24 @@ public class MainMenuScreen extends GameState {
         //Score button is clicked
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 2) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 2)){
             if(Gdx.input.isTouched()){
-                this.dispose();
 
                 //Game data is access using GameDataManager and getting the instance
-                MayhemGame.gameDataManager.gameData.printInfo();
+                //MayhemGame.gameDataManager.gameData.printInfo();
                 gameStateManager.setState(GameStateManager.SCORE);
             }
         }
 
-        // Exit button is clicked
+        //Ship selection button is clicked
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 3) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 3)){
             if(Gdx.input.isTouched()){
+                gameStateManager.setState(GameStateManager.SELECTION);
+            }
+        }
+
+        // Exit button is clicked
+        if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 6) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 6)){
+            if(Gdx.input.isTouched()){
+                MayhemGame.gameDataManager.saveData();
                 Gdx.app.exit();
             }
         }
@@ -119,7 +113,8 @@ public class MainMenuScreen extends GameState {
 
 //        Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderBackground(deltaTime);
+
+        MayhemGame.background.render(deltaTime);
 
         spriteBatch.begin();
 
@@ -149,10 +144,20 @@ public class MainMenuScreen extends GameState {
             spriteBatch.draw(scoreButtonActive, score_x,  score_y, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
 
-        int end_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
-        float end_y = (float) (SCREEN_HEIGHT /3);
+        int select_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
+        float select_y = (float) (SCREEN_HEIGHT /3);
 
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 3) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 3)){
+            spriteBatch.draw(selectionButtonInactive, select_x,  select_y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        }
+        else{
+            spriteBatch.draw(selectionButtonActive, select_x,  select_y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        }
+
+        int end_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
+        float end_y = (float) (SCREEN_HEIGHT / 6);
+
+        if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 6) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 6)){
             spriteBatch.draw(exitButtonInactive, end_x,  end_y, BUTTON_WIDTH, BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
                 Gdx.app.exit();
@@ -171,29 +176,6 @@ public class MainMenuScreen extends GameState {
     @Override
     public void dispose() {
 
-    }
-    /**
-     *
-     * @param deltaTime
-     */
-    private void renderBackground(float deltaTime){
-        spriteBatch.begin();
-
-        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
-        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
-        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
-        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
-
-        for(int layer = 0; layer < backgroundOffsets.length; layer++){
-            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
-                backgroundOffsets[layer] = 0;
-            }
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
-                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
-                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-        }
-        spriteBatch.end();
     }
 }
 

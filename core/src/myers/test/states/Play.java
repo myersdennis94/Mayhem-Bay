@@ -22,9 +22,7 @@ import myers.test.MayhemGame;
 import myers.test.entities.Player;
 import myers.test.entities.obstacles.LandObstacle;
 import myers.test.entities.obstacles.RockObstacle;
-import myers.test.entities.ships.AlternateShip;
-import myers.test.entities.ships.DefaultShip;
-import myers.test.entities.ships.Ship;
+import myers.test.entities.ships.*;
 import myers.test.handlers.GameData;
 import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
@@ -54,11 +52,6 @@ public class Play extends GameState{
 
     private LinkedList<RockObstacle> rockManager;
     private LinkedList<LandObstacle> landManager;
-
-    // background
-    private TextureRegion[] backgrounds;
-    private float[] backgroundOffsets = {0,0,0,0};
-    private float backgroundMaxScrollingSpeed;
 
     // play constants
     private final float FRICTION_COEF = 0.5f;
@@ -96,14 +89,6 @@ public class Play extends GameState{
 
         landAttributes = new LandObstacle(null);
         landManager = new LinkedList<>();
-
-        // background
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("tex_Water");
-        backgrounds[1] = textureAtlas.findRegion("water2");
-        backgrounds[2] = textureAtlas.findRegion("water3");
-        backgrounds[3] = textureAtlas.findRegion("water4");
-        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
 
         prepareHUD();
         // set up box2d camera
@@ -180,7 +165,7 @@ public class Play extends GameState{
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderBackground(deltaTime);
+        MayhemGame.background.render(deltaTime);
 
         // draw box2d world
         //b2dr.render(world, b2dCamera.combined);
@@ -268,7 +253,7 @@ public class Play extends GameState{
         if(player.getShip().getBody().getLinearVelocity().y > 0){
             player.updateScore(deltaTime*20*player.getShip().getBody().getLinearVelocity().len());
         }
-        player.updateScore(deltaTime*2);
+        player.updateScore(deltaTime*2*player.getShip().getScoreModifier());
     }
 
     /**
@@ -340,28 +325,6 @@ public class Play extends GameState{
                 land.render(spriteBatch);
             }
         }
-    }
-
-    /**
-     *
-     * @param deltaTime
-     */
-    private void renderBackground(float deltaTime){
-        spriteBatch.begin();
-        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
-        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
-        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
-        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
-        for(int layer = 0; layer < backgroundOffsets.length; layer++){
-            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
-                backgroundOffsets[layer] = 0;
-            }
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
-                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
-                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-        }
-        spriteBatch.end();
     }
 
     /**
@@ -445,7 +408,27 @@ public class Play extends GameState{
 
         // ship - this will have logic to read the JSON database and load selected ship (Default/Alternate/etc.)
         // or the logic could also be moved to the player class, idk
-        player.setShip(new DefaultShip(world));
+        switch(MayhemGame.gameDataManager.gameData.getShip()){
+            case "tugboat":
+                player.setShip(new DefaultShip(world));
+                break;
+            case "speedboat":
+                player.setShip(new AlternateShip(world));
+                break;
+            case "submarine":
+                player.setShip(new Submarine(world));
+                break;
+            case "tube":
+                player.setShip(new Tube(world));
+                break;
+            case "cargoship":
+                player.setShip(new CargoShip(world));
+                break;
+            default:
+                player.setShip(new DefaultShip(world));
+                break;
+        }
+        player.getShip().createBody();
     }
 
     /**

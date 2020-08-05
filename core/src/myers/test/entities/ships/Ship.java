@@ -31,6 +31,7 @@ public abstract class Ship{
     protected float angularVelocity;
     protected float restitution;
     protected float density;
+    protected float scoreModifier;
 
     // graphics & physics
     protected Sprite sprite;
@@ -54,7 +55,7 @@ public abstract class Ship{
     /**
      *
      */
-    protected void createBody() {
+    public void createBody() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(SPAWNPOSX / PPM, SPAWNPOSY / PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -92,6 +93,8 @@ public abstract class Ship{
     public Body getBody() {
         return body;
     }
+
+    public float getScoreModifier(){ return scoreModifier; }
 
     /**
      *

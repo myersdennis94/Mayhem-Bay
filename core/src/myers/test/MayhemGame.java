@@ -38,6 +38,7 @@ public class MayhemGame implements ApplicationListener {
 	public static Random random = new Random();
 
 	public static GameDataManager gameDataManager;
+	public static Background background;
 
 	/**
 	 *
@@ -54,7 +55,7 @@ public class MayhemGame implements ApplicationListener {
 		hudCamera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		gameStateManager = new GameStateManager(this);
 		gameDataManager = new GameDataManager();
-
+		background = new Background(spriteBatch);
 	}
 
 	/**
