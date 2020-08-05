@@ -31,6 +31,7 @@ public class Score extends GameState{
     private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 20;
 
     /**
+     * This constructor initializes the Score object.
      *
      * @param gameStateManager
      */
@@ -43,7 +44,7 @@ public class Score extends GameState{
     }
 
     /**
-     *
+     * This method ...
      */
     @Override
     public void handleInput() {
@@ -51,6 +52,7 @@ public class Score extends GameState{
     }
 
     /**
+     * This method ...
      *
      * @param deltaTime
      */
@@ -60,6 +62,7 @@ public class Score extends GameState{
     }
 
     /**
+     * This Method generates and displays the score screen.
      *
      * @param deltaTime
      */
@@ -89,7 +92,7 @@ public class Score extends GameState{
     }
 
     /**
-     * This method disposes of object after use
+     * This method disposes of object after use.
      */
     @Override
     public void dispose() {
@@ -97,7 +100,7 @@ public class Score extends GameState{
     }
 
     /**
-     *
+     * This method prepares the display of score contents on the score screen.
      */
     private void prepareHUD(){
         // create a BitmapFont from font file
@@ -129,6 +132,7 @@ public class Score extends GameState{
     }
 
     /**
+     * This method updates the score contents for the display then displays them to the score screen.
      *
      * @param deltaTime
      */
