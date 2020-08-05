@@ -456,6 +456,9 @@ public class Play extends GameState{
             case "tube":
                 player.setShip(new Tube(world));
                 break;
+            case "cargoship":
+                player.setShip(new CargoShip(world));
+                break;
             default:
                 player.setShip(new DefaultShip(world));
                 break;

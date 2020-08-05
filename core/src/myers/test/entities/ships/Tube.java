@@ -15,7 +15,7 @@ public class Tube extends Ship {
         shapeHY = 4;
         linearVelocity = 2.05f;
         angularVelocity = 2f;
-        restitution = 0.05f;
+        restitution = 0.8f;
         density = 0f;
 
         createSprite();

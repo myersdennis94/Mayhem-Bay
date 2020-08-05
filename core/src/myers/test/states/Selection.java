@@ -36,7 +36,7 @@ public class Selection extends GameState {
 
     // ships
     private TextureRegion shipSprite;
-    private String[] shipName = {"tugboat","speedboat","submarine","tube"};
+    private String[] shipName = {"tugboat","speedboat","submarine","tube","cargoship"};
     private int shipIter;
 
     // processing
@@ -77,6 +77,10 @@ public class Selection extends GameState {
                 break;
             case "tube":
                 shipIter = 3;
+                shipSprite = textureAtlas.findRegion(shipName[shipIter]);
+                break;
+            case "cargoship":
+                shipIter = 4;
                 shipSprite = textureAtlas.findRegion(shipName[shipIter]);
                 break;
         }
@@ -166,8 +170,11 @@ public class Selection extends GameState {
         }else{
             spriteBatch.draw(rightButtonActive,rightButtonX,rightButtonY,BUTTON_HEIGHT,BUTTON_HEIGHT);
         }
-
-        spriteBatch.draw(shipSprite,SCREEN_WIDTH*11/24,SCREEN_HEIGHT*5/12);
+        if(shipName[shipIter] == "cargoship"){
+            spriteBatch.draw(shipSprite,SCREEN_WIDTH*15/48,SCREEN_HEIGHT*5/12);
+        }else{
+            spriteBatch.draw(shipSprite,SCREEN_WIDTH*11/24,SCREEN_HEIGHT*5/12);
+        }
 
         spriteBatch.end();
     }
