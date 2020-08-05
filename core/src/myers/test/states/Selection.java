@@ -139,7 +139,7 @@ public class Selection extends GameState {
             spriteBatch.draw(rightButtonActive,rightButtonX,rightButtonY,BUTTON_HEIGHT,BUTTON_HEIGHT);
         }
 
-        spriteBatch.draw(shipSprite,SCREEN_WIDTH*5/12,SCREEN_HEIGHT*5/12);
+        spriteBatch.draw(shipSprite,SCREEN_WIDTH*11/24,SCREEN_HEIGHT*5/12);
 
         spriteBatch.end();
     }
