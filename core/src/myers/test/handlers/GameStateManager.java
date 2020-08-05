@@ -99,7 +99,7 @@ public class GameStateManager {
     }
 
     /**
-     * This method pushes the game state on to the GameState stack.
+     * This method removes the game state from the GameState stack.
      */
     public void popState() {
         GameState gameState = gameStates.pop();
