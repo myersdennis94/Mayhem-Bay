@@ -18,6 +18,7 @@ public class AlternateShip extends Ship {
         angularVelocity = 0.35f;
         restitution = 0.1f;
         density = 0;
+        scoreModifier = 0.8f;
 
         createSprite();
     }
