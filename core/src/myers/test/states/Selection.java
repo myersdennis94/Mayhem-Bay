@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import myers.test.MayhemGame;
 import myers.test.handlers.GameStateManager;
 
+/**
+ * This class is responsible for displaying and managing user ship selection.
+ */
 public class Selection extends GameState {
 
     // button sprites
@@ -29,11 +32,6 @@ public class Selection extends GameState {
     private float rightButtonX = 10*SCREEN_WIDTH/12;
     private float rightButtonY = 5*SCREEN_HEIGHT/12;
 
-    // background
-    private TextureRegion[] backgrounds;
-    private float[]  backgroundOffsets = {0,0,0,0};
-    private float backgroundMaxScrollingSpeed;
-
     // ships
     private TextureRegion shipSprite;
     private String[] shipName = {"tugboat","speedboat","submarine","tube","cargoship"};
@@ -43,17 +41,12 @@ public class Selection extends GameState {
     private float timeSinceLastClick = 0;
 
     /**
-     * @param gameStateManager
+     * This constructor creates the Selection object.
+     *
+     * @param gameStateManager a <b><CODE>GameStateManager</CODE></b> that grants access to crucial game information.
      */
     public Selection(GameStateManager gameStateManager) {
         super(gameStateManager);
-
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("tex_Water");
-        backgrounds[1] = textureAtlas.findRegion("water2");
-        backgrounds[2] = textureAtlas.findRegion("water3");
-        backgrounds[3] = textureAtlas.findRegion("water4");
-        backgroundMaxScrollingSpeed = (float) MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
 
         mainMenuActive  = textureAtlas.findRegion("main_menu_yellow_button00");
         mainMenuInactive = textureAtlas.findRegion("main_menu_yellow_button05");
@@ -86,6 +79,9 @@ public class Selection extends GameState {
         }
     }
 
+    /**
+     * This method detects and handles user input in the ship selection screen.
+     */
     @Override
     public void handleInput() {
         if(Gdx.input.getX() < leftButtonX + BUTTON_HEIGHT && Gdx.input.getX() > leftButtonX && SCREEN_HEIGHT-Gdx.input.getY() < leftButtonY + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > leftButtonY){
@@ -136,6 +132,11 @@ public class Selection extends GameState {
         }
     }
 
+    /**
+     * This method updates the ship selection screen.
+     *
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds with the change in time in seconds.
+     */
     @Override
     public void update(float deltaTime) {
         if(timeSinceLastClick > 0.2f){
@@ -145,11 +146,16 @@ public class Selection extends GameState {
         timeSinceLastClick += deltaTime;
     }
 
+    /**
+     * This method renders the objects within the ship selection screen.
+     *
+     * @param deltaTime a <b><CODE>float</CODE></b> corresponding to time passed in seconds used in rendering.
+     */
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderBackground(deltaTime);
+        MayhemGame.background.render(deltaTime);
 
         spriteBatch.begin();
 
@@ -179,28 +185,11 @@ public class Selection extends GameState {
         spriteBatch.end();
     }
 
+    /**
+     * This method is responsible for disposal.
+     */
     @Override
     public void dispose() {
 
-    }
-
-    private void renderBackground(float deltaTime){
-        spriteBatch.begin();
-
-        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
-        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
-        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
-        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
-
-        for(int layer = 0; layer < backgroundOffsets.length; layer++){
-            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
-                backgroundOffsets[layer] = 0;
-            }
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
-                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
-                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-        }
-        spriteBatch.end();
     }
 }

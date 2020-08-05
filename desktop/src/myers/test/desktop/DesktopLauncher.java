@@ -5,13 +5,14 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import myers.test.MayhemGame;
 
 /**
- *
+ * This class launches the desktop version of the application.
  */
 public class DesktopLauncher {
 
 	/**
+	 * This method creates a <b><CODE>LwjglApplication</CODE></b> that contains <b><CODE>MayhemGame</CODE></b>
 	 *
-	 * @param arg
+	 * @param arg a <b><CODE>String</CODE></b> array of command line arguments.
 	 */
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

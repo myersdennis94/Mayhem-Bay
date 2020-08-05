@@ -7,13 +7,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import static myers.test.MayhemGame.textureAtlas;
 
 /**
- *
+ * This class is a representation of a rock.
  */
 public class RockObstacle extends Obstacle{
 
     /**
+     * This constructor initializes the RockObstacle object.
      *
-     * @param world
+     * @param world a <b><CODE>World</CODE></b> that will contain the obstacle.
      */
     public RockObstacle(World world) {
         super(world);

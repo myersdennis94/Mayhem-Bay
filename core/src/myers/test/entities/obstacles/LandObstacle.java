@@ -6,15 +6,16 @@ import com.badlogic.gdx.physics.box2d.*;
 import static myers.test.handlers.B2DVars.PPM;
 
 /**
- *
+ * This class is a representation of a land mass.
  */
 public class LandObstacle extends Obstacle {
 
     private int sideLength;
 
     /**
+     * This constructor initializes the LandObstacle object.
      *
-     * @param world
+     * @param world a <b><CODE>World</CODE></b> that will contain the obstacle.
      */
     public LandObstacle(World world) {
         super(world);

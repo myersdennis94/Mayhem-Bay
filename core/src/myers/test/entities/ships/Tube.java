@@ -5,7 +5,9 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Tube extends Ship {
 
     /**
-     * @param world
+     * This class is a representation of a man in a river float tube.
+     *
+     * @param world a <b><CODE>World</CODE></b> that will contain the ship.
      */
     public Tube(World world) {
         super(world);
@@ -17,6 +19,7 @@ public class Tube extends Ship {
         angularVelocity = 2f;
         restitution = 0.8f;
         density = 0f;
+        scoreModifier = 5f;
 
         createSprite();
     }
