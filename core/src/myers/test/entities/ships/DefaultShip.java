@@ -5,8 +5,9 @@ import com.badlogic.gdx.physics.box2d.*;
 public class DefaultShip extends Ship{
 
     /**
+     * This class is a representation of a standard ship.
      *
-     * @param world
+     * @param world a <b><CODE>World</CODE></b> that will contain the ship.
      */
     public DefaultShip(World world) {
         super(world);
