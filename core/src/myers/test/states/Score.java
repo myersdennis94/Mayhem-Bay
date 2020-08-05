@@ -33,7 +33,7 @@ public class Score extends GameState{
     /**
      * This constructor initializes the Score object.
      *
-     * @param gameStateManager
+     * @param gameStateManager a <b><CODE>GameStateManager</CODE></b> used to grant access to game information.
      */
     public Score(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -64,7 +64,7 @@ public class Score extends GameState{
     /**
      * This Method generates and displays the score screen.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b>
      */
     @Override
     public void render(float deltaTime) {
