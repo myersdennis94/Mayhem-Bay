@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 
 /**
- *
+ * This class contains the methods for managing the game data.
  */
 public class GameDataManager {
 
@@ -15,14 +15,14 @@ public class GameDataManager {
     private FileHandle fileHandle = Gdx.files.local("bin/GameData.json");
 
     /**
-     *
+     * This constructor creates the GameDataManager object.
      */
     public GameDataManager() {
         initializeGameData();
     }
 
     /**
-     *
+     * This method initializes the game data for the GameDataManager object.
      */
     public void initializeGameData() {
         if (!fileHandle.exists()) {
@@ -42,7 +42,7 @@ public class GameDataManager {
     }
 
     /**
-     *
+     * This method saves game data to a file.
      */
     public void saveData() {
         if (gameData != null) {
@@ -52,7 +52,7 @@ public class GameDataManager {
     }
 
     /**
-     *
+     * This method loads game data from a file.
      */
     public void loadData() {
         gameData = json.fromJson(GameData.class,
