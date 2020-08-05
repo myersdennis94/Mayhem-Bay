@@ -41,7 +41,7 @@ public class Selection extends GameState {
     private float timeSinceLastClick = 0;
 
     /**
-     * This construction creates the Selection object.
+     * This constructor creates the Selection object.
      *
      * @param gameStateManager a <b><CODE>GameStateManager</CODE></b> that grants access to crucial game information.
      */
@@ -186,7 +186,7 @@ public class Selection extends GameState {
     }
 
     /**
-     *This method is responsible for disposal.
+     * This method is responsible for disposal.
      */
     @Override
     public void dispose() {

@@ -1,6 +1,5 @@
 package myers.test.states;
 
-import static myers.test.MayhemGame.textureAtlas;
 import static myers.test.handlers.B2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,27 +7,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.codeandweb.physicseditor.PhysicsShapeCache;
 import myers.test.MayhemGame;
 import myers.test.entities.Player;
 import myers.test.entities.obstacles.LandObstacle;
 import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.*;
-import myers.test.handlers.GameData;
-import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 
 import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.Locale;
 
 /**
