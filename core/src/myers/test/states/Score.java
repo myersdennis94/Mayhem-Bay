@@ -44,7 +44,7 @@ public class Score extends GameState{
     }
 
     /**
-     * This method ...
+     * This method handles user input.
      */
     @Override
     public void handleInput() {
@@ -52,9 +52,9 @@ public class Score extends GameState{
     }
 
     /**
-     * This method ...
+     * This method is responsible for updates.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> referring to time passed since last update.
      */
     @Override
     public void update(float deltaTime) {
@@ -64,7 +64,7 @@ public class Score extends GameState{
     /**
      * This Method generates and displays the score screen.
      *
-     * @param deltaTime a <b><CODE>float</CODE></b>
+     * @param deltaTime a <b><CODE>float</CODE></b> referring to time passed since last render.
      */
     @Override
     public void render(float deltaTime) {
@@ -134,7 +134,7 @@ public class Score extends GameState{
     /**
      * This method updates the score contents for the display then displays them to the score screen.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> referring to time passed since last update.
      */
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
