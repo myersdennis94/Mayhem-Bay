@@ -41,7 +41,7 @@ public class Selection extends GameState {
     private float timeSinceLastClick = 0;
 
     /**
-     * This construction creates the Selection object.
+     * This constructor creates the Selection object.
      *
      * @param gameStateManager a <b><CODE>GameStateManager</CODE></b> that grants access to crucial game information.
      */
@@ -55,7 +55,7 @@ public class Selection extends GameState {
         rightButtonActive = textureAtlas.findRegion("right");
         rightButtonInactive = textureAtlas.findRegion("rightdown");
 
-        switch(MayhemGame.gameDataManager.gameData.getShip()){
+        switch(MayhemGame.gameDataManager.gameData.getShipName()){
             case "tugboat":
                 shipIter = 0;
                 shipSprite = textureAtlas.findRegion(shipName[shipIter]);
@@ -126,7 +126,7 @@ public class Selection extends GameState {
 
         if(Gdx.input.getX() < mainMenuX + BUTTON_WIDTH && Gdx.input.getX() > mainMenuX && SCREEN_HEIGHT-Gdx.input.getY() <  mainMenuY + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() >  mainMenuY){
             if(Gdx.input.isTouched()){
-                MayhemGame.gameDataManager.gameData.setShip(shipName[shipIter]);
+                MayhemGame.gameDataManager.gameData.setShipName(shipName[shipIter]);
                 gameStateManager.setState(GameStateManager.MENU);
             }
         }
@@ -186,7 +186,7 @@ public class Selection extends GameState {
     }
 
     /**
-     *This method is responsible for disposal.
+     * This method is responsible for disposal.
      */
     @Override
     public void dispose() {
