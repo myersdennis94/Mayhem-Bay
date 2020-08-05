@@ -1,31 +1,16 @@
 package myers.test.states;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import myers.test.handlers.GameData;
-import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
 import myers.test.MayhemGame;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import static myers.test.MayhemGame.textureAtlas;
 
 /**
- *
+ * This class is a representation of the main menu
  */
 public class MainMenuScreen extends GameState {
 
@@ -45,9 +30,12 @@ public class MainMenuScreen extends GameState {
     private float[] backgroundOffsets = {0,0,0,0};
     private float backgroundMaxScrollingSpeed;
 
+
     /**
+     * This constructor initializes the MainMenuScreen object
      *
-     * @param gameStateManager
+     * @param gameStateManager a GameStateManager that contains the state of
+     *                         MainMenuScreen and information of other states
      */
     public MainMenuScreen(GameStateManager gameStateManager){
 
@@ -72,6 +60,7 @@ public class MainMenuScreen extends GameState {
     }
 
     /**
+     * This method handles user input on the main menu
      *
      */
     @Override
@@ -109,8 +98,9 @@ public class MainMenuScreen extends GameState {
     }
 
     /**
+     *This method is responsible for updating the main menu enviroment
      *
-     * @param deltaTime
+     * @param deltaTime a float that corresponds to the times passed since last update
      */
     @Override
     public void update(float deltaTime) {
@@ -118,8 +108,8 @@ public class MainMenuScreen extends GameState {
     }
 
     /**
-     *
-     * @param deltaTime
+     * This method is responsible for rendering the main menu
+     * @param deltaTime a float that corresponds to the times passed since last update
      */
     @Override
     public void render(float deltaTime) {
@@ -140,6 +130,7 @@ public class MainMenuScreen extends GameState {
 
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 1.5) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 1.5)){
             spriteBatch.draw(startButtonActive, start_x,  start_y, BUTTON_WIDTH, BUTTON_HEIGHT);
+
         }
         else{
             spriteBatch.draw(startButtonInactive, start_x,  start_y, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -183,15 +174,14 @@ public class MainMenuScreen extends GameState {
     }
 
     /**
-     *
+     * This method is responsible for disposing unused objects
      */
     @Override
     public void dispose() {
-
     }
     /**
-     *
-     * @param deltaTime
+     *  This methods is responsible for rendering the background on the main menu
+     * @param deltaTime a float that corresponds to the times passed since last update
      */
     private void renderBackground(float deltaTime){
         spriteBatch.begin();
