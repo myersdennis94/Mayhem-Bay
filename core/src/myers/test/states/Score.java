@@ -29,6 +29,7 @@ public class Score extends GameState{
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
     private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 10;
+    private Play background;
 
     // background
     private TextureRegion[] backgrounds;
