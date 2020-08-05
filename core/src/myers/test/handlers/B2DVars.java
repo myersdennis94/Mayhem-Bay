@@ -1,7 +1,7 @@
 package myers.test.handlers;
 
 /**
- *
+ * This class contains variables associated with box2d.
  */
 public class B2DVars {
 
