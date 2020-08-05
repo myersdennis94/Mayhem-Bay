@@ -83,14 +83,14 @@ right
   index: -1
 rightdown
   rotate: false
-  xy: 2310, 3229
+  xy: 2502, 3276
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 rock
   rotate: false
-  xy: 2052, 2952
+  xy: 2310, 3210
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -142,6 +142,13 @@ tex_Water
   xy: 2, 761
   size: 1024, 1024
   orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+tube
+  rotate: false
+  xy: 2052, 2950
+  size: 66, 66
+  orig: 66, 66
   offset: 0, 0
   index: -1
 tugboat

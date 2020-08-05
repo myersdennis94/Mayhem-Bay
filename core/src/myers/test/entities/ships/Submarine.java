@@ -10,7 +10,7 @@ public class Submarine extends Ship {
         super(world);
 
         name = "submarine";
-        shapeHX = 4;
+        shapeHX = 8;
         shapeHY = 16;
         linearVelocity = 2.2f;
         angularVelocity = 0.6f;

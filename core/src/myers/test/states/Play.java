@@ -22,10 +22,7 @@ import myers.test.MayhemGame;
 import myers.test.entities.Player;
 import myers.test.entities.obstacles.LandObstacle;
 import myers.test.entities.obstacles.RockObstacle;
-import myers.test.entities.ships.AlternateShip;
-import myers.test.entities.ships.DefaultShip;
-import myers.test.entities.ships.Ship;
-import myers.test.entities.ships.Submarine;
+import myers.test.entities.ships.*;
 import myers.test.handlers.GameData;
 import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
@@ -455,6 +452,9 @@ public class Play extends GameState{
                 break;
             case "submarine":
                 player.setShip(new Submarine(world));
+                break;
+            case "tube":
+                player.setShip(new Tube(world));
                 break;
             default:
                 player.setShip(new DefaultShip(world));

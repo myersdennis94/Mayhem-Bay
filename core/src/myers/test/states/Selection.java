@@ -36,7 +36,7 @@ public class Selection extends GameState {
 
     // ships
     private TextureRegion shipSprite;
-    private String[] shipName = {"tugboat","speedboat","submarine"};
+    private String[] shipName = {"tugboat","speedboat","submarine","tube"};
     private int shipIter;
 
     // processing
@@ -73,6 +73,10 @@ public class Selection extends GameState {
                 break;
             case "submarine":
                 shipIter = 2;
+                shipSprite = textureAtlas.findRegion(shipName[shipIter]);
+                break;
+            case "tube":
+                shipIter = 3;
                 shipSprite = textureAtlas.findRegion(shipName[shipIter]);
                 break;
         }
