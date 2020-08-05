@@ -135,19 +135,19 @@ public class Score extends GameState{
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
         //first row - score title
-        font.draw(spriteBatch, "DISTANCE", hudLeftX, hudRow1Y, hudSectionWidth, Align.center, false);
+        font.draw(spriteBatch, "Base Score", hudLeftX, hudRow1Y, hudSectionWidth, Align.center, false);
 
         //second row - score value
         font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getLastScore()),hudLeftX,hudRow2Y,hudSectionWidth,Align.center,false);
 
         // third row - time title
-        font.draw(spriteBatch,"TIME",hudLeftX,hudRow3Y,hudSectionWidth,Align.center,false);
+        font.draw(spriteBatch,"Time",hudLeftX,hudRow3Y,hudSectionWidth,Align.center,false);
 
         // fourth row - time value
         font.draw(spriteBatch,String.format(Locale.getDefault(),"%5.1f",MayhemGame.gameDataManager.gameData.getLastTime())+"s ",hudLeftX,hudRow4Y,hudSectionWidth,Align.center,false);
 
         // fifth row - total title
-        font.draw(spriteBatch,"SCORE",hudLeftX,hudRow5Y,hudSectionWidth,Align.center,false);
+        font.draw(spriteBatch,"Final Score",hudLeftX,hudRow5Y,hudSectionWidth,Align.center,false);
 
         // sixth row - total score value
         font.draw(spriteBatch,String.format(Locale.getDefault(),"%06d",MayhemGame.gameDataManager.gameData.getTotalScoreScore()),hudLeftX,hudRow6Y,hudSectionWidth,Align.center,false);

@@ -11,7 +11,7 @@ public class CargoShip extends Ship {
         super(world);
 
         name = "cargoship";
-        shapeHX = 32;
+        shapeHX = 40;
         shapeHY = 50;
         linearVelocity = 2.4f;
         angularVelocity = 0.2f;
