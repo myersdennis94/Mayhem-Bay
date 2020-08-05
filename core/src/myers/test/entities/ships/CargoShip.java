@@ -5,7 +5,9 @@ import com.badlogic.gdx.physics.box2d.World;
 public class CargoShip extends Ship {
 
     /**
-     * @param world
+     * This class is a representation of a cargo ship.
+     *
+     * @param world a <b><CODE>World</CODE></b> that will contain the ship.
      */
     public CargoShip(World world) {
         super(world);

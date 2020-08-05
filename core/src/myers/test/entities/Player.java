@@ -4,7 +4,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import myers.test.entities.ships.Ship;
 
 /**
- *
+ * This class is a representation of the player.
  */
 public class Player {
 
