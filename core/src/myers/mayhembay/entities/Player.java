@@ -1,7 +1,6 @@
-package myers.test.entities;
+package myers.mayhembay.entities;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import myers.test.entities.ships.Ship;
+import myers.mayhembay.entities.ships.Ship;
 
 /**
  * This class is a representation of the player.

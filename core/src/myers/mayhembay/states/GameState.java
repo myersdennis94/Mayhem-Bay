@@ -1,13 +1,9 @@
-package myers.test.states;
+package myers.mayhembay.states;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import myers.test.MayhemGame;
-import myers.test.handlers.GameData;
-import myers.test.handlers.GameDataManager;
-import myers.test.handlers.GameStateManager;
+import myers.mayhembay.MayhemGame;
+import myers.mayhembay.handlers.GameStateManager;
 
 /**
  * This abstract class is a representation of a game state.

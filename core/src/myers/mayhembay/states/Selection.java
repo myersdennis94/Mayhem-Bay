@@ -1,13 +1,13 @@
-package myers.test.states;
+package myers.mayhembay.states;
 
-import static myers.test.MayhemGame.textureAtlas;
+import static myers.mayhembay.MayhemGame.textureAtlas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import myers.test.MayhemGame;
-import myers.test.handlers.GameStateManager;
+import myers.mayhembay.MayhemGame;
+import myers.mayhembay.handlers.GameStateManager;
 
 /**
  * This class is responsible for displaying and managing user ship selection.

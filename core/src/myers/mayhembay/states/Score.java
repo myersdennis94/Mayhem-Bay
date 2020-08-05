@@ -1,18 +1,14 @@
-package myers.test.states;
+package myers.mayhembay.states;
 
-import static myers.test.MayhemGame.textureAtlas;
-import myers.test.states.Play;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Align;
-import myers.test.MayhemGame;
-import myers.test.entities.Player;
-import myers.test.handlers.GameStateManager;
+import myers.mayhembay.MayhemGame;
+import myers.mayhembay.handlers.GameStateManager;
 
 import java.util.Locale;
 

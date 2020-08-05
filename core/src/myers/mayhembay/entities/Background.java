@@ -1,10 +1,10 @@
-package myers.test.entities;
+package myers.mayhembay.entities;
 
-import static myers.test.MayhemGame.textureAtlas;
+import static myers.mayhembay.MayhemGame.textureAtlas;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import myers.test.MayhemGame;
+import myers.mayhembay.MayhemGame;
 
 /**
  * This class is responsible for rendering a parallax game background.

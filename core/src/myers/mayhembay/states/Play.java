@@ -1,6 +1,6 @@
-package myers.test.states;
+package myers.mayhembay.states;
 
-import static myers.test.handlers.B2DVars.PPM;
+import static myers.mayhembay.handlers.B2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -13,12 +13,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
-import myers.test.MayhemGame;
-import myers.test.entities.Player;
-import myers.test.entities.obstacles.LandObstacle;
-import myers.test.entities.obstacles.RockObstacle;
-import myers.test.entities.ships.*;
-import myers.test.handlers.GameStateManager;
+import myers.mayhembay.MayhemGame;
+import myers.mayhembay.entities.Player;
+import myers.mayhembay.entities.obstacles.LandObstacle;
+import myers.mayhembay.entities.obstacles.RockObstacle;
+import myers.mayhembay.entities.ships.*;
+import myers.mayhembay.handlers.GameStateManager;
 
 import java.util.LinkedList;
 import java.util.Locale;

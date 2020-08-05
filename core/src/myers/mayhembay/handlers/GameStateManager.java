@@ -1,8 +1,8 @@
-package myers.test.handlers;
+package myers.mayhembay.handlers;
 
 import com.badlogic.gdx.Gdx;
-import myers.test.MayhemGame;
-import myers.test.states.*;
+import myers.mayhembay.MayhemGame;
+import myers.mayhembay.states.*;
 
 import java.util.Stack;
 

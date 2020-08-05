@@ -1,9 +1,7 @@
-package myers.test.entities.obstacles;
+package myers.mayhembay.entities.obstacles;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.*;
-
-import static myers.test.handlers.B2DVars.PPM;
 
 /**
  * This class is a representation of a land mass.

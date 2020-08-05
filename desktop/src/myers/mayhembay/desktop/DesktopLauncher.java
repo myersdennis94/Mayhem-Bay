@@ -1,8 +1,8 @@
-package myers.test.desktop;
+package myers.mayhembay.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import myers.test.MayhemGame;
+import myers.mayhembay.MayhemGame;
 
 /**
  * This class launches the desktop version of the application.

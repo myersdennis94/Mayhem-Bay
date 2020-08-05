@@ -1,4 +1,4 @@
-package myers.test;
+package myers.mayhembay;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.GdxNativesLoader;
-import myers.test.entities.Background;
-import myers.test.handlers.GameDataManager;
-import myers.test.handlers.GameStateManager;
+import myers.mayhembay.entities.Background;
+import myers.mayhembay.handlers.GameDataManager;
+import myers.mayhembay.handlers.GameStateManager;
 
 import java.util.Random;
 

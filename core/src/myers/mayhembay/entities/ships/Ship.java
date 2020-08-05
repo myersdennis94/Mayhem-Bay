@@ -1,16 +1,12 @@
-package myers.test.entities.ships;
+package myers.mayhembay.entities.ships;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import myers.test.MayhemGame;
-import myers.test.handlers.B2DVars;
+import myers.mayhembay.MayhemGame;
+import myers.mayhembay.handlers.B2DVars;
 
-import static myers.test.handlers.B2DVars.PPM;
+import static myers.mayhembay.handlers.B2DVars.PPM;
 
 /**
  * This abstract class is a representation of a ship.

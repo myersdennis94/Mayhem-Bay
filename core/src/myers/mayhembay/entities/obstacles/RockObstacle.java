@@ -1,10 +1,6 @@
-package myers.test.entities.obstacles;
+package myers.mayhembay.entities.obstacles;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
-import static myers.test.MayhemGame.textureAtlas;
 
 /**
  * This class is a representation of a rock.

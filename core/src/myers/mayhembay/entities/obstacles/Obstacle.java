@@ -1,11 +1,11 @@
-package myers.test.entities.obstacles;
+package myers.mayhembay.entities.obstacles;
 
-import static myers.test.handlers.B2DVars.PPM;
+import static myers.mayhembay.handlers.B2DVars.PPM;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
-import myers.test.MayhemGame;
-import myers.test.handlers.B2DVars;
+import myers.mayhembay.MayhemGame;
+import myers.mayhembay.handlers.B2DVars;
 
 /**
  * This abstract class is a representation of an obstacle.

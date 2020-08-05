@@ -1,4 +1,4 @@
-package myers.test.entities.ships;
+package myers.mayhembay.entities.ships;
 
 import com.badlogic.gdx.physics.box2d.*;
 

@@ -1,13 +1,13 @@
-package myers.test.states;
+package myers.mayhembay.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import myers.test.handlers.GameStateManager;
-import myers.test.MayhemGame;
+import myers.mayhembay.handlers.GameStateManager;
+import myers.mayhembay.MayhemGame;
 
 
-import static myers.test.MayhemGame.textureAtlas;
+import static myers.mayhembay.MayhemGame.textureAtlas;
 
 /**
  * This class is a representation of the main menu
