@@ -11,15 +11,14 @@ public class AlternateShip extends Ship {
     public AlternateShip(World world) {
         super(world);
 
-        name = "";
-        shapeHX = 12;
+        name = "speedboat";
+        shapeHX = 4;
         shapeHY = 20;
-        linearVelocity = 2.5f;
-        angularVelocity = 0.55f;
+        linearVelocity = 5f;
+        angularVelocity = 0.35f;
         restitution = 0.1f;
         density = 0;
 
         createSprite();
-        createBody();
     }
 }

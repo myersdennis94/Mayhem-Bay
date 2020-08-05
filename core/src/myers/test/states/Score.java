@@ -27,8 +27,8 @@ public class Score extends GameState{
     private TextureRegion mainMenuActive, mainMenuInactive;
     private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
-    private final int BUTTON_WIDTH = SCREEN_WIDTH / 2;
-    private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 10;
+    private final int BUTTON_WIDTH = SCREEN_WIDTH / 4;
+    private final int BUTTON_HEIGHT = SCREEN_HEIGHT / 20;
 
     // background
     private TextureRegion[] backgrounds;
@@ -87,13 +87,12 @@ public class Score extends GameState{
 
         spriteBatch.begin();
 
-        int mainMenu_x = (SCREEN_WIDTH/2) - (BUTTON_WIDTH/2);
-        float mainMenu_y = (float) (SCREEN_HEIGHT /8);
+        int mainMenu_x = SCREEN_WIDTH/10;
+        float mainMenu_y = (float) (7*SCREEN_HEIGHT /8);
 
-        if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 8) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 8)){
+        if(Gdx.input.getX() < mainMenu_x  + BUTTON_WIDTH && Gdx.input.getX() > mainMenu_x && SCREEN_HEIGHT-Gdx.input.getY() < (float) (mainMenu_y) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (mainMenu_y)){
             spriteBatch.draw(mainMenuInactive, mainMenu_x,  mainMenu_y, BUTTON_WIDTH, BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
-                this.dispose();
                 gameStateManager.setState(GameStateManager.MENU);
             }
         }
@@ -134,12 +133,12 @@ public class Score extends GameState{
         hudLeftX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/4;
         hudRightX = 0;
         hudCenterX = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/3;
-        hudRow1Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/12;
-        hudRow2Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/13;
-        hudRow3Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/15;
-        hudRow4Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/17;
-        hudRow5Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/21;
-        hudRow6Y = 10*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/25;
+        hudRow1Y = 18*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/26;
+        hudRow2Y = 16*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/26;
+        hudRow3Y = 13*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/26;
+        hudRow4Y = 11*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/26;
+        hudRow5Y = 8*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/26;
+        hudRow6Y = 6*MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE/26;
         hudSectionWidth = MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE/2;
     }
 

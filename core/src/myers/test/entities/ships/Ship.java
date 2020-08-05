@@ -54,7 +54,7 @@ public abstract class Ship{
     /**
      *
      */
-    protected void createBody() {
+    public void createBody() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(SPAWNPOSX / PPM, SPAWNPOSY / PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;

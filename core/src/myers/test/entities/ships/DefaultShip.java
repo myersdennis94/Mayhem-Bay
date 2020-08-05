@@ -14,12 +14,11 @@ public class DefaultShip extends Ship{
         name = "tugboat";
         shapeHX = 8;
         shapeHY = 16;
-        linearVelocity = 3;
+        linearVelocity = 3f;
         angularVelocity = 0.75f;
         restitution = 0.15f;
         density = 0;
 
         createSprite();
-        createBody();
     }
 }
