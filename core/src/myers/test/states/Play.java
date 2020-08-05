@@ -32,7 +32,7 @@ import java.util.ListIterator;
 import java.util.Locale;
 
 /**
- *
+ * This class is responsible for displaying and managing the Mayhem Bay gameplay environment.
  */
 public class Play extends GameState{
 
@@ -70,8 +70,9 @@ public class Play extends GameState{
 
 
     /**
+     * This constructor creates a Play object and initializes its fields.
      *
-     * @param gameStateManager
+     * @param gameStateManager a <b><CODE>GameStateManager</CODE></b> that holds crucial gameplay information.
      */
     public Play(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -101,7 +102,7 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for handling all user input during gameplay.
      */
     @Override
     public void handleInput() {
@@ -135,8 +136,9 @@ public class Play extends GameState{
     }
 
     /**
+     * This method is responsible for updating the gameplay environment.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds to the time passed since last update.
      */
     @Override
     public void update(float deltaTime) {
@@ -157,8 +159,9 @@ public class Play extends GameState{
     }
 
     /**
+     * This method is responsible for rendering the gameplay environment.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds to the amount of time passed since last update.
      */
     @Override
     public void render(float deltaTime) {
@@ -179,7 +182,7 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for disposal.
      */
     @Override
     public void dispose() {
@@ -187,12 +190,10 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for checking the loss conditions and distributing final stats to a GameDataManager object.
      */
     private void checkLoss(){
         if(player.getShip().isBodyOutOfBounds()){
-            //GameDataManager.getInstance().gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
-            //GameDataManager.getInstance().gameData.setLastScore((int)player.getScore());
             MayhemGame.gameDataManager.gameData.setLastTime(TimeUtils.timeSinceMillis(startTime)/1000f);
             MayhemGame.gameDataManager.gameData.setLastScore((int)player.getScore());
             gameStateManager.setState(GameStateManager.SCORE);
@@ -200,7 +201,7 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for setting up physical boundaries to contain players ship within rendered area.
      */
     private void setUpBorders(){
         Body body;
@@ -246,8 +247,9 @@ public class Play extends GameState{
     }
 
     /**
+     * This method is responsible for updating the user score.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> corresponding to the amount of time since last update.
      */
     private void updateScore(float deltaTime){
         if(player.getShip().getBody().getLinearVelocity().y > 0){
@@ -257,8 +259,9 @@ public class Play extends GameState{
     }
 
     /**
+     * This method is responsible for updating the heads up display with current information.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> corresponding to the amount of time since last update.
      */
     private void updateAndRenderHUD(float deltaTime){
         spriteBatch.begin();
@@ -274,7 +277,7 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for preparing the heads up display and correlated fields.
      */
     private void prepareHUD(){
         // create a BitmapFont from font file
@@ -302,7 +305,7 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for rendering and removing RockObstacle objects.
      */
     private void renderRocks(){
         for (RockObstacle rock : rockManager) {
@@ -315,7 +318,7 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for rendering and removing LandObstacle objects.
      */
     private void renderLand(){
         for (LandObstacle land : landManager){
@@ -328,8 +331,9 @@ public class Play extends GameState{
     }
 
     /**
+     * This method is responsible for applying a rotational friction force to prevent user ship from infinitely spinning.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE></CODE></b>
      */
     private void applyRotationalFriction(float deltaTime){
         Body body = player.getShip().getBody();
