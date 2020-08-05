@@ -7,7 +7,7 @@ import myers.test.states.*;
 import java.util.Stack;
 
 /**
- *
+ * This class contains the methods for managing the game state.
  */
 public class GameStateManager {
 
@@ -21,8 +21,9 @@ public class GameStateManager {
     public static final int SELECTION = 512361;
 
     /**
+     * This constructor creates a GameStateManager object.
      *
-     * @param game
+     * @param game <b><CODE>object</CODE></b> created by MayhemGame.
      */
     public GameStateManager(MayhemGame game) {
         this.game = game;
@@ -31,32 +32,36 @@ public class GameStateManager {
     }
 
     /**
+     * This method returns a game object.
      *
-     * @return
+     * @return a <b><CODE>game</CODE></b> object.
      */
     public MayhemGame game() {
         return game;
     }
 
     /**
+     * This method updates the states of the game.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> referring to time passed since last update.
      */
     public void update(float deltaTime) {
         gameStates.peek().update(deltaTime);
     }
 
     /**
-     *
+     * This method renders the
      */
     public void render() {
         gameStates.peek().render(Gdx.graphics.getDeltaTime());
     }
 
     /**
+     * This method takes the selected and returns a new object
      *
-     * @param state
-     * @return
+     * @param state a <b><CODE>int</CODE></b> referring to a certain state of the game.
+     *
+     * @return a <b><CODE>object</CODE></b> of the new game state.
      */
     private GameState getState(int state) {
         if (state == PLAY) {
@@ -75,8 +80,9 @@ public class GameStateManager {
     }
 
     /**
+     * This method sets the state for the GameState stack.
      *
-     * @param state
+     * @param state a <b><CODE>int</CODE></b> referring to a certain state of the game.
      */
     public void setState(int state) {
         popState();
@@ -84,15 +90,16 @@ public class GameStateManager {
     }
 
     /**
+     * This method pushes the game state on to the GameState stack.
      *
-     * @param state
+     * @param state a <b><CODE>int</CODE></b> referring to a certain state of the game.
      */
     public void pushState(int state) {
         gameStates.push(getState(state));
     }
 
     /**
-     *
+     * This method pushes the game state on to the GameState stack.
      */
     public void popState() {
         GameState gameState = gameStates.pop();
