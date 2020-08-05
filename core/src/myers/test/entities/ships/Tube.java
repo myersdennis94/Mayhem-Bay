@@ -17,6 +17,7 @@ public class Tube extends Ship {
         angularVelocity = 2f;
         restitution = 0.8f;
         density = 0f;
+        scoreModifier = 5f;
 
         createSprite();
     }

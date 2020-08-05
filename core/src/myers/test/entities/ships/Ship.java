@@ -31,6 +31,7 @@ public abstract class Ship{
     protected float angularVelocity;
     protected float restitution;
     protected float density;
+    protected float scoreModifier;
 
     // graphics & physics
     protected Sprite sprite;
@@ -92,6 +93,8 @@ public abstract class Ship{
     public Body getBody() {
         return body;
     }
+
+    public float getScoreModifier(){ return scoreModifier; }
 
     /**
      *

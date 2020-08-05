@@ -17,6 +17,7 @@ public class CargoShip extends Ship {
         angularVelocity = 0.2f;
         restitution = 0.05f;
         density = 0;
+        scoreModifier = 10f;
 
         createSprite();
     }

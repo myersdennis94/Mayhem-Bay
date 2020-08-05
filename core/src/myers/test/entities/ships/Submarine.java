@@ -16,6 +16,7 @@ public class Submarine extends Ship {
         angularVelocity = 0.6f;
         restitution = 0.3f;
         density = 0f;
+        scoreModifier = 1.5f;
 
         createSprite();
     }

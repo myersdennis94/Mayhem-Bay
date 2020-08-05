@@ -18,6 +18,7 @@ public class DefaultShip extends Ship{
         angularVelocity = 0.5f;
         restitution = 0.15f;
         density = 0;
+        scoreModifier = 1f;
 
         createSprite();
     }
