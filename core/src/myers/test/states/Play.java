@@ -53,11 +53,6 @@ public class Play extends GameState{
     private LinkedList<RockObstacle> rockManager;
     private LinkedList<LandObstacle> landManager;
 
-    // background
-    private TextureRegion[] backgrounds;
-    private float[] backgroundOffsets = {0,0,0,0};
-    private float backgroundMaxScrollingSpeed;
-
     // play constants
     private final float FRICTION_COEF = 0.5f;
     private final float WATER_VELOCITY = -1.5f;
@@ -94,14 +89,6 @@ public class Play extends GameState{
 
         landAttributes = new LandObstacle(null);
         landManager = new LinkedList<>();
-
-        // background
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("tex_Water");
-        backgrounds[1] = textureAtlas.findRegion("water2");
-        backgrounds[2] = textureAtlas.findRegion("water3");
-        backgrounds[3] = textureAtlas.findRegion("water4");
-        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
 
         prepareHUD();
         // set up box2d camera
@@ -178,7 +165,7 @@ public class Play extends GameState{
         // clear screen
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderBackground(deltaTime);
+        MayhemGame.background.render(deltaTime);
 
         // draw box2d world
         //b2dr.render(world, b2dCamera.combined);
@@ -338,28 +325,6 @@ public class Play extends GameState{
                 land.render(spriteBatch);
             }
         }
-    }
-
-    /**
-     *
-     * @param deltaTime
-     */
-    private void renderBackground(float deltaTime){
-        spriteBatch.begin();
-        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
-        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
-        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
-        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
-        for(int layer = 0; layer < backgroundOffsets.length; layer++){
-            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
-                backgroundOffsets[layer] = 0;
-            }
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
-                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
-                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-        }
-        spriteBatch.end();
     }
 
     /**

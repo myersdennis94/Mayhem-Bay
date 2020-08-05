@@ -39,12 +39,6 @@ public class MainMenuScreen extends GameState {
     private final float TITLE_BUTTON_WIDTH = (float) (SCREEN_WIDTH / 2);
     private final int TITLE_BUTTON_HEIGHT = SCREEN_HEIGHT / 7;
 
-
-    // background
-    private TextureRegion[] backgrounds;
-    private float[] backgroundOffsets = {0,0,0,0};
-    private float backgroundMaxScrollingSpeed;
-
     /**
      *
      * @param gameStateManager
@@ -61,14 +55,6 @@ public class MainMenuScreen extends GameState {
         selectionButtonActive = textureAtlas.findRegion("ship_selection_button05");
         selectionButtonInactive = textureAtlas.findRegion("ship_selection_button00");
         gameTitle = MayhemGame.textureAtlas.findRegion("game_title");
-
-        // background
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("tex_Water");
-        backgrounds[1] = textureAtlas.findRegion("water2");
-        backgrounds[2] = textureAtlas.findRegion("water3");
-        backgrounds[3] = textureAtlas.findRegion("water4");
-        backgroundMaxScrollingSpeed = (float)MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
     }
 
     /**
@@ -103,6 +89,7 @@ public class MainMenuScreen extends GameState {
         // Exit button is clicked
         if(Gdx.input.getX() < SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) + BUTTON_WIDTH && Gdx.input.getX() > SCREEN_WIDTH/2 - (BUTTON_WIDTH/2) && SCREEN_HEIGHT-Gdx.input.getY() < (float) (SCREEN_HEIGHT / 6) + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > (float) (SCREEN_HEIGHT / 6)){
             if(Gdx.input.isTouched()){
+                MayhemGame.gameDataManager.saveData();
                 Gdx.app.exit();
             }
         }
@@ -126,7 +113,8 @@ public class MainMenuScreen extends GameState {
 
 //        Gdx.gl.glClearColor(255, 255 , 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderBackground(deltaTime);
+
+        MayhemGame.background.render(deltaTime);
 
         spriteBatch.begin();
 
@@ -188,29 +176,6 @@ public class MainMenuScreen extends GameState {
     @Override
     public void dispose() {
 
-    }
-    /**
-     *
-     * @param deltaTime
-     */
-    private void renderBackground(float deltaTime){
-        spriteBatch.begin();
-
-        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
-        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 4;
-        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 2;
-        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed;
-
-        for(int layer = 0; layer < backgroundOffsets.length; layer++){
-            if(backgroundOffsets[layer] > MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE){
-                backgroundOffsets[layer] = 0;
-            }
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer],
-                    MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-            spriteBatch.draw(backgrounds[layer],0,-backgroundOffsets[layer]+
-                    MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE,MayhemGame.VIRTUAL_WIDTH*MayhemGame.SCALE,MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE);
-        }
-        spriteBatch.end();
     }
 }
 
