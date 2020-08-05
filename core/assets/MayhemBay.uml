@@ -3,79 +3,359 @@
   <ID>JAVA</ID>
   <OriginalElement>myers.test.entities.obstacles.LandObstacle</OriginalElement>
   <nodes>
-    <node x="531.0" y="1427.0">myers.test.entities.Player</node>
-    <node x="1221.5" y="0.0">myers.test.entities.obstacles.Obstacle</node>
-    <node x="1702.0" y="516.0">myers.test.entities.ships.AlternateShip</node>
-    <node x="921.0" y="1427.0">myers.test.handlers.B2DVars</node>
-    <node x="560.0" y="705.0">myers.test.states.Score</node>
-    <node x="749.0" y="1427.0">myers.test.GameData</node>
-    <node x="277.0" y="342.0">myers.test.states.Play</node>
-    <node x="832.0" y="214.0">myers.test.MayhemGame</node>
-    <node x="279.0" y="0.0">myers.test.states.GameState</node>
-    <node x="1529.0" y="516.0">myers.test.entities.ships.DefaultShip</node>
-    <node x="861.5" y="0.0">com.badlogic.gdx.ApplicationListener</node>
-    <node x="0.0" y="617.0">myers.test.states.MainMenuScreen</node>
-    <node x="0.0" y="1427.0">myers.test.handlers.GameStateManager</node>
-    <node x="1605.0" y="0.0">myers.test.entities.ships.Ship</node>
-    <node x="1320.0" y="558.0">myers.test.entities.obstacles.RockObstacle</node>
-    <node x="287.0" y="1427.0">myers.test.handlers.GameManager</node>
-    <node x="1136.0" y="516.0">myers.test.entities.obstacles.LandObstacle</node>
+    <node x="1628.5269008818104" y="768.0">myers.test.entities.Player</node>
+    <node x="1821.5269008818104" y="821.0">myers.test.entities.ships.Tube</node>
+    <node x="213.0" y="1330.0">myers.test.states.Selection</node>
+    <node x="2063.7269008818103" y="115.0">myers.test.entities.obstacles.Obstacle</node>
+    <node x="1292.5269008818104" y="821.0">myers.test.entities.ships.Submarine</node>
+    <node x="936.5269008818104" y="821.0">myers.test.entities.ships.AlternateShip</node>
+    <node x="1079.9314909297054" y="1330.0">myers.test.states.Score</node>
+    <node x="2066.9690020137614" y="0.0">myers.test.handlers.B2DVars</node>
+    <node x="1649.7916181452342" y="1154.0">myers.test.states.Play</node>
+    <node x="755.1454906254003" y="2738.0">myers.test.MayhemGame</node>
+    <node x="995.3954906254003" y="2326.0">myers.test.entities.Background</node>
+    <node x="618.6590550322694" y="702.0">myers.test.states.GameState</node>
+    <node x="1119.5269008818104" y="821.0">myers.test.entities.ships.DefaultShip</node>
+    <node x="1687.8826701125797" y="2346.0">com.badlogic.gdx.ApplicationListener</node>
+    <node x="0.0" y="2315.0">myers.test.handlers.GameDataManager</node>
+    <node x="24.5" y="1506.0">myers.test.handlers.GameData</node>
+    <node x="463.0" y="1385.0">myers.test.states.MainMenuScreen</node>
+    <node x="733.3954906254003" y="2228.0">myers.test.handlers.GameStateManager</node>
+    <node x="1210.9690020137612" y="104.0">myers.test.entities.ships.Ship</node>
+    <node x="1960.5269008818104" y="821.0">myers.test.entities.obstacles.RockObstacle</node>
+    <node x="1461.5269008818104" y="821.0">myers.test.entities.ships.CargoShip</node>
+    <node x="2144.5269008818104" y="800.0">myers.test.entities.obstacles.LandObstacle</node>
+    <node x="800.6454906254003" y="3322.0">myers.test.desktop.DesktopLauncher</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="myers.test.states.Play" target="myers.test.states.GameState">
-      <point x="0.0" y="-520.0" />
-      <point x="0.0" y="146.0" />
+    <edge source="myers.test.handlers.GameStateManager" target="myers.test.states.GameState">
+      <point x="10.083333333333258" y="-200.0" />
+      <point x="864.4788239587335" y="2158.0" />
+      <point x="968.8898242630387" y="2158.0" />
+      <point x="968.8898242630387" y="1134.0" />
+      <point x="768.0821319553463" y="1134.0" />
+      <point x="19.923076923076906" y="146.0" />
     </edge>
-    <edge source="myers.test.entities.obstacles.RockObstacle" target="myers.test.entities.obstacles.Obstacle">
-      <point x="0.0" y="-27.0" />
-      <point x="1402.0" y="491.0" />
-      <point x="1354.25" y="491.0" />
-      <point x="44.25" y="233.0" />
+    <edge source="myers.test.states.Selection" target="myers.test.handlers.GameStateManager">
+      <point x="76.66666666666674" y="311.0" />
+      <point x="404.66666666666674" y="2188.0" />
+      <point x="763.6454906254003" y="2188.0" />
+      <point x="-90.75" y="-200.0" />
     </edge>
-    <edge source="myers.test.MayhemGame" target="com.badlogic.gdx.ApplicationListener">
-      <point x="0.0" y="-245.0" />
-      <point x="0.0" y="82.0" />
+    <edge source="myers.test.states.Play" target="myers.test.entities.ships.CargoShip">
+      <point x="-41.526315789473756" y="-487.0" />
+      <point x="1739.7653023557605" y="1034.0" />
+      <point x="1535.0269008818104" y="1034.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="myers.test.handlers.GameDataManager" target="myers.test.handlers.GameData">
+      <point x="60.333333333333485" y="-113.0" />
+      <point x="150.83333333333348" y="2208.0" />
+      <point x="134.5" y="2208.0" />
+      <point x="44.0" y="135.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.entities.obstacles.LandObstacle">
+      <point x="83.05263157894728" y="-487.0" />
+      <point x="1864.3442497241815" y="1104.0" />
+      <point x="2206.0269008818104" y="1104.0" />
+      <point x="-20.5" y="48.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.handlers.B2DVars">
+      <point x="124.57894736842104" y="-487.0" />
+      <point x="1905.8705655136553" y="1134.0" />
+      <point x="2325.0769008818106" y="1134.0" />
+      <point x="2325.0769008818106" y="74.0" />
+      <point x="2153.6356686804284" y="74.0" />
+      <point x="34.66666666666674" y="27.0" />
+    </edge>
+    <edge source="myers.test.states.Score" target="myers.test.MayhemGame">
+      <point x="76.0" y="311.0" />
+      <point x="1269.9314909297054" y="2188.0" />
+      <point x="1245.8954906254003" y="2188.0" />
+      <point x="1245.8954906254003" y="2688.0" />
+      <point x="960.8219612136356" y="2688.0" />
+      <point x="76.17647058823536" y="-267.0" />
+    </edge>
+    <edge source="myers.test.entities.ships.Tube" target="myers.test.entities.ships.Ship">
+      <point x="-29.75" y="-27.0" />
+      <point x="1851.2769008818104" y="622.0" />
+      <point x="1370.7904305851898" y="622.0" />
+      <point x="70.32142857142856" y="244.0" />
+    </edge>
+    <edge source="myers.test.states.Selection" target="myers.test.MayhemGame">
+      <point x="-76.66666666666674" y="311.0" />
+      <point x="251.33333333333326" y="2208.0" />
+      <point x="448.8064909297053" y="2208.0" />
+      <point x="448.8064909297053" y="2678.0" />
+      <point x="823.704314154812" y="2678.0" />
+      <point x="-60.94117647058829" y="-267.0" />
+    </edge>
+    <edge source="myers.test.MayhemGame" target="myers.test.handlers.GameStateManager">
+      <point x="-30.470588235294144" y="-267.0" />
+      <point x="854.1749023901061" y="2658.0" />
+      <point x="763.6454906254003" y="2658.0" />
+      <point x="-90.75" y="200.0" />
+    </edge>
+    <edge source="myers.test.handlers.GameStateManager" target="myers.test.states.Selection">
+      <point x="-110.91666666666674" y="-200.0" />
+      <point x="743.4788239587335" y="2198.0" />
+      <point x="328.0" y="2198.0" />
+      <point x="0.0" y="311.0" />
+    </edge>
+    <edge source="myers.test.handlers.GameStateManager" target="myers.test.states.Score">
+      <point x="50.41666666666674" y="-200.0" />
+      <point x="904.812157292067" y="2178.0" />
+      <point x="1117.9314909297054" y="2178.0" />
+      <point x="-76.0" y="311.0" />
+    </edge>
+    <edge source="myers.test.entities.Player" target="myers.test.entities.ships.Ship">
+      <point x="43.25" y="-80.0" />
+      <point x="1758.2769008818104" y="632.0" />
+      <point x="1358.0047162994756" y="632.0" />
+      <point x="57.535714285714334" y="244.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.MayhemGame">
+      <point x="87.66666666666674" y="487.0" />
+      <point x="1868.958284811901" y="2208.0" />
+      <point x="1968.6935675484772" y="2208.0" />
+      <point x="1968.6935675484772" y="2708.0" />
+      <point x="991.2925494489298" y="2708.0" />
+      <point x="106.6470588235295" y="-267.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.entities.ships.Tube">
+      <point x="0.0" y="-487.0" />
+      <point x="1781.2916181452342" y="1044.0" />
+      <point x="1881.0269008818104" y="1044.0" />
+      <point x="0.0" y="27.0" />
     </edge>
     <edge source="myers.test.states.Score" target="myers.test.states.GameState">
-      <point x="0.0" y="-157.0" />
-      <point x="673.5" y="317.0" />
-      <point x="494.8333333333333" y="317.0" />
-      <point x="86.33333333333331" y="146.0" />
+      <point x="-57.0" y="-311.0" />
+      <point x="1136.9314909297054" y="1114.0" />
+      <point x="807.9282858015001" y="1114.0" />
+      <point x="59.76923076923072" y="146.0" />
     </edge>
-    <edge source="myers.test.entities.ships.DefaultShip" target="myers.test.entities.ships.Ship">
-      <point x="0.0" y="-27.0" />
-      <point x="1605.5" y="491.0" />
-      <point x="1649.75" y="491.0" />
-      <point x="-44.75" y="233.0" />
+    <edge source="myers.test.states.Play" target="myers.test.entities.Player">
+      <point x="-27.684210526315837" y="-487.0" />
+      <point x="1753.6074076189184" y="1024.0" />
+      <point x="1671.7769008818104" y="1024.0" />
+      <point x="-43.25" y="80.0" />
     </edge>
     <edge source="myers.test.entities.obstacles.LandObstacle" target="myers.test.entities.obstacles.Obstacle">
-      <point x="0.0" y="-69.0" />
-      <point x="1218.0" y="491.0" />
-      <point x="1265.75" y="491.0" />
-      <point x="-44.25" y="233.0" />
+      <point x="-41.0" y="-48.0" />
+      <point x="2185.5269008818104" y="682.0" />
+      <point x="2152.2269008818103" y="682.0" />
+      <point x="0.0" y="233.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.entities.ships.Submarine">
+      <point x="-55.36842105263156" y="-487.0" />
+      <point x="1725.9231970926025" y="1044.0" />
+      <point x="1367.0269008818104" y="1044.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="myers.test.states.Score" target="myers.test.handlers.GameStateManager">
+      <point x="0.0" y="311.0" />
+      <point x="1193.9314909297054" y="2188.0" />
+      <point x="924.9788239587335" y="2188.0" />
+      <point x="70.58333333333326" y="-200.0" />
+    </edge>
+    <edge source="myers.test.entities.Background" target="myers.test.MayhemGame">
+      <point x="80.0" y="102.0" />
+      <point x="1195.3954906254003" y="2678.0" />
+      <point x="945.5866670959886" y="2678.0" />
+      <point x="60.94117647058829" y="-267.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.entities.obstacles.RockObstacle">
+      <point x="13.842105263157919" y="-487.0" />
+      <point x="1795.1337234083921" y="1054.0" />
+      <point x="1981.0269008818104" y="1054.0" />
+      <point x="-61.5" y="27.0" />
+    </edge>
+    <edge source="myers.test.desktop.DesktopLauncher" target="myers.test.MayhemGame">
+      <point x="-42.0" y="-27.0" />
+      <point x="842.6454906254003" y="3297.0" />
+      <point x="819.8954906254003" y="3297.0" />
+      <point x="-64.75" y="267.0" />
+    </edge>
+    <edge source="myers.test.MayhemGame" target="com.badlogic.gdx.ApplicationListener">
+      <point x="91.41176470588243" y="-267.0" />
+      <point x="976.0572553312827" y="2698.0" />
+      <point x="1787.8826701125797" y="2698.0" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="myers.test.entities.obstacles.Obstacle" target="myers.test.handlers.B2DVars">
+      <point x="0.0" y="-233.0" />
+      <point x="2152.2269008818103" y="84.0" />
+      <point x="2118.9690020137614" y="84.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.entities.ships.DefaultShip">
+      <point x="-69.21052631578937" y="-487.0" />
+      <point x="1712.0810918294449" y="1054.0" />
+      <point x="1196.0269008818104" y="1054.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="myers.test.states.MainMenuScreen" target="myers.test.MayhemGame">
+      <point x="-85.66666666666674" y="256.0" />
+      <point x="505.83333333333326" y="2208.0" />
+      <point x="613.2288239587333" y="2208.0" />
+      <point x="613.2288239587333" y="2668.0" />
+      <point x="838.939608272459" y="2668.0" />
+      <point x="-45.70588235294122" y="-267.0" />
+    </edge>
+    <edge source="myers.test.entities.ships.CargoShip" target="myers.test.entities.ships.Ship">
+      <point x="-36.75" y="-27.0" />
+      <point x="1498.2769008818104" y="662.0" />
+      <point x="1319.6475734423327" y="662.0" />
+      <point x="19.178571428571445" y="244.0" />
+    </edge>
+    <edge source="myers.test.handlers.GameStateManager" target="myers.test.states.MainMenuScreen">
+      <point x="-70.58333333333348" y="-200.0" />
+      <point x="783.8121572920668" y="2178.0" />
+      <point x="591.5" y="2178.0" />
+      <point x="0.0" y="256.0" />
+    </edge>
+    <edge source="myers.test.entities.ships.Submarine" target="myers.test.entities.ships.Ship">
+      <point x="-37.25" y="-27.0" />
+      <point x="1329.7769008818104" y="682.0" />
+      <point x="1294.076144870904" y="682.0" />
+      <point x="-6.39285714285711" y="244.0" />
+    </edge>
+    <edge source="myers.test.states.Selection" target="myers.test.states.GameState">
+      <point x="-57.5" y="-311.0" />
+      <point x="270.5" y="1104.0" />
+      <point x="648.5436704168849" y="1104.0" />
+      <point x="-99.61538461538453" y="146.0" />
+    </edge>
+    <edge source="myers.test.states.GameState" target="myers.test.MayhemGame">
+      <point x="-119.53846153846143" y="146.0" />
+      <point x="628.620593493808" y="1094.0" />
+      <point x="202.5" y="1094.0" />
+      <point x="202.5" y="2688.0" />
+      <point x="808.4690200371649" y="2688.0" />
+      <point x="-76.17647058823536" y="-267.0" />
+    </edge>
+    <edge source="myers.test.entities.ships.Ship" target="myers.test.MayhemGame">
+      <point x="-83.10714285714289" y="244.0" />
+      <point x="1217.3618591566183" y="632.0" />
+      <point x="191.5" y="632.0" />
+      <point x="191.5" y="2698.0" />
+      <point x="793.2337259195178" y="2698.0" />
+      <point x="-91.41176470588243" y="-267.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.entities.ships.AlternateShip">
+      <point x="-83.05263157894728" y="-487.0" />
+      <point x="1698.238986566287" y="1064.0" />
+      <point x="1018.0269008818104" y="1064.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="myers.test.states.MainMenuScreen" target="myers.test.handlers.GameStateManager">
+      <point x="85.66666666666674" y="256.0" />
+      <point x="677.1666666666667" y="2168.0" />
+      <point x="803.9788239587335" y="2168.0" />
+      <point x="-50.41666666666674" y="-200.0" />
+    </edge>
+    <edge source="myers.test.entities.obstacles.Obstacle" target="myers.test.MayhemGame">
+      <point x="70.79999999999995" y="233.0" />
+      <point x="2223.0269008818104" y="662.0" />
+      <point x="2408.3364092668107" y="662.0" />
+      <point x="2408.3364092668107" y="2718.0" />
+      <point x="1006.5278435665768" y="2718.0" />
+      <point x="121.88235294117658" y="-267.0" />
+    </edge>
+    <edge source="myers.test.entities.ships.DefaultShip" target="myers.test.entities.ships.Ship">
+      <point x="-38.25" y="-27.0" />
+      <point x="1157.7769008818104" y="672.0" />
+      <point x="1268.5047162994756" y="672.0" />
+      <point x="-31.964285714285666" y="244.0" />
+    </edge>
+    <edge source="myers.test.handlers.GameStateManager" target="myers.test.MayhemGame">
+      <point x="90.75" y="200.0" />
+      <point x="945.1454906254003" y="2648.0" />
+      <point x="899.8807847430473" y="2648.0" />
+      <point x="15.235294117647072" y="-267.0" />
+    </edge>
+    <edge source="myers.test.MayhemGame" target="myers.test.entities.Background">
+      <point x="30.470588235294144" y="-267.0" />
+      <point x="915.1160788606944" y="2658.0" />
+      <point x="1035.3954906254003" y="2658.0" />
+      <point x="-80.0" y="102.0" />
     </edge>
     <edge source="myers.test.entities.ships.AlternateShip" target="myers.test.entities.ships.Ship">
-      <point x="0.0" y="-27.0" />
-      <point x="1783.5" y="491.0" />
-      <point x="1739.25" y="491.0" />
-      <point x="44.75" y="233.0" />
+      <point x="-40.75" y="-27.0" />
+      <point x="977.2769008818104" y="652.0" />
+      <point x="1242.933287728047" y="652.0" />
+      <point x="-57.535714285714334" y="244.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.entities.ships.Ship">
+      <point x="-96.8947368421052" y="-487.0" />
+      <point x="1684.396881303129" y="1074.0" />
+      <point x="926.0269008818104" y="1074.0" />
+      <point x="926.0269008818104" y="642.0" />
+      <point x="1230.1475734423327" y="642.0" />
+      <point x="-70.32142857142856" y="244.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.handlers.GameStateManager">
+      <point x="0.0" y="487.0" />
+      <point x="1781.2916181452342" y="2208.0" />
+      <point x="965.312157292067" y="2208.0" />
+      <point x="110.91666666666674" y="-200.0" />
+    </edge>
+    <edge source="myers.test.states.Play" target="myers.test.states.GameState">
+      <point x="-124.57894736842104" y="-487.0" />
+      <point x="1656.7126707768132" y="1094.0" />
+      <point x="847.7744396476542" y="1094.0" />
+      <point x="99.61538461538476" y="146.0" />
+    </edge>
+    <edge source="myers.test.MayhemGame" target="myers.test.handlers.GameDataManager">
+      <point x="-106.6470588235295" y="-267.0" />
+      <point x="777.9984318018708" y="2708.0" />
+      <point x="135.75" y="2708.0" />
+      <point x="45.25" y="113.0" />
+    </edge>
+    <edge source="myers.test.entities.obstacles.RockObstacle" target="myers.test.entities.obstacles.Obstacle">
+      <point x="-41.0" y="-27.0" />
+      <point x="2001.5269008818104" y="672.0" />
+      <point x="2081.42690088181" y="672.0" />
+      <point x="-70.79999999999995" y="233.0" />
+    </edge>
+    <edge source="myers.test.entities.ships.Ship" target="myers.test.handlers.B2DVars">
+      <point x="0.0" y="-244.0" />
+      <point x="1300.4690020137612" y="84.0" />
+      <point x="2084.3023353470944" y="84.0" />
+      <point x="-34.66666666666674" y="27.0" />
     </edge>
     <edge source="myers.test.states.MainMenuScreen" target="myers.test.states.GameState">
-      <point x="0.0" y="-245.0" />
-      <point x="128.5" y="317.0" />
-      <point x="322.1666666666667" y="317.0" />
-      <point x="-86.33333333333331" y="146.0" />
+      <point x="-64.25" y="-256.0" />
+      <point x="527.25" y="1124.0" />
+      <point x="688.3898242630387" y="1124.0" />
+      <point x="-59.76923076923072" y="146.0" />
+    </edge>
+    <edge source="myers.test.states.GameState" target="myers.test.handlers.GameStateManager">
+      <point x="-19.923076923076906" y="146.0" />
+      <point x="728.2359781091925" y="1134.0" />
+      <point x="730.5" y="1134.0" />
+      <point x="730.5" y="2158.0" />
+      <point x="824.1454906254003" y="2158.0" />
+      <point x="-30.25" y="-200.0" />
+    </edge>
+    <edge source="myers.test.handlers.GameStateManager" target="myers.test.states.Play">
+      <point x="90.75" y="-200.0" />
+      <point x="945.1454906254003" y="2198.0" />
+      <point x="1693.6249514785677" y="2198.0" />
+      <point x="-87.66666666666663" y="487.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="891.9999999999998" y="1200.9999999999998" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.36955241460541816" x="1204.5" y="1688.0" />
+  <SelectedNodes>
+    <node>myers.test.entities.ships.Ship</node>
+  </SelectedNodes>
   <Categories>
+    <Category>Fields</Category>
     <Category>Constructors</Category>
     <Category>Methods</Category>
-    <Category>Fields</Category>
-    <Category>Inner Classes</Category>
     <Category>Properties</Category>
+    <Category>Inner Classes</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

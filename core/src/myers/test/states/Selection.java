@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import myers.test.MayhemGame;
 import myers.test.handlers.GameStateManager;
 
+/**
+ * This class is responsible for displaying and managing user ship selection.
+ */
 public class Selection extends GameState {
 
     // button sprites
@@ -38,7 +41,9 @@ public class Selection extends GameState {
     private float timeSinceLastClick = 0;
 
     /**
-     * @param gameStateManager
+     * This construction creates the Selection object.
+     *
+     * @param gameStateManager a <b><CODE>GameStateManager</CODE></b> that grants access to crucial game information.
      */
     public Selection(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -74,6 +79,9 @@ public class Selection extends GameState {
         }
     }
 
+    /**
+     * This method detects and handles user input in the ship selection screen.
+     */
     @Override
     public void handleInput() {
         if(Gdx.input.getX() < leftButtonX + BUTTON_HEIGHT && Gdx.input.getX() > leftButtonX && SCREEN_HEIGHT-Gdx.input.getY() < leftButtonY + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > leftButtonY){
@@ -124,6 +132,11 @@ public class Selection extends GameState {
         }
     }
 
+    /**
+     * This method updates the ship selection screen.
+     *
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds with the change in time in seconds.
+     */
     @Override
     public void update(float deltaTime) {
         if(timeSinceLastClick > 0.2f){
@@ -133,6 +146,11 @@ public class Selection extends GameState {
         timeSinceLastClick += deltaTime;
     }
 
+    /**
+     * This method renders the objects within the ship selection screen.
+     *
+     * @param deltaTime a <b><CODE>float</CODE></b> corresponding to time passed in seconds used in rendering.
+     */
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -167,6 +185,9 @@ public class Selection extends GameState {
         spriteBatch.end();
     }
 
+    /**
+     *This method is responsible for disposal.
+     */
     @Override
     public void dispose() {
 

@@ -1,10 +1,14 @@
-package myers.test;
+package myers.test.entities;
 
 import static myers.test.MayhemGame.textureAtlas;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import myers.test.MayhemGame;
 
+/**
+ * This class is responsible for rendering a parallax game background.
+ */
 public class Background {
 
     private TextureRegion[] backgrounds;
@@ -13,6 +17,11 @@ public class Background {
 
     private SpriteBatch batch;
 
+    /**
+     * This constructor initializes the Background object.
+     *
+     * @param batch a <b><CODE>SpriteBatch</CODE></b> that will draw the background.
+     */
     public Background(SpriteBatch batch){
         this.batch = batch;
 
@@ -24,6 +33,11 @@ public class Background {
         backgroundMaxScrollingSpeed = (float) MayhemGame.VIRTUAL_HEIGHT*MayhemGame.SCALE / 4;
     }
 
+    /**
+     * This method renders the background.
+     *
+     * @param deltaTime a <b><CODE>float</CODE></b> that will be used in determining background position.
+     */
     public void render(float deltaTime){
         batch.begin();
 

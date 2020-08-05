@@ -13,7 +13,7 @@ import myers.test.handlers.B2DVars;
 import static myers.test.handlers.B2DVars.PPM;
 
 /**
- *
+ * This abstract class is a representation of a ship.
  */
 public abstract class Ship{
 
@@ -38,6 +38,7 @@ public abstract class Ship{
     protected Body body;
 
     /**
+     * This constructor initializes the Ship object.
      *
      * @param world
      */
@@ -46,14 +47,14 @@ public abstract class Ship{
     }
 
     /**
-     *
+     * This method creates and sets the ship's <b><CODE>Sprite</CODE></b>.
      */
     protected void createSprite() {
         sprite = new Sprite(MayhemGame.textureAtlas.findRegion(name));
     }
 
     /**
-     *
+     * This method creates and sets the ship's <b><CODE>Body</CODE></b>.
      */
     public void createBody() {
         BodyDef bdef = new BodyDef();
@@ -71,50 +72,61 @@ public abstract class Ship{
     }
 
     /**
+     * This method returns the ship's <b><CODE>linearVelocity</CODE></b>.
      *
-     * @return
+     * @return a <b><CODE>float</CODE></b> that is the magnitude of the ship's linear velocity.
      */
     public float getLinearVelocity() {
         return linearVelocity;
     }
 
     /**
+     * This method returns the ship's <b><CODE>angularVelocity</CODE></b>.
      *
-     * @return
+     * @return a <b><CODE>float</CODE></b> that is the magnitude of the ship's angular velocity.
      */
     public float getAngularVelocity() {
         return angularVelocity;
     }
 
     /**
+     * This method returns the ship's <b><CODE>body</CODE></b>.
      *
-     * @return
+     * @return a <b><CODE>Body</CODE></b> that is the ship's physical component.
      */
     public Body getBody() {
         return body;
     }
 
+    /**
+     * This method return the ship's <b><CODE>scoreModifier</CODE></b>.
+     *
+     * @return a <b><CODE>float</CODE></b> that is the ship's score multiplier.
+     */
     public float getScoreModifier(){ return scoreModifier; }
 
     /**
+     * This method returns the ship's <b><CODE>shapeHY</CODE></b>.
      *
-     * @return
+     * @return a <b><CODE>float</CODE></b> that is the ship's height.
      */
     public float getShapeHY(){
         return shapeHY;
     }
 
     /**
+     * This method returns whether the ship's <b><CODE>body</CODE></b> is out of the play area bounds.
      *
-     * @return
+     * @return a <b><CODE>boolean</CODE></b> that is true if the ship is out of bounds; false, if the ship is in bounds.
      */
     public boolean isBodyOutOfBounds() {
         return body.getPosition().y + shapeHY / PPM < 0;
     }
 
     /**
+     * This method renders the ship's <b><CODE>sprite</CODE></b>.
      *
-     * @param spriteBatch
+     * @param spriteBatch a <b><CODE>SpriteBatch</CODE></b> that will draw the ship's <b><CODE>sprite</CODE></b>.
      */
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
