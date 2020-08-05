@@ -325,7 +325,7 @@ public class Play extends GameState{
     /**
      * This method is responsible for applying a rotational friction force to prevent user ship from infinitely spinning.
      *
-     * @param deltaTime a <b><CODE></CODE></b>
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds to the time since last update.
      */
     private void applyRotationalFriction(float deltaTime){
         Body body = player.getShip().getBody();
@@ -349,7 +349,7 @@ public class Play extends GameState{
 
     /**
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds to the time since last update.
      */
     private void applyDirectionalFriction(float deltaTime){
         Body body = player.getShip().getBody();
@@ -390,14 +390,14 @@ public class Play extends GameState{
     }
 
     /**
-     *
+     * This method is responsible for applying a "current" moving the user ship in the negative y direction.
      */
     private void applyCurrent() {
         player.getShip().getBody().applyForceToCenter(0, WATER_VELOCITY,false);
     }
 
     /**
-     *
+     * This method is responsible for creating a new Player object with the correct ship choice dependent on choices made elsewhere.
      */
     private void loadPlayer() {
         player = new Player();
@@ -428,8 +428,9 @@ public class Play extends GameState{
     }
 
     /**
+     * This method is responsible for spawning LandObstacle objects.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds to the time since last update.
      */
     private void spawnRockObstacles(float deltaTime) {
         rockSpawnTimer += deltaTime;
@@ -446,8 +447,9 @@ public class Play extends GameState{
     }
 
     /**
+     * This method is responsible for spawning RockObstacle objects.
      *
-     * @param deltaTime
+     * @param deltaTime a <b><CODE>float</CODE></b> that corresponds to the time since last update.
      */
     private void spawnLandObstacles(float deltaTime){
         landSpawnTimer += deltaTime;
