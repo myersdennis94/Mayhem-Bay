@@ -89,7 +89,7 @@ public class Score extends GameState{
     }
 
     /**
-     *
+     * This method disposes of object after use
      */
     @Override
     public void dispose() {
