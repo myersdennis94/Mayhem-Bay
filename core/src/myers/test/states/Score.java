@@ -17,7 +17,7 @@ import myers.test.handlers.GameStateManager;
 import java.util.Locale;
 
 /**
- *
+ * This class creates and renders the score screen.
  */
 public class Score extends GameState{
 
@@ -60,23 +60,6 @@ public class Score extends GameState{
 
     /**
      *
-     */
-    @Override
-    public void handleInput() {
-
-    }
-
-    /**
-     *
-     * @param deltaTime
-     */
-    @Override
-    public void update(float deltaTime) {
-
-    }
-
-    /**
-     *
      * @param deltaTime
      */
     @Override
@@ -102,14 +85,6 @@ public class Score extends GameState{
             spriteBatch.draw(mainMenuActive, mainMenu_x,  mainMenu_y, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
         spriteBatch.end();
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void dispose() {
-
     }
 
     /**
@@ -175,7 +150,7 @@ public class Score extends GameState{
      *
      * @param deltaTime
      */
-    private void renderBackground(float deltaTime){
+    public void renderBackground(float deltaTime){
         spriteBatch.begin();
 
         backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
@@ -195,4 +170,22 @@ public class Score extends GameState{
         spriteBatch.end();
     }
 
+    /**
+     *
+     */
+    @Override
+    public void dispose() {}
+
+    /**
+     *
+     */
+    @Override
+    public void handleInput(){}
+
+    /**
+     *
+     * @param deltaTime
+     */
+    @Override
+    public void update(float deltaTime){}
 }
