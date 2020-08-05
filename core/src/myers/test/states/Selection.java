@@ -3,6 +3,7 @@ package myers.test.states;
 import static myers.test.MayhemGame.textureAtlas;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import myers.test.MayhemGame;
@@ -35,7 +36,7 @@ public class Selection extends GameState {
 
     // ships
     private TextureRegion shipSprite;
-    private String[] shipName = {"tugboat","speedboat"};
+    private String[] shipName = {"tugboat","speedboat","submarine"};
     private int shipIter;
 
     // processing
@@ -69,6 +70,11 @@ public class Selection extends GameState {
             case "speedboat":
                 shipIter = 1;
                 shipSprite = textureAtlas.findRegion(shipName[shipIter]);
+                break;
+            case "submarine":
+                shipIter = 2;
+                shipSprite = textureAtlas.findRegion(shipName[shipIter]);
+                break;
         }
     }
 
@@ -85,6 +91,15 @@ public class Selection extends GameState {
             }
         }
 
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            if(shipIter - 1 < 0){
+                shipIter = shipName.length - 1;
+            }else{
+                shipIter--;
+            }
+            timeSinceLastClick = 0f;
+        }
+
         if(Gdx.input.getX() > rightButtonX && Gdx.input.getX() < rightButtonX + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() < rightButtonY + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > rightButtonY){
             if(Gdx.input.isTouched()){
                 if(shipIter + 1 >= shipName.length){
@@ -94,6 +109,15 @@ public class Selection extends GameState {
                 }
                 timeSinceLastClick = 0f;
             }
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            if(shipIter + 1 >= shipName.length){
+                shipIter = 0;
+            }else{
+                shipIter++;
+            }
+            timeSinceLastClick = 0f;
         }
 
         if(Gdx.input.getX() < mainMenuX + BUTTON_WIDTH && Gdx.input.getX() > mainMenuX && SCREEN_HEIGHT-Gdx.input.getY() <  mainMenuY + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() >  mainMenuY){

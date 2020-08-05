@@ -25,6 +25,7 @@ import myers.test.entities.obstacles.RockObstacle;
 import myers.test.entities.ships.AlternateShip;
 import myers.test.entities.ships.DefaultShip;
 import myers.test.entities.ships.Ship;
+import myers.test.entities.ships.Submarine;
 import myers.test.handlers.GameData;
 import myers.test.handlers.GameDataManager;
 import myers.test.handlers.GameStateManager;
@@ -451,6 +452,9 @@ public class Play extends GameState{
                 break;
             case "speedboat":
                 player.setShip(new AlternateShip(world));
+                break;
+            case "submarine":
+                player.setShip(new Submarine(world));
                 break;
             default:
                 player.setShip(new DefaultShip(world));
