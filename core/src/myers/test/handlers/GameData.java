@@ -11,7 +11,7 @@ public class GameData {
     private boolean musicOn;
     private float lastTime;
     private float bestTime;
-    private String shipName;
+    private String ship;
 
     /**
      * This method returns the object's <b><CODE>highscore</CODE></b>.
@@ -90,14 +90,14 @@ public class GameData {
      *
      * @return a <b><CODE>String</CODE></b> that is the name of the player's most recently selected ship.
      */
-    public String getShipName(){ return shipName; }
+    public String getShip(){ return ship; }
 
     /**
      * This method sets the name of the object's <b><CODE>ship</CODE></b>.
      *
-     * @param shipName a <b><CODE>String</CODE></b> that is the name of the player's most recently selected ship.
+     * @param ship a <b><CODE>String</CODE></b> that is the name of the player's most recently selected ship.
      */
-    public void setShipName(String shipName){ this.shipName = shipName; }
+    public void setShip(String ship){ this.ship = ship; }
 
     /**
      * This method returns the value of <b><CODE>musicOn</CODE></b>.

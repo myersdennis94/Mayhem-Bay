@@ -55,7 +55,7 @@ public class Selection extends GameState {
         rightButtonActive = textureAtlas.findRegion("right");
         rightButtonInactive = textureAtlas.findRegion("rightdown");
 
-        switch(MayhemGame.gameDataManager.gameData.getShipName()){
+        switch(MayhemGame.gameDataManager.gameData.getShip()){
             case "tugboat":
                 shipIter = 0;
                 shipSprite = textureAtlas.findRegion(shipName[shipIter]);
@@ -126,7 +126,7 @@ public class Selection extends GameState {
 
         if(Gdx.input.getX() < mainMenuX + BUTTON_WIDTH && Gdx.input.getX() > mainMenuX && SCREEN_HEIGHT-Gdx.input.getY() <  mainMenuY + BUTTON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() >  mainMenuY){
             if(Gdx.input.isTouched()){
-                MayhemGame.gameDataManager.gameData.setShipName(shipName[shipIter]);
+                MayhemGame.gameDataManager.gameData.setShip(shipName[shipIter]);
                 gameStateManager.setState(GameStateManager.MENU);
             }
         }

@@ -33,7 +33,7 @@ public class GameDataManager {
             gameData.setLastScore(0);
             gameData.setLastTime(0);
             gameData.setBestTime(0);
-            gameData.setShipName("tugboat");
+            gameData.setShip("tugboat");
 
             saveData();
         } else {

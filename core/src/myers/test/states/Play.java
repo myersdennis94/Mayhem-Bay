@@ -404,7 +404,7 @@ public class Play extends GameState{
 
         // ship - this will have logic to read the JSON database and load selected ship (Default/Alternate/etc.)
         // or the logic could also be moved to the player class, idk
-        switch(MayhemGame.gameDataManager.gameData.getShipName()){
+        switch(MayhemGame.gameDataManager.gameData.getShip()){
             case "tugboat":
                 player.setShip(new DefaultShip(world));
                 break;
