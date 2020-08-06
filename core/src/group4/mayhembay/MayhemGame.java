@@ -60,6 +60,8 @@ public class MayhemGame implements ApplicationListener {
 	 */
 	@Override
 	public void render() {
+		Gdx.graphics.setTitle((TITLE + " -- FPS: " + Gdx.graphics.getFramesPerSecond()));
+
 		accum += Gdx.graphics.getDeltaTime();
 		while (accum >= STEP) {
 			accum -= STEP;
