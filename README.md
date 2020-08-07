@@ -2,6 +2,9 @@
 ![Mayhem Bay](https://github.com/myersdennis94/Mayhem-Bay/blob/master/core/assets/game_title.png)
 ## Description
 Mayhem Bay is a single player endless runner game. From a top down perspective, a user takes control of a ship and attempts to survive an endless barrage of terrain and obstacles as long as possible. A score will be kept and tallied based upon an average velocity, time passed, and a base ship score modifier. With a total of five vessels for the player to choose from, a variety of gameplay experiences exist for the user to explore. Mayhem Bay was created in the Java programming language using the libraries [LibGDX](https://github.com/libgdx/libgdx) and [Box2D](https://github.com/erincatto/box2d).
+
+![Replay](https://github.com/myersdennis94/Mayhem-Bay/blob/master/data/replay.gif)
+
 ### System Design
 To complete the development of Mayhem Bay, an approach was taken to split the software elements involved into three components: entities, handlers, and states. Entities are the objects that need to be rendered or given physics bodies with box2d. Handlers are the objects that are responsible for setting up and managing entities and distributing any entity data between states. And, States are representations of different areas of the game that could be divided into different screens or interfaces. 
 
